@@ -659,7 +659,7 @@
     <string name="mods_manage_authors">Autores do Mod:</string>
     <string name="mods_manage_description">Descrição do Mod:</string>
     <string name="mods_manage_version">Versão do Mod: %s</string>
-    <string name="mods_manage_delete_warning">Tem certeza de que deseja excluir o mod %s? Esta ação não pode ser desfeita!</string>
+    <string name="mods_manage_delete_warning">Tem certeza de que deseja excluir o mod %s? Se fizer isso não tem mais volta!</string>
     <string name="mods_manage_no_mods">Tá vazio aqui, coloca mod aí</string>
     <string name="mods_manage_no_loader">Sem ModLoader para a versão atual manin, mods não podem ser usados agora</string>
     <string name="mods_update">Atualizar Mods</string>
@@ -700,7 +700,7 @@
     <string name="saves_manage_exists">Já existe um mundo com esse nome cara</string>
     <string name="saves_manage_save_name">Nome do mundo</string>
     <string name="saves_manage_backup">Backup do Mundo</string>
-    <string name="saves_manage_delete_warning">Tem certeza de que deseja excluir o arquivo do Mundo %s? Esta ação não pode ser desfeita!</string>
+    <string name="saves_manage_delete_warning">Tem certeza de que deseja excluir o arquivo do Mundo %s? Se fizer isso não tem mais volta!</string>
     <string name="saves_manage_quick_play">Jogo rápido</string>
     <string name="saves_manage_quick_play_disabled">Jogo Rápido (somente 1.20</string>
     <string name="saves_manage_no_saves">Tá vazio aqui, coloca mundo aí</string>
@@ -715,12 +715,12 @@
     <string name="resource_pack_manage_formats">Formato da versão: %s</string>
     <string name="resource_pack_manage_exists">Já existe uma textura com este nome</string>
     <string name="resource_pack_manage_name">Nome da textura</string>
-    <string name="resource_pack_manage_delete_warning">Tem certeza de que deseja excluir a textura %s? Esta ação não pode ser desfeita!</string>
+    <string name="resource_pack_manage_delete_warning">Tem certeza de que deseja excluir a textura %s? Se fizer isso não tem mais volta!</string>
     <string name="resource_pack_manage_no_packs">Tá vazio aqui, coloca textura aí</string>
     <string name="shader_pack_manage">Shaders!</string>
     <string name="shader_pack_manage_exists">Já existe uma shader com este nome</string>
     <string name="shader_pack_manage_name">Nome da shader</string>
-    <string name="shader_pack_manage_delete_warning">Tem certeza de que deseja excluir a Shader %s? Esta ação não pode ser desfeita!</string>
+    <string name="shader_pack_manage_delete_warning">Tem certeza de que deseja excluir a Shader %s? Se fizer isso não tem mais volta!</string>
     <string name="shader_pack_manage_no_packs">Tá vazio aqui, coloca shader aí</string>
     <string name="servers_list">Servidores</string>
     <string name="servers_list_no_servers">Sem servidores para entrar automaticamente assim que abrir o jogo</string>
