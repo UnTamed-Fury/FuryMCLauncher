@@ -545,7 +545,7 @@ object AllSettings : SettingsRegistry() {
     /**
      * 游戏内文本输入模式，控制输入代理的输入行为
      */
-    val textInputMode = enumSetting("textInputMode", InputMode.Default)
+    val textInputMode = enumSetting("textInputMode", InputMode.Simple)
 
     /**
      * 玩家结束运行游戏的次数
