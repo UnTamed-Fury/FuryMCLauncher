@@ -86,11 +86,15 @@ suspend fun <E: AbstractPlatformSearcher, T> mirroredPlatformSearcher(
         }
     }
 
-    throw IOException("All sources have failed to attempt", lastException).apply {
-        errors.forEachIndexed { i, e ->
-            addSuppressed(Exception("Mirror error #${i + 1}: ${e.message}"))
+    lWarning(
+        msg = "An error occurred during this search.",
+        t = IOException("All sources have failed to attempt", lastException).apply {
+            errors.forEachIndexed { i, e ->
+                addSuppressed(Exception("Mirror error #${i + 1}: ${e.message}"))
+            }
         }
-    }
+    )
+    throw lastException ?: IllegalStateException("Should not have executed to this stage.")
 }
 
 /**
