@@ -420,8 +420,9 @@ fun ExportInfoScreen(
                                 modifier = Modifier
                                     .offset { IntOffset(x = 0, y = yOffset.roundToPx()) },
                                 title = stringResource(R.string.generic_tip),
-                                icon = {
+                                icon = { innerModifier ->
                                     Icon(
+                                        modifier = innerModifier,
                                         imageVector = Icons.Default.Lightbulb,
                                         contentDescription = null
                                     )
