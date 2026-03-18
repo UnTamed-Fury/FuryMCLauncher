@@ -80,8 +80,8 @@ fun SimpleGamepadCapture(
 
     //以事件接收的方式，单独处理按键事件
     //事件源：GameHandler 处理来自 VMActivity 的 dispatchKeyEvent
-    LaunchedEffect(view, gamepadViewModel, isBinding) {
-        gamepadViewModel.keyEvents.collect { event ->
+    DisposableEffect(view, gamepadViewModel, isBinding) {
+        val listener: (KeyEvent) -> Unit = { event ->
             if (isBinding()) {
                 remapperViewModel.sendEvent(
                     GamepadRemapperViewModel.Event.Button(event.keyCode, event)
@@ -95,6 +95,10 @@ fun SimpleGamepadCapture(
                     remapper.handleKeyEventInput(event, gamepadViewModel)
                 }
             }
+        }
+        gamepadViewModel.registerKeyListener(listener)
+        onDispose {
+            gamepadViewModel.unregisterKeyListener(listener)
         }
     }
 
@@ -157,10 +161,10 @@ private fun GamepadEventListener(
     onDisposeCallback: (() -> Unit)? = null
 ) {
     DisposableEffect(gamepadViewModel) {
-        gamepadViewModel.addListener(listener)
+        gamepadViewModel.addEventListener(listener)
         onDispose {
             onDisposeCallback?.invoke()
-            gamepadViewModel.removeListener(listener)
+            gamepadViewModel.removeEventListener(listener)
         }
     }
 }

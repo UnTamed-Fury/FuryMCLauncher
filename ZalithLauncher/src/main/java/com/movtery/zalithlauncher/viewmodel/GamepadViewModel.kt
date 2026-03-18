@@ -24,7 +24,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.geometry.Offset
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.movtery.zalithlauncher.setting.AllSettings
 import com.movtery.zalithlauncher.ui.control.gamepad.DpadDirection
 import com.movtery.zalithlauncher.ui.control.gamepad.GamepadMap
@@ -37,27 +36,37 @@ import com.movtery.zalithlauncher.ui.control.gamepad.keyMappingListMMKV
 import com.movtery.zalithlauncher.ui.control.gamepad.keyMappingMMKV
 import com.movtery.zalithlauncher.ui.control.joystick.JoystickDirection
 import io.ktor.util.collections.ConcurrentSet
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.launch
 
 private const val BUTTON_PRESS_THRESHOLD = 0.85f
 const val GAMEPAD_CONFIG_NAME_LENGTH = 16
 
 class GamepadViewModel : ViewModel() {
-    private val _keyEvents = MutableSharedFlow<KeyEvent>()
-    val keyEvents = _keyEvents.asSharedFlow()
+    private val keyListeners = mutableListOf<(KeyEvent) -> Unit>()
 
     /**
      * 发送一个按键事件
      */
     fun sendKeyEvent(event: KeyEvent) {
-        viewModelScope.launch {
-            _keyEvents.emit(event)
+        keyListeners.forEach { listener ->
+            listener(event)
         }
     }
 
-    private val listeners = mutableListOf<(Event) -> Unit>()
+    /**
+     * 添加一个原生按键事件监听器
+     */
+    fun registerKeyListener(listener: (KeyEvent) -> Unit) {
+        this.keyListeners.add(listener)
+    }
+
+    /**
+     * 移除一个原生按键事件监听器
+     */
+    fun unregisterKeyListener(listener: (KeyEvent) -> Unit) {
+        this.keyListeners.remove(listener)
+    }
+
+    private val eventListeners = mutableListOf<(Event) -> Unit>()
 
     private val listMMKV = keyMappingListMMKV()
     private val oldMMKV = keyMappingMMKV()
@@ -310,7 +319,7 @@ class GamepadViewModel : ViewModel() {
     }
 
     private fun sendEvent(event: Event) {
-        listeners.forEach { listener ->
+        eventListeners.forEach { listener ->
             listener(event)
         }
     }
@@ -318,15 +327,15 @@ class GamepadViewModel : ViewModel() {
     /**
      * 添加一个事件监听者，在事件发送时立即回调
      */
-    fun addListener(listener: (Event) -> Unit) {
-        listeners.add(listener)
+    fun addEventListener(listener: (Event) -> Unit) {
+        eventListeners.add(listener)
     }
 
     /**
      * 移除已添加的事件监听者
      */
-    fun removeListener(listener: (Event) -> Unit) {
-        listeners.remove(listener)
+    fun removeEventListener(listener: (Event) -> Unit) {
+        eventListeners.remove(listener)
     }
 
     sealed interface Event {

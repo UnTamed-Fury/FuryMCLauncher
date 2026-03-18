@@ -89,7 +89,8 @@ class GamepadMappingList(
         useDefault: Boolean = false
     ) {
         val dpad = gamepadMap.dpadDirection
-        val existing = if (dpad != null) allDpadMappings[dpad] else allKeyMappings[gamepadMap.gamepad]
+        val isDpad = dpad != null
+        val existing = if (isDpad) allDpadMappings[dpad] else allKeyMappings[gamepadMap.gamepad]
 
         val (targetsInGame, targetsInMenu) = if (inGame) {
             val newTargets = customTargets ?: if (useDefault) gamepadMap.defaultKeysInGame else emptySet()
@@ -107,7 +108,12 @@ class GamepadMappingList(
         addInMappingsMap(mapping)
         if (
             list.removeIf { mapping0 ->
-                mapping0.key == mapping.key
+                //FIX: 未正确判断是否为方向按键的映射 #812
+                if (isDpad) {
+                    mapping0.dpadDirection == mapping.dpadDirection
+                } else {
+                    mapping0.key == mapping.key
+                }
             }
         ) {
             list.add(mapping)

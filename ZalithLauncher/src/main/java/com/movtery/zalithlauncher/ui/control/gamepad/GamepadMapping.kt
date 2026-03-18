@@ -28,7 +28,7 @@ import kotlinx.parcelize.Parcelize
  * @param targetsInMenu 目标键盘映射（菜单内）
  */
 @Parcelize
-class GamepadMapping(
+data class GamepadMapping(
     val key: Int,
     val dpadDirection: DpadDirection?,
     val targetsInGame: Set<String> = emptySet(),
