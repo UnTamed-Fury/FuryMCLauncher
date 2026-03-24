@@ -712,7 +712,7 @@ class VMActivity : BaseAppCompatActivity(), SurfaceTextureListener {
 
             LaunchedEffect(screenSize) {
                 mScreenSize = screenSize
-                LoggerBridge.append("ABCD: LaunchedEffect() refreshScreenSize()")
+                LoggerBridge.append("ABCD: LaunchedEffect(screenSize) refreshScreenSize()")
                 refreshScreenSize()
             }
 
