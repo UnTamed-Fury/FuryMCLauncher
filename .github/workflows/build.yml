@@ -2,6 +2,8 @@ name: Build APK
 
 on:
   push:
+    branches:
+      - '**'
   workflow_dispatch:
   workflow_call:
     inputs:
