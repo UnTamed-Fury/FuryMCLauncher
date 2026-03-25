@@ -44,6 +44,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -152,8 +153,7 @@ fun AccountManageScreen(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     // 头像刷新机制：ViewModel 发送 Effect，UI 层更新 refreshAvatarMap 触发局部重绘
-    val refreshAvatarMap = remember { mutableMapOf<String, Boolean>() }
-    var refreshKey by remember { mutableStateOf(false) }
+    val refreshAvatarMap = remember { mutableStateMapOf<String, Boolean>() }
 
     // 处理来自 ViewModel 的单次副作用 (Effect)
     LaunchedEffect(Unit) {
@@ -174,9 +174,8 @@ fun AccountManageScreen(
 
                 is AccountManageEffect.RefreshAvatar -> {
                     // 改变对应账号的布尔值以触发 PlayerFace 重绘
-                    refreshAvatarMap[effect.accountUuid] =
-                        !(refreshAvatarMap[effect.accountUuid] ?: false)
-                    refreshKey = !refreshKey
+                    val current = refreshAvatarMap[effect.accountUuid] ?: false
+                    refreshAvatarMap[effect.accountUuid] = !current
                 }
             }
         }
@@ -211,8 +210,7 @@ fun AccountManageScreen(
         AccountManageContent(
             isVisible = isVisible,
             uiState = uiState,
-            actions = actions,
-            refreshKey = refreshKey
+            actions = actions
         )
     }
 }
@@ -224,8 +222,7 @@ fun AccountManageScreen(
 private fun AccountManageContent(
     isVisible: Boolean,
     uiState: AccountManageUiState,
-    actions: AccountActions,
-    refreshKey: Boolean
+    actions: AccountActions
 ) {
     Row(
         modifier = Modifier.fillMaxSize()
@@ -251,8 +248,7 @@ private fun AccountManageContent(
             currentAccount = uiState.currentAccount,
             accountOperation = uiState.accountOperation,
             accountSkinOperationMap = uiState.accountSkinOperationMap,
-            actions = actions,
-            refreshKey = refreshKey
+            actions = actions
         )
     }
 
@@ -721,8 +717,7 @@ private fun AccountsLayout(
     currentAccount: Account?,
     accountOperation: AccountOperation,
     accountSkinOperationMap: Map<String, AccountSkinOperation>,
-    actions: AccountActions,
-    refreshKey: Boolean
+    actions: AccountActions
 ) {
     val yOffset by swapAnimateDpAsState(targetValue = (-40).dp, swapIn = isVisible)
     val context = LocalContext.current
@@ -785,7 +780,7 @@ private fun AccountsLayout(
                             .padding(vertical = 6.dp),
                         currentAccount = currentAccount,
                         account = account,
-                        refreshKey = actions.refreshAvatarMap[account.uniqueUUID] ?: refreshKey,
+                        refreshKey = actions.refreshAvatarMap[account.uniqueUUID] ?: false,
                         onSelected = { AccountsManager.setCurrentAccount(it) },
                         onChangeSkin = {
                             if (!account.isAuthServerAccount()) skinPicker.launch(
@@ -955,8 +950,7 @@ private fun AccountManageContentPreview() {
                         formatError = { _, _ -> "" },
                         submitError = {},
                         refreshAvatarMap = mutableMapOf()
-                    ),
-                    refreshKey = false
+                    )
                 )
             }
         }
