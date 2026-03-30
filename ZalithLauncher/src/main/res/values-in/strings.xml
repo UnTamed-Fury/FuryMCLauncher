@@ -1152,4 +1152,7 @@
     <string name="page_title_select_files">Pilih Lokasi</string>
     <string name="versions_install_loader">Pasang Loader</string>
     <string name="unpack_screen_jre25">Lingkungan Java 25 (diperlukan untuk Minecraft 26.1+)</string>
+    <string name="plugin_unsupported_warning">Plugin %s tidak didukung untuk versi game ini. Jika tetap digunakan, game bisa crash! Yakin ingin mengabaikan risiko dan lanjut?</string>
+    <string name="settings_game_native_lib_plugin_title">Plugin Native Library</string>
+    <string name="settings_game_native_lib_plugin_summary">Menampilkan semua plugin native library yang dimuat. Anda dapat mengaktifkan atau menonaktifkannya di daftar.</string>
 </resources>

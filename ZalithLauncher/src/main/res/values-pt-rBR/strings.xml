@@ -425,7 +425,7 @@
     <string name="account_logging_profile_not_exists">Crie um perfil de jogador do Minecraft primeiro e tente fazer login novamente!</string>
     <string name="account_logging_not_purchased_minecraft">Propriedade do Minecraft não verificada. Compre no site oficial da Mojang.</string>
     <string name="account_type_microsoft">Conta Microsoft (Requer Minecraft Java Original)</string>
-    <string name="account_type_local">Criar conta offline</string>
+    <string name="account_type_local">Conta offline</string>
     <string name="account_add_new_server">Adicionar servidor de autenticação</string>
     <string name="account_add_new_server_button">Adicionar Autenticação</string>
     <string name="account_add_new_account">Adicionar Conta</string>
@@ -754,15 +754,15 @@
     <string name="settings_tab_java_manage">Java</string>
     <string name="settings_tab_control_manage">Lista de controles</string>
     <string name="settings_tab_info_about">Sobre</string>
-    <string name="settings_renderer_global_renderer_title">Renderizadores Globais</string>
+    <string name="settings_renderer_global_renderer_title">Renderizador global</string>
     <string name="settings_renderer_global_renderer_summary">O renderizador padrão global usa uma camada de tradução de biblioteca dinâmica para garantir que o jogo funcione sem problemas em dispositivos móveis</string>
     <string name="settings_renderer_global_vulkan_driver_title">Driver Vulkan</string>
     <string name="settings_renderer_from_plugins">Do plugin %s</string>
-    <string name="settings_renderer_resolution_scale_title">Escala de Resolução</string>
-    <string name="settings_renderer_resolution_scale_summary">Quanto menor o valor, melhor o desempenho e pior a qualidade de visualização;\nQuanto maior o valor, menor o desempenho mas melhor a qualidade de visualização;\nAjuste de acordo com o nível de potência do seu dispositivo.</string>
+    <string name="settings_renderer_resolution_scale_title">Escala de Resolução do dispositivo</string>
+    <string name="settings_renderer_resolution_scale_summary">Quanto menor o valor, melhor o desempenho e pior a qualidade de visualização;\nQuanto maior o valor, menor o desempenho mas melhor a qualidade de visualização;\nAjuste de acordo com o base na capacidade máxima de sua tela (valores acima de 100% não é recomendado)</string>
     <string name="settings_renderer_full_screen_title">Modo de jogo em tela cheia</string>
     <string name="settings_renderer_full_screen_summary">Ativar o modo de tela cheia, ignorando áreas seguras como entalhes e furos na tela</string>
-    <string name="settings_renderer_sustained_performance_title">Modo de desempenho sustentado</string>
+    <string name="settings_renderer_sustained_performance_title">Modo de desempenho estável</string>
     <string name="settings_renderer_sustained_performance_summary">Quando ativado, o sistema oferece desempenho mais estável para o jogo, adequado para longas sessões de jogo, mas pode reduzir ligeiramente a capacidade de resposta do dispositivo para evitar superaquecimento</string>
     <string name="settings_renderer_shader_dump_title">Registro de Shader</string>
     <string name="settings_renderer_shader_dump_summary">Gere o código de shader convertido em um arquivo de log durante a execução do jogo para facilitar a depuração e a análise da renderização gráfica</string>
@@ -772,7 +772,7 @@
     <string name="settings_renderer_vsync_in_zink_title"> Sincronização vertical do Zink</string>
     <string name="settings_renderer_vsync_in_zink_summary">Ative a sincronização vertical para o Renderizador Zink através da interface do sistema</string>
     <string name="settings_renderer_force_big_core_title">Forças núcleos de alto desempenho</string>
-    <string name="settings_renderer_force_big_core_summary">Vincule o thread de renderização do Minecraft aos núcleos de alto desempenho da sua CPU (núcleos grandes). Habilitar isso pode aumentar o consumo de energia e o calor geral do seu dispositivo.</string>
+    <string name="settings_renderer_force_big_core_summary">Vincule o thread de renderização do Minecraft aos núcleos de alto desempenho da sua CPU (núcleos grandes). Habilitar isso pode aumentar o consumo de energia e o calor geral do seu dispositivo. (Não recomendado para CPUs com núcleos de menos de 3GHz)</string>
     <string name="settings_game_version_isolation_title">Isolamento da versão global</string>
     <string name="settings_game_version_isolation_summary">Isola todas as versões para que seus dados não interfiram umas com as outras</string>
     <string name="settings_game_skip_game_integrity_check_title">Ignorar verificação de integridade</string>
@@ -1152,4 +1152,7 @@
     <string name="page_title_select_files">Selecionar Caminho</string>
     <string name="versions_install_loader">Instalar Loader</string>
     <string name="unpack_screen_jre25">Ambiente Java 25 (necessário para Minecraft 26.1+)</string>
+    <string name="plugin_unsupported_warning">O plugin %s não é compatível com esta versão do jogo. Continuar a usá-lo pode causar o crash, bug de renderer ou travamento no jogo! Tem certeza que vai ignorar o risco e prosseguir?</string>
+    <string name="settings_game_native_lib_plugin_title">Plugins da Biblioteca Nativa</string>
+    <string name="settings_game_native_lib_plugin_summary">Lista todos os plugins de biblioteca nativa carregados.\nVocê pode ativá-los ou desativá-los na lista.</string>
 </resources>
