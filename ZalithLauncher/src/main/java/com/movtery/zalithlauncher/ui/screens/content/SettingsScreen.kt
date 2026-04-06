@@ -231,7 +231,7 @@ private fun NavigationUI(
                     JavaManageScreen(key, settingsScreenKey, mainScreenKey, submitError)
                 }
                 entry<NormalNavKey.Settings.ControlManager> {
-                    ControlManageScreen(key, settingsScreenKey, mainScreenKey, submitError)
+                    ControlManageScreen(key, settingsScreenKey, mainScreenKey, eventViewModel, submitError)
                 }
                 entry<NormalNavKey.Settings.AboutInfo> {
                     AboutInfoScreen(

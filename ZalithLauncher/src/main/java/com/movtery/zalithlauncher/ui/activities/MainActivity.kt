@@ -35,6 +35,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.movtery.zalithlauncher.R
+import com.movtery.zalithlauncher.coroutine.Task
+import com.movtery.zalithlauncher.coroutine.TaskSystem
 import com.movtery.zalithlauncher.game.control.ControlManager
 import com.movtery.zalithlauncher.notification.NotificationManager
 import com.movtery.zalithlauncher.path.URL_SUPPORT
@@ -53,6 +55,7 @@ import com.movtery.zalithlauncher.utils.festival.getTodayFestivals
 import com.movtery.zalithlauncher.utils.isChinese
 import com.movtery.zalithlauncher.utils.logging.Logger.lInfo
 import com.movtery.zalithlauncher.utils.network.openLink
+import com.movtery.zalithlauncher.utils.string.getMessageOrToString
 import com.movtery.zalithlauncher.viewmodel.BackgroundViewModel
 import com.movtery.zalithlauncher.viewmodel.ErrorViewModel
 import com.movtery.zalithlauncher.viewmodel.EventViewModel
@@ -191,6 +194,9 @@ class MainActivity : BaseAppCompatActivity() {
                     }
                     is EventViewModel.Event.KeepScreen -> {
                         keepScreen(event.on)
+                    }
+                    is EventViewModel.Event.ImportControls -> {
+                        importControlFiles(event.uris)
                     }
                     else -> {
                         //忽略
@@ -336,6 +342,49 @@ class MainActivity : BaseAppCompatActivity() {
                 }
             }
         }
+    }
+
+    /**
+     * 导入控制布局
+     */
+    private fun importControlFiles(uris: List<Uri>) {
+        fun showError(
+            title: String = getString(R.string.control_manage_import_failed),
+            message: String
+        ) {
+            errorViewModel.showError(
+                ErrorViewModel.ThrowableMessage(
+                    title = title,
+                    message = message
+                )
+            )
+        }
+        TaskSystem.submitTask(
+            Task.runTask(
+                dispatcher = Dispatchers.IO,
+                task = {
+                    uris.forEach { uri ->
+                        val inputStream = contentResolver.openInputStream(uri) ?: run {
+                            showError(message = getString(R.string.multirt_runtime_import_failed_input_stream))
+                            return@forEach
+                        }
+                        ControlManager.importControl(
+                            inputStream = inputStream,
+                            onSerializationError = {
+                                showError(
+                                    message = getString(R.string.control_manage_import_failed_to_parse) + "\n" +
+                                            it.getMessageOrToString()
+                                )
+                            },
+                            catchedError =  {
+                                showError(message = it.getMessageOrToString())
+                            }
+                        )
+                    }
+                    ControlManager.refresh()
+                }
+            )
+        )
     }
 
     /**

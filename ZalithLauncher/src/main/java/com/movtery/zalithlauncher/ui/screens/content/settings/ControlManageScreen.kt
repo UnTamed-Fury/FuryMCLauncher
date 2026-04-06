@@ -99,8 +99,6 @@ import com.movtery.layer_controller.utils.VERSION_NAME_LENGTH
 import com.movtery.layer_controller.utils.newRandomFileName
 import com.movtery.layer_controller.utils.saveToFile
 import com.movtery.zalithlauncher.R
-import com.movtery.zalithlauncher.coroutine.Task
-import com.movtery.zalithlauncher.coroutine.TaskSystem
 import com.movtery.zalithlauncher.game.control.ControlData
 import com.movtery.zalithlauncher.game.control.ControlManager
 import com.movtery.zalithlauncher.path.PathManager
@@ -132,6 +130,7 @@ import com.movtery.zalithlauncher.utils.file.shareFile
 import com.movtery.zalithlauncher.utils.string.getMessageOrToString
 import com.movtery.zalithlauncher.utils.string.isEmptyOrBlank
 import com.movtery.zalithlauncher.viewmodel.ErrorViewModel
+import com.movtery.zalithlauncher.viewmodel.EventViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
@@ -217,6 +216,7 @@ fun ControlManageScreen(
     key: NestedNavKey.Settings,
     settingsScreenKey: TitledNavKey?,
     mainScreenKey: TitledNavKey?,
+    eventViewModel: EventViewModel,
     submitError: (ErrorViewModel.ThrowableMessage) -> Unit
 ) {
     val viewModel = rememberControlViewModel()
@@ -299,7 +299,7 @@ fun ControlManageScreen(
                     onDelete = { data ->
                         viewModel.operation = ControlOperation.Delete(data)
                     },
-                    submitError = submitError
+                    eventViewModel = eventViewModel,
                 )
             }
 
@@ -446,7 +446,7 @@ private fun ControlLayoutList(
     onCreate: () -> Unit,
     onCopy: (ControlData) -> Unit,
     onDelete: (ControlData) -> Unit,
-    submitError: (ErrorViewModel.ThrowableMessage) -> Unit
+    eventViewModel: EventViewModel,
 ) {
     BackgroundCard(
         modifier = modifier.fillMaxHeight(),
@@ -464,7 +464,7 @@ private fun ControlLayoutList(
                 modifier = Modifier.fillMaxWidth(),
                 onRefresh = onRefresh,
                 onCreate = onCreate,
-                submitError = submitError
+                eventViewModel = eventViewModel,
             )
 
             if (dataList.isNotEmpty()) {
@@ -508,10 +508,9 @@ private fun ControlListHeader(
     modifier: Modifier = Modifier,
     onRefresh: () -> Unit,
     onCreate: () -> Unit,
-    submitError: (ErrorViewModel.ThrowableMessage) -> Unit
+    eventViewModel: EventViewModel,
 ) {
     CardTitleLayout {
-        val context = LocalContext.current
         val scrollState = rememberScrollState()
 
         Row(
@@ -538,43 +537,7 @@ private fun ControlListHeader(
             ImportMultipleFileButton(
                 extension = "json",
                 progressUris = { uris ->
-                    fun showError(
-                        title: String = context.getString(R.string.control_manage_import_failed),
-                        message: String
-                    ) {
-                        submitError(
-                            ErrorViewModel.ThrowableMessage(
-                                title = title,
-                                message = message
-                            )
-                        )
-                    }
-                    TaskSystem.submitTask(
-                        Task.runTask(
-                            dispatcher = Dispatchers.IO,
-                            task = {
-                                uris.forEach { uri ->
-                                    val inputStream = context.contentResolver.openInputStream(uri) ?: run {
-                                        showError(message = context.getString(R.string.multirt_runtime_import_failed_input_stream))
-                                        return@forEach
-                                    }
-                                    ControlManager.importControl(
-                                        inputStream = inputStream,
-                                        onSerializationError = {
-                                            showError(
-                                                message = context.getString(R.string.control_manage_import_failed_to_parse) + "\n" +
-                                                        it.getMessageOrToString()
-                                            )
-                                        },
-                                        catchedError =  {
-                                            showError(message = it.getMessageOrToString())
-                                        }
-                                    )
-                                }
-                                ControlManager.refresh()
-                            }
-                        )
-                    )
+                    eventViewModel.sendEvent(EventViewModel.Event.ImportControls(uris))
                 }
             )
             IconTextButton(
