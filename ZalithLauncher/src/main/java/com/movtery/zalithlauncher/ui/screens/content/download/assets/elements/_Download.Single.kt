@@ -271,9 +271,11 @@ private fun DownloadDialog(
 
                                 LaunchedEffect(Unit) {
                                     val target = selectedVersions.firstOrNull() ?: return@LaunchedEffect
-                                    val index = versions.indexOf(target)
-                                    if (index >= 0) {
-                                        listState.scrollToItem(index)
+                                    runCatching {
+                                        val index = versions.indexOf(target)
+                                        if (index >= 0) {
+                                            listState.scrollToItem(index)
+                                        }
                                     }
                                 }
 

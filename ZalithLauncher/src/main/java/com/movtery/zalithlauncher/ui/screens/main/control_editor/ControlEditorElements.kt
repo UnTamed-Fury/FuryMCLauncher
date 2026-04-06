@@ -51,6 +51,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -500,6 +501,15 @@ private fun ColumnScope.ControlLayerMenu(
             onReorder(from.index, to.index)
         }
     )
+
+    LaunchedEffect(Unit) {
+        runCatching {
+            val index = layers.indexOfFirst { it == selectedLayer }
+            if (index >= 0 && index < layers.size) {
+                lazyListState.animateScrollToItem(index)
+            }
+        }
+    }
 
     LazyColumn(
         modifier = Modifier.weight(1f),

@@ -155,9 +155,11 @@ private fun ChoseLayersLayout(
 
             LaunchedEffect(Unit) {
                 val target = selectedLayers.firstOrNull() ?: return@LaunchedEffect
-                val index = layers.indexOf(target)
-                if (index >= 0) {
-                    listState.scrollToItem(index)
+                runCatching {
+                    val index = layers.indexOf(target)
+                    if (index >= 0) {
+                        listState.scrollToItem(index)
+                    }
                 }
             }
 

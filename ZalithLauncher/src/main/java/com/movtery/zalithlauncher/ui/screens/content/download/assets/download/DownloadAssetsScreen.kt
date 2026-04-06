@@ -456,10 +456,13 @@ private fun Versions(
 
                 LaunchedEffect(Unit) {
                     delay(100)
-                    val index = versions.result.indexOfFirst { it.isAdapt }
-                    if (index >= 0) {
-                        //自动滚动到适配的资源版本
-                        scrollState.scrollToItem(index)
+                    runCatching {
+                        val result = versions.result
+                        val index = versions.result.indexOfFirst { it.isAdapt }
+                        if (index >= 0 && index < result.size) {
+                            //自动滚动到适配的资源版本
+                            scrollState.animateScrollToItem(index)
+                        }
                     }
                 }
 
