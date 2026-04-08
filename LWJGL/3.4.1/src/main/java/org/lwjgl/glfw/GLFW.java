@@ -31,7 +31,6 @@ public class GLFW
 {
     static FloatBuffer joystickData = (FloatBuffer)FloatBuffer.allocate(8).flip();
     static ByteBuffer buttonData = (ByteBuffer)ByteBuffer.allocate(8).flip();
-    static ByteBuffer empty = (ByteBuffer)ByteBuffer.allocate(0);
     /** The major version number of the GLFW library. This is incremented when the API is changed in non-compatible ways. */
     public static final int GLFW_VERSION_MAJOR = 3;
 
@@ -528,7 +527,6 @@ public class GLFW
     private static final String PROP_WINDOW_WIDTH = "glfwstub.windowWidth";
     private static final String PROP_WINDOW_HEIGHT= "glfwstub.windowHeight";
     public static long mainContext = 0;
-    private static long gamepadDataPointer;
 
     static {
         try {
@@ -1044,7 +1042,7 @@ public class GLFW
         boolean turnipLoad = System.getenv("POJAV_LOAD_TURNIP") != null &&
                 System.getenv("POJAV_LOAD_TURNIP").equals("1");
         // These values can be found at headings_array.xml
-        String glDriver = System.getenv("AMETHYST_RENDERER");
+        String glDriver = System.getenv("POJAV_RENDERER");
         if (turnipLoad && glDriver.equals("vulkan_zink")) {
             glMajor = 4;
             glMinor = 6;
@@ -1163,6 +1161,9 @@ public class GLFW
         GLFWWindowProperties win = internalGetWindow(window);
         win.windowAttribs.put(GLFW_HOVERED, 0);
         win.windowAttribs.put(GLFW_VISIBLE, 0);
+    }
+
+    public static void glfwFocusWindow(@NativeType("GLFWwindow *") long window) {
     }
 
     public static void glfwWindowHint(int hint, int value) {
@@ -1529,5 +1530,49 @@ public class GLFW
         //return Arrays.stream(glGetString(GL_EXTENSIONS).split(" ")).anyMatch(ext::equals);
         // Fast path, but will return true if one has the same prefix
         return glGetString(GL_EXTENSIONS).contains(ext);
+    }
+
+    /**
+     * Returns the size, in millimetres, of the display area of the specified monitor.
+     *
+     * <p>Some platforms do not provide accurate monitor size information, either because the monitor
+     * <a href="https://en.wikipedia.org/wiki/Extended_display_identification_data">EDID</a> data is incorrect or because the driver does not report it
+     * accurately.</p>
+     *
+     * <p>Any or all of the size arguments may be {@code NULL}. If an error occurs, all non-{@code NULL} size arguments will be set to zero.</p>
+     *
+     * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
+     *
+     * <ul>
+     * <li>This function must only be called from the main thread.</li>
+     * <li><b>Windows</b>: On Windows 8 and earlier the physical size is calculated from the current resolution and system DPI instead of querying the monitor
+     * EDID data.</li>
+     * </ul></div>
+     *
+     * @param monitor  the monitor to query
+     * @param widthMM  where to store the width, in millimetres, of the monitor's display area, or {@code NULL}
+     * @param heightMM where to store the height, in millimetres, of the monitor's display area, or {@code NULL}
+     * @since version 3.0
+     */
+    public static void glfwGetMonitorPhysicalSize(@NativeType("GLFWmonitor *") long monitor, @Nullable @NativeType("int *") IntBuffer widthMM, @Nullable @NativeType("int *") IntBuffer heightMM) {
+        if (widthMM != null && heightMM != null) {
+            widthMM.put(mGLFWWindowWidth);
+            heightMM.put(mGLFWWindowHeight);
+        }
+    }
+    /**
+     * Array version of: {@link #glfwGetMonitorPhysicalSize GetMonitorPhysicalSize}
+     */
+    public static void glfwGetMonitorPhysicalSize(@NativeType("GLFWmonitor *") long monitor, @Nullable @NativeType("int *") int[] widthMM, @Nullable @NativeType("int *") int[] heightMM) {
+        if (widthMM != null && heightMM != null) {
+            widthMM[0] = mGLFWWindowWidth;
+            heightMM[0] = mGLFWWindowHeight;
+        }
+    }
+
+    public static void glfwMaximizeWindow(@NativeType("GLFWwindow *") long window) {
+    }
+
+    public static void glfwRestoreWindow(@NativeType("GLFWwindow *") long window) {
     }
 }
