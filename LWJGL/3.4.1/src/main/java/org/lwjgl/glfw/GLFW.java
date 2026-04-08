@@ -1213,10 +1213,14 @@ public class GLFW
     }
     @SuppressWarnings("unused") // Used by pojavexec
     public static void internalWindowSizeChanged(long window) {
+        internalWindowSizeChanged(window, mGLFWWindowWidth, mGLFWWindowHeight);
+    }
+
+    public static void internalWindowSizeChanged(long window, int width, int height) {
         try {
-            glfwSetWindowSize(window, mGLFWWindowWidth, mGLFWWindowHeight);
-            if(mGLFWFramebufferSizeCallbackI != null) mGLFWFramebufferSizeCallbackI.invoke(window, mGLFWWindowWidth, mGLFWWindowHeight);
-            if(mGLFWWindowSizeCallbackI != null) mGLFWWindowSizeCallbackI.invoke(window, mGLFWWindowWidth, mGLFWWindowHeight);
+            glfwSetWindowSize(window, width, height);
+            if(mGLFWFramebufferSizeCallbackI != null) mGLFWFramebufferSizeCallbackI.invoke(window, width, height);
+            if(mGLFWWindowSizeCallbackI != null) mGLFWWindowSizeCallbackI.invoke(window, width, height);
         }catch (Exception e) {
             e.printStackTrace();
         }
