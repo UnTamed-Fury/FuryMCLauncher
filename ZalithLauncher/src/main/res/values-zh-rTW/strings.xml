@@ -602,8 +602,6 @@
     <string name="versions_config_java_runtime_summary">指定目前版本所使用的 Java 環境</string>
     <string name="versions_config_auto_join_server_ip_title">自動加入伺服器</string>
     <string name="versions_config_auto_join_server_ip_summary">在此填入伺服器 IP，啟動遊戲後將自動加入目標伺服器。例如 114.514.114.514:114514</string>
-    <string name="versions_config_enable_touch_proxy_title">啟用觸控代理</string>
-    <string name="versions_config_enable_touch_proxy_summary">啟用為支援 Touch Controller 模組準備的觸控代理</string>
     <string name="versions_config_vibrate_kind_title">振動類型</string>
     <string name="versions_config_vibrate_kind_summary">設定 Touch Controller 模組振動時的振動類型</string>
     <string name="versions_config_vibrate_duration_title">振動時長</string>

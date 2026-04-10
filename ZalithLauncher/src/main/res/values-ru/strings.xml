@@ -292,8 +292,6 @@
     <string name="versions_config_java_runtime_summary">Указать среду Java, используемую текущей версией</string>
     <string name="versions_config_auto_join_server_ip_title">Автоматическое подключение к серверу</string>
     <string name="versions_config_auto_join_server_ip_summary">Введите IP сервера для автоматического подключения после запуска игры (например, 114.514.114.514:114514)</string>
-    <string name="versions_config_enable_touch_proxy_title">Включить прокси управления</string>
-    <string name="versions_config_enable_touch_proxy_summary">Включить прокси управления, подготовленный для мода Touch Controller</string>
     <string name="versions_config_vibrate_duration_title">Длительность вибрации</string>
     <string name="versions_config_vibrate_duration_summary">Установить длительность вибрации, требуемую для мода Touch Controller</string>
     <string name="versions_config_follow_global_if_blank">Оставьте пустым для использования глобальных настроек</string>

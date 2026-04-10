@@ -747,8 +747,6 @@
     <string name="versions_manage_cleanup_progress_collected">収集されたファイル</string>
     <string name="versions_config_support_settings">追加のサポート設定</string>
     <string name="versions_config_isolation_title">バージョンの分離</string>
-    <string name="versions_config_enable_touch_proxy_title">コントロールプロキシを有効にする</string>
-    <string name="versions_config_enable_touch_proxy_summary">タッチコントローラーモッド用に用意されたコントロールプロキシを有効にする</string>
     <string name="versions_config_vibrate_duration_title">振動時間</string>
     <string name="versions_config_vibrate_duration_summary">タッチコントローラーモッドが必要とする振動時間を設定</string>
     <string name="saves_manage_import_unpacking">セーブを解凍: %s</string>

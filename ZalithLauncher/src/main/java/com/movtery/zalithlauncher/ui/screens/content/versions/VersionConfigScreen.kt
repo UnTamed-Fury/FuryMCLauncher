@@ -411,7 +411,7 @@ private fun SupportConfigs(
         var touchVibrateDuration by remember { mutableIntStateOf(config.touchVibrateDuration) }
         EnumSettingsCard(
             modifier = Modifier.fillMaxWidth(),
-            position = CardPosition.Middle,
+            position = CardPosition.Top,
             value = effectiveVibrateKind,
             title = stringResource(R.string.versions_config_vibrate_kind_title),
             summary = stringResource(R.string.versions_config_vibrate_kind_summary),

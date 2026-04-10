@@ -466,8 +466,6 @@
     <string name="versions_config_java_runtime_summary">Tentukan lingkungan Java yang digunakan oleh versi saat ini</string>
     <string name="versions_config_auto_join_server_ip_title">Gabung Otomatis ke Server</string>
     <string name="versions_config_auto_join_server_ip_summary">Masukkan IP server di sini untuk bergabung otomatis setelah meluncurkan game (misalnya, 114.514.114.514:114514)</string>
-    <string name="versions_config_enable_touch_proxy_title">Aktifkan Proksi Kontrol</string>
-    <string name="versions_config_enable_touch_proxy_summary">Aktifkan proksi kontrol yang disiapkan untuk mod Touch Controller</string>
     <string name="versions_config_vibrate_duration_title">Durasi Getaran</string>
     <string name="versions_config_vibrate_duration_summary">Atur durasi getaran yang dibutuhkan oleh mod Touch Controller</string>
     <string name="versions_config_follow_global_if_blank">Biarkan kosong untuk menggunakan pengaturan global</string>

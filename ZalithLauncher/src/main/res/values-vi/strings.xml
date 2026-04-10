@@ -455,8 +455,6 @@
     <string name="versions_config_java_runtime_summary">Chỉ định môi trường Java được sử dụng bởi phiên bản hiện tại</string>
     <string name="versions_config_auto_join_server_ip_title">Tự động tham gia máy chủ</string>
     <string name="versions_config_auto_join_server_ip_summary">Nhập IP máy chủ tại đây để tự động tham gia sau khi khởi chạy trò chơi (ví dụ: 114.514.114.514:114514)</string>
-    <string name="versions_config_enable_touch_proxy_title">Bật Proxy điều khiển</string>
-    <string name="versions_config_enable_touch_proxy_summary">Kích hoạt proxy điều khiển được chuẩn bị cho bản mod Touch Controller</string>
     <string name="versions_config_vibrate_duration_title">Thời lượng rung</string>
     <string name="versions_config_vibrate_duration_summary">Đặt thời lượng rung theo yêu cầu của bản mod Touch Controller</string>
     <string name="versions_config_follow_global_if_blank">Để trống để sử dụng cài đặt chung</string>

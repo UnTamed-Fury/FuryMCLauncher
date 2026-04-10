@@ -456,8 +456,6 @@
     <string name="versions_config_java_runtime_summary">Bu sürümün Java ortamını seç</string>
     <string name="versions_config_auto_join_server_ip_title">Oto Sunucuya Katıl</string>
     <string name="versions_config_auto_join_server_ip_summary">Sunucu IP gir, oyun başlarken otomatik bağlan (örn: 114.514.114.514:114514)</string>
-    <string name="versions_config_enable_touch_proxy_title">Kontrol Proxy Aktif</string>
-    <string name="versions_config_enable_touch_proxy_summary">Touch Controller mod için kontrol proxy aktif et</string>
     <string name="versions_config_vibrate_duration_title">Titreşim Süresi</string>
     <string name="versions_config_vibrate_duration_summary">Touch Controller için titreşim süresini ayarla</string>
     <string name="versions_config_follow_global_if_blank">Boş bırakılırsa genel ayar kullanılır</string>

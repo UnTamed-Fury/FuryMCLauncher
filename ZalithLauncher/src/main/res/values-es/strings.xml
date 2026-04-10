@@ -602,8 +602,6 @@
     <string name="versions_config_java_runtime_summary">Especificar el entorno Java utilizado por la versión actual</string>
     <string name="versions_config_auto_join_server_ip_title">Unirse automáticamente al servidor</string>
     <string name="versions_config_auto_join_server_ip_summary">Introduce la IP del servidor aquí para unirte automáticamente después de iniciar el juego (p. ej., 114.514.114.514:114514)</string>
-    <string name="versions_config_enable_touch_proxy_title">Habilitar proxy de control</string>
-    <string name="versions_config_enable_touch_proxy_summary">Habilitar el proxy de control preparado para el mod Touch Controller</string>
     <string name="versions_config_vibrate_duration_title">Duración de la vibración</string>
     <string name="versions_config_vibrate_duration_summary">Establecer la duración de la vibración requerida por el mod Touch Controller</string>
     <string name="versions_config_follow_global_if_blank">Dejar vacío para usar el ajuste global</string>

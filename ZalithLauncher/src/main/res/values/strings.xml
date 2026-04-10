@@ -652,8 +652,6 @@
     <string name="versions_config_java_runtime_summary">Specify the Java environment used by the current version</string>
     <string name="versions_config_auto_join_server_ip_title">Auto-Join Server</string>
     <string name="versions_config_auto_join_server_ip_summary">Enter the server IP here to auto-join after launching the game (e.g., 114.514.114.514:114514)</string>
-    <string name="versions_config_enable_touch_proxy_title">Enable Control Proxy</string>
-    <string name="versions_config_enable_touch_proxy_summary">Enable the control proxy prepared for the Touch Controller mod</string>
     <string name="versions_config_vibrate_kind_title">Vibration Kind</string>
     <string name="versions_config_vibrate_kind_summary">Set the vibrate kind when TouchController triggers vibration</string>
     <string name="versions_config_vibrate_duration_title">Vibration Duration</string>
