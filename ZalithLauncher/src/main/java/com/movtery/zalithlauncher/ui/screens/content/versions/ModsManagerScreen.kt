@@ -234,7 +234,7 @@ private class ModsManageViewModel(
             modsState = LoadingState.Loading
             selectedMods.clear() //清空所有已选择的模组
             try {
-                allMods = modReader.readAllMods()
+                allMods = modReader.readAllForRemote()
                 filterMods(context)
             } catch (_: CancellationException) {
                 //已取消
@@ -537,7 +537,7 @@ fun ModsManagerScreen(
         version.getVersionInfo()?.loaderInfo?.loader?.isLoader == true
     }
     val modsDir = remember(version) {
-        File(version.getGameDir(), VersionFolders.MOD.folderName)
+        VersionFolders.MOD.getDir(version.getGameDir())
     }
 
     BaseScreen(

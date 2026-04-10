@@ -30,6 +30,8 @@ import com.movtery.zalithlauncher.game.account.microsoft.toLocal
 import com.movtery.zalithlauncher.game.version.download.DownloadMode
 import com.movtery.zalithlauncher.game.version.download.MinecraftDownloader
 import com.movtery.zalithlauncher.game.version.installed.Version
+import com.movtery.zalithlauncher.game.version.installed.VersionFolders
+import com.movtery.zalithlauncher.game.version.mod.AllModReader
 import com.movtery.zalithlauncher.ui.activities.runGame
 import com.movtery.zalithlauncher.utils.logging.Logger.lError
 import com.movtery.zalithlauncher.utils.network.isNetworkAvailable
@@ -63,6 +65,16 @@ object LaunchGame {
             verifyIntegrity = !version.skipGameIntegrityCheck(),
             mode = DownloadMode.VERIFY_AND_REPAIR,
             onCompletion = {
+                val modsDir = VersionFolders.MOD.getDir(version.getGameDir())
+                val reader = AllModReader(modsDir)
+                for (mod in reader.readAllLocals()) {
+                    if (mod.id == "touchcontroller") {
+                        //安装TouchController后，自动开启代理
+                        version.enableTouchProxy = true
+                        break
+                    }
+                }
+
                 runGame(context, version)
                 exitActivity()
             },

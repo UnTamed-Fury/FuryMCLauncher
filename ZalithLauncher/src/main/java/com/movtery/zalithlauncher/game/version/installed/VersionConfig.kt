@@ -26,11 +26,9 @@ import com.movtery.zalithlauncher.game.support.touch_controller.VibrationHandler
 import com.movtery.zalithlauncher.game.version.installed.VersionsManager.getZalithVersionPath
 import com.movtery.zalithlauncher.setting.AllSettings
 import com.movtery.zalithlauncher.utils.GSON
-import com.movtery.zalithlauncher.utils.getInt
 import com.movtery.zalithlauncher.utils.logging.Logger.lError
 import com.movtery.zalithlauncher.utils.logging.Logger.lInfo
 import com.movtery.zalithlauncher.utils.string.getStringNotNull
-import com.movtery.zalithlauncher.utils.toBoolean
 import java.io.File
 import java.io.FileWriter
 
@@ -94,8 +92,6 @@ class VersionConfig(
         get() = getStringNotNull(field)
     @SerializedName("ramAllocation")
     var ramAllocation: Int = -1
-    @SerializedName("enableTouchProxy")
-    var enableTouchProxy: Boolean = false
     @SerializedName("touchVibrateDuration")
     var touchVibrateDuration: Int = 100
     @SerializedName("touchVibrateKind")
@@ -115,7 +111,6 @@ class VersionConfig(
         versionSummary: String = "",
         serverIp: String = "",
         ramAllocation: Int = -1,
-        enableTouchProxy: Boolean = false,
         touchVibrateDuration: Int = 100,
         touchVibrateKind: VibrationHandler.VibrateKind? = null,
     ) : this(filePath) {
@@ -131,7 +126,6 @@ class VersionConfig(
         this.versionSummary = versionSummary
         this.serverIp = serverIp
         this.ramAllocation = ramAllocation
-        this.enableTouchProxy = enableTouchProxy
         this.touchVibrateDuration = touchVibrateDuration
         this.touchVibrateKind = touchVibrateKind
     }
@@ -150,7 +144,6 @@ class VersionConfig(
         getStringNotNull(versionSummary),
         getStringNotNull(serverIp),
         ramAllocation,
-        enableTouchProxy,
         touchVibrateDuration,
         touchVibrateKind,
     )
@@ -209,7 +202,6 @@ class VersionConfig(
             writeString(getStringNotNull(versionSummary))
             writeString(getStringNotNull(serverIp))
             writeInt(ramAllocation)
-            writeInt(enableTouchProxy.getInt())
             writeInt(touchVibrateDuration)
             writeInt(touchVibrateKind?.ordinal ?: -1)
         }
@@ -230,7 +222,6 @@ class VersionConfig(
             val versionSummary = parcel.readString().orEmpty()
             val serverIp = parcel.readString().orEmpty()
             val ramAllocation = parcel.readInt()
-            val enableTouchProxy = parcel.readInt().toBoolean()
             val touchVibrateDuration = parcel.readInt()
             val touchVibrateKind = VibrationHandler.VibrateKind.entries.getOrNull(parcel.readInt())
 
@@ -248,7 +239,6 @@ class VersionConfig(
                 versionSummary,
                 serverIp,
                 ramAllocation,
-                enableTouchProxy,
                 touchVibrateDuration,
                 touchVibrateKind,
             )

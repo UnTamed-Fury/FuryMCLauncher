@@ -71,7 +71,6 @@ import com.movtery.zalithlauncher.ui.screens.content.settings.layouts.ListSettin
 import com.movtery.zalithlauncher.ui.screens.content.settings.layouts.SettingsCard
 import com.movtery.zalithlauncher.ui.screens.content.settings.layouts.SettingsCardColumn
 import com.movtery.zalithlauncher.ui.screens.content.settings.layouts.SimpleIDListCard
-import com.movtery.zalithlauncher.ui.screens.content.settings.layouts.SwitchSettingsCard
 import com.movtery.zalithlauncher.ui.screens.content.settings.layouts.TextInputSettingsCard
 import com.movtery.zalithlauncher.ui.screens.content.versions.layouts.StatefulDropdownMenuFollowGlobal
 import com.movtery.zalithlauncher.ui.screens.content.versions.layouts.ToggleableIntSliderSettingsCard
@@ -404,22 +403,6 @@ private fun SupportConfigs(
             text = stringResource(R.string.versions_config_support_settings),
             color = MaterialTheme.colorScheme.primary,
             style = MaterialTheme.typography.labelLarge
-        )
-
-        var enableTouchProxy by remember { mutableStateOf(config.enableTouchProxy) }
-        SwitchSettingsCard(
-            modifier = Modifier.fillMaxWidth(),
-            position = CardPosition.Top,
-            checked = enableTouchProxy,
-            onCheckedChange = { value ->
-                enableTouchProxy = value
-                if (config.enableTouchProxy != value) {
-                    config.enableTouchProxy = value
-                    config.saveOrShowError(context, submitError)
-                }
-            },
-            title = stringResource(R.string.versions_config_enable_touch_proxy_title),
-            summary = stringResource(R.string.versions_config_enable_touch_proxy_summary)
         )
 
         val vibrator = remember(context) { context.getSystemService<Vibrator>() }

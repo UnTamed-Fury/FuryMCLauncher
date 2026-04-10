@@ -58,7 +58,7 @@ class CurseForgePack(
         targetFolder: File,
         extractFiles: suspend (internalPath: String, outputDir: File) -> Unit
     ): ModPackInfo {
-        val modsFolder = File(targetFolder, VersionFolders.MOD.folderName)
+        val modsFolder = VersionFolders.MOD.getDir(targetFolder)
 
         //获取全部需要下载的模组文件
         val totalCount = manifest.files.size

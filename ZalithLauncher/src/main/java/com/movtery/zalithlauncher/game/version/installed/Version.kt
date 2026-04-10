@@ -61,7 +61,11 @@ class Version(
     /**
      * 快速启动
      */
-    var quickPlaySingle: QuickPlay? = null
+    var quickPlaySingle: QuickPlay? = null,
+    /**
+     * 启用控制代理
+     */
+    var enableTouchProxy: Boolean = false
 ): Parcelable {
     /**
      * 当前版本是否被置顶
@@ -173,8 +177,6 @@ class Version(
     fun getRamAllocation(context: Context = GlobalContext): Int = versionConfig.ramAllocation.takeIf { it >= 256 }?.let {
         min(it, getMaxMemoryForSettings(context))
     } ?: AllSettings.ramAllocation.getOrMin()
-
-    fun isTouchProxyEnabled(): Boolean = versionConfig.enableTouchProxy
 
     fun getTouchVibrateDuration(): Int? = versionConfig.touchVibrateDuration.takeIf { it >= 80 }
 

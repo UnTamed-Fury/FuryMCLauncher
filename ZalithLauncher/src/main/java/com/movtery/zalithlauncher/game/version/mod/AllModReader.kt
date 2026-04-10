@@ -21,7 +21,6 @@ package com.movtery.zalithlauncher.game.version.mod
 import com.movtery.zalithlauncher.utils.logging.Logger.lWarning
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
@@ -37,45 +36,63 @@ const val READER_PARALLELISM = 8
 class AllModReader(val modsDir: File) {
     val resultsMutex = Mutex()
 
-    private fun scanFiles(): List<ReadTask> {
+    private fun <T> scanFiles(
+        pack: (LocalMod) -> T
+    ): List<ReadTask<T>> {
         val files = modsDir.listFiles()?.filter { !it.isDirectory } ?: return emptyList()
         return files.map { file ->
-            ReadTask(file)
+            ReadTask(file, pack)
         }
     }
 
     /**
-     * 异步读取所有模组文件
+     * 异步读取所有模组文件，将其包装为支持同步远端项目数据的对象
      */
-    @OptIn(ExperimentalCoroutinesApi::class)
-    suspend fun readAllMods(): List<RemoteMod> = withContext(Dispatchers.IO) {
+    suspend fun readAllForRemote(): List<RemoteMod> = withContext(Dispatchers.IO) {
         //扫描文件，封装任务
-        val tasks = scanFiles()
-
-        val results = mutableListOf<RemoteMod>()
-        val taskChannel = Channel<ReadTask>(Channel.UNLIMITED)
-
-        val workers = List(READER_PARALLELISM) {
-            launch(Dispatchers.IO) {
-                for (task in taskChannel) {
-                    val mod = task.execute()
-                    resultsMutex.withLock {
-                        results.add(mod)
-                    }
-                }
-            }
-        }
-
-        tasks.forEach { taskChannel.send(it) }
-        taskChannel.close()
-
-        workers.joinAll()
-
+        val results = readAllMods { RemoteMod(localMod = it) }
         return@withContext results.sortedBy { it.localMod.file.name }
     }
 
-    class ReadTask(private val file: File) {
-        suspend fun execute(): RemoteMod {
+    /**
+     * 异步读取所有模组文件，获取所有本地模组信息
+     */
+    suspend fun readAllLocals(): List<LocalMod> = withContext(Dispatchers.IO) {
+        readAllMods { it }
+    }
+
+    private suspend fun <T> readAllMods(
+        pack: (LocalMod) -> T
+    ): List<T> = withContext(Dispatchers.IO) {
+        //扫描文件，封装任务
+        val tasks = scanFiles(pack)
+
+        buildList {
+            val taskChannel = Channel<ReadTask<T>>(Channel.UNLIMITED)
+
+            val workers = List(READER_PARALLELISM) {
+                launch(Dispatchers.IO) {
+                    for (task in taskChannel) {
+                        val mod = task.execute()
+                        resultsMutex.withLock {
+                            add(mod)
+                        }
+                    }
+                }
+            }
+
+            tasks.forEach { taskChannel.send(it) }
+            taskChannel.close()
+
+            workers.joinAll()
+        }
+    }
+
+    private class ReadTask<T>(
+        private val file: File,
+        private val pack: (LocalMod) -> T
+    ) {
+        suspend fun execute(): T {
             try {
                 currentCoroutineContext().ensureActive()
 
@@ -87,8 +104,8 @@ class AllModReader(val modsDir: File) {
 
                 return MOD_READERS[extension]?.firstNotNullOfOrNull { reader ->
                     runCatching {
-                        RemoteMod(
-                            localMod = reader.fromLocal(file)
+                        pack(
+                            reader.fromLocal(file)
                         )
                     }.getOrNull()
                     //返回null，继续使用下一个解析器
@@ -98,8 +115,8 @@ class AllModReader(val modsDir: File) {
                     is CancellationException -> throw e
                     else -> {
                         lWarning("Failed to read mod: $file", e)
-                        return RemoteMod(
-                            localMod = createNotMod(file)
+                        return pack(
+                            createNotMod(file)
                         )
                     }
                 }

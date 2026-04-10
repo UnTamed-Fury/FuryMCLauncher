@@ -61,7 +61,7 @@ class MinecraftDownloader(
     private val verifyIntegrity: Boolean,
     private val downloader: BaseMinecraftDownloader = BaseMinecraftDownloader(verifyIntegrity = verifyIntegrity),
     private val mode: DownloadMode = DownloadMode.DOWNLOAD,
-    private val onCompletion: () -> Unit = {},
+    private val onCompletion: suspend () -> Unit = {},
     private val onError: (message: String) -> Unit = {},
     private val onThrowable: ((throwable: Throwable) -> Unit)? = null,
     private val maxDownloadThreads: Int = 64

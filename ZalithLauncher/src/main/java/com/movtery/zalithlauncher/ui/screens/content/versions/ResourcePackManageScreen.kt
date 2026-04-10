@@ -268,7 +268,7 @@ fun ResourcePackManageScreen(
     }
 
     val resourcePackDir = remember(version) {
-        File(version.getGameDir(), VersionFolders.RESOURCE_PACK.folderName)
+        VersionFolders.RESOURCE_PACK.getDir(version.getGameDir())
     }
 
     BaseScreen(

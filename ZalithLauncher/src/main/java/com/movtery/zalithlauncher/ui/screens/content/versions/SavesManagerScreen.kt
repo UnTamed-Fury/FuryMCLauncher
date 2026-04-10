@@ -273,7 +273,7 @@ fun SavesManagerScreen(
     }
 
     val savesDir = remember(version) {
-        File(version.getGameDir(), VersionFolders.SAVES.folderName)
+        VersionFolders.SAVES.getDir(version.getGameDir())
     }
     val versionInfo = remember(version) {
         version.getVersionInfo()!!

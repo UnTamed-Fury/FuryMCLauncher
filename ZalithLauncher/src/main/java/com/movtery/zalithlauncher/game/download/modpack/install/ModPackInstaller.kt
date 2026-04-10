@@ -143,7 +143,7 @@ class ModPackInstaller(
                     //清理完成缓存目录后，创建新的缓存目录
                     tempModPackDir.createDirAndLog()
                     tempVersionsDir.createDirAndLog()
-                    File(tempVersionsDir, VersionFolders.MOD.folderName).createDirAndLog() //创建临时模组目录
+                    VersionFolders.MOD.getDir(tempVersionsDir).createDirAndLog() //创建临时模组目录
 
                     //在这个阶段开始检查是否使用移动网络
                     if (isUsingMobileData(context)) {

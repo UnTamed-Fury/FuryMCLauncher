@@ -923,7 +923,7 @@ class GameInstaller(
 
             //复制Mods
             tempModsDir.listFiles()?.let {
-                val targetModsDir = File(targetClientDir, VersionFolders.MOD.folderName)
+                val targetModsDir = VersionFolders.MOD.getDir(targetClientDir)
                 it.forEach { modFile ->
                     modFile.copyTo(File(targetModsDir, modFile.name))
                 }

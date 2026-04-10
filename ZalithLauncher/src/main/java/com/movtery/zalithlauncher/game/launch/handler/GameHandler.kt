@@ -67,7 +67,6 @@ class GameHandler(
     launcher = gameLauncher,
     onExit = onExit
 ) {
-    private val isTouchProxyEnabled = version.isTouchProxyEnabled()
     private val _inputArea = MutableStateFlow<IntRect?>(null)
     override val inputArea = _inputArea.asStateFlow()
 
@@ -191,7 +190,7 @@ class GameHandler(
             logState = logState,
             onLogStateChange = { logState = it },
             textInputMode = textInputMode,
-            isTouchProxyEnabled = isTouchProxyEnabled,
+            isTouchProxyEnabled = version.enableTouchProxy,
             onInputAreaRectUpdated = { _inputArea.value = it },
             getAccountName = {
                 AccountsManager.currentAccountFlow.value?.username //不太可能为空，启动前拦截了这个情况

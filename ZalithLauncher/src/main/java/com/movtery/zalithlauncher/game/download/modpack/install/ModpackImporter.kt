@@ -138,7 +138,7 @@ class ModpackImporter(
                     tempVersionsDir.createDirAndLog()
                     installerDir.createDirAndLog()
                     packDir.createDirAndLog()
-                    File(tempVersionsDir, VersionFolders.MOD.folderName).createDirAndLog() //创建临时模组目录
+                    VersionFolders.MOD.getDir(tempVersionsDir).createDirAndLog() //创建临时模组目录
                 }
 
                 //先导入文件

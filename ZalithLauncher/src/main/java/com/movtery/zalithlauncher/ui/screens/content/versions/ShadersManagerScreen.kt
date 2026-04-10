@@ -262,7 +262,7 @@ fun ShadersManagerScreen(
     }
 
     val shadersDir = remember(version) {
-        File(version.getGameDir(), VersionFolders.SHADERS.folderName)
+        VersionFolders.SHADERS.getDir(version.getGameDir())
     }
 
     BaseScreen(

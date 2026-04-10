@@ -18,6 +18,8 @@
 
 package com.movtery.zalithlauncher.game.version.installed
 
+import java.io.File
+
 enum class VersionFolders(val folderName: String) {
     /** 无目标文件夹 */
     NONE(""),
@@ -28,5 +30,13 @@ enum class VersionFolders(val folderName: String) {
     /** 存档文件夹 */
     SAVES("saves"),
     /** 光影包文件夹 */
-    SHADERS("shaderpacks")
+    SHADERS("shaderpacks");
+
+    fun getDir(gameDir: String): String {
+        return File(gameDir, folderName).absolutePath
+    }
+
+    fun getDir(gameDir: File): File {
+        return File(gameDir, folderName)
+    }
 }
