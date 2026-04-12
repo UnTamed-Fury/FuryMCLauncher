@@ -119,8 +119,8 @@ class PlayerSkin(
         return view
     }
 
-    fun loadSkin(skinId: String?, model: SkinModelType) {
-        val modelString = model.takeIf { it != SkinModelType.NONE }?.modelType ?: "auto-detect"
+    fun loadSkin(skinId: String?, model: SkinModelType?) {
+        val modelString = model?.takeIf { it != SkinModelType.NONE }?.modelType ?: "auto-detect"
         val jsUrl = skinId?.let { id ->
             AssetsUrlBuilder()
                 .append("skins")
@@ -130,7 +130,7 @@ class PlayerSkin(
         webview?.evaluateJavascript("loadSkin('$jsUrl', '$modelString')", null)
     }
 
-    fun loadSkin(inputStream: InputStream?, model: SkinModelType) {
+    fun loadSkin(inputStream: InputStream?, model: SkinModelType?) {
         inputStream?.asBase64Image()?.let { dataUrl ->
             val modelString = model.takeIf { it != SkinModelType.NONE }?.modelType ?: "auto-detect"
             webview?.evaluateJavascript("loadSkin('$dataUrl', '$modelString')", null)
