@@ -266,6 +266,20 @@ public class CallbackBridge {
         }, 16);
     }
 
+    private static GraphicOutputListener sGraphicOutputListener;
+    public static void setGraphicOutputListener(GraphicOutputListener listener) {
+        sGraphicOutputListener = listener;
+    }
+
+    //Called from JRE side
+    @SuppressWarnings("unused")
+    @Keep
+    private static void onGraphicOutput() {
+        if (sGraphicOutputListener != null) {
+            sGraphicOutputListener.onGraphicOutput();
+        }
+    }
+
     @Keep @CriticalNative public static native void nativeSetUseInputStackQueue(boolean useInputStackQueue);
 
     @Keep @CriticalNative private static native boolean nativeSendChar(char codepoint);

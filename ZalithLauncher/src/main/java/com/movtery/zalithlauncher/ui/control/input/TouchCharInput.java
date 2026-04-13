@@ -61,6 +61,15 @@ public class TouchCharInput extends androidx.appcompat.widget.AppCompatEditText 
 
     /** This function deals with anything that has to be executed when the constructor is called */
     private void setup() {
+        setOnEditorActionListener((textView, i, keyEvent) -> {
+            InputMethodManager imm = (InputMethodManager) getContext().getSystemService(INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getWindowToken(), 0);
+            if (mListener != null) {
+                mListener.onEnter();
+            }
+            clear();
+            return false;
+        });
         enable();
         clear();
     }

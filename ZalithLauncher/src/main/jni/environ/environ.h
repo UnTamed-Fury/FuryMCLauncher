@@ -44,6 +44,7 @@ struct pojav_environ_s {
     jmethodID method_accessAndroidClipboard;
     jmethodID method_onGrabStateChanged;
     jmethodID method_onCursorShapeChanged;
+    jmethodID method_onGraphicOutput;
     jmethodID method_glftSetWindowAttrib;
     jmethodID method_internalWindowSizeChanged;
     jclass bridgeClazz;
@@ -56,7 +57,7 @@ struct pojav_environ_s {
     JavaVM* dalvikJavaVMPtr;
     JNIEnv* dalvikJNIEnvPtr_ANDROID;
     long showingWindow;
-    bool isInputReady, isCursorEntered, isUseStackQueueCall, shouldUpdateMouse;
+    bool isInputReady, isCursorEntered, isUseStackQueueCall, shouldUpdateMouse, hasGraphicOutput;
     int savedWidth, savedHeight;
 #define ADD_CALLBACK_WWIN(NAME) \
     GLFW_invoke_##NAME##_func* GLFW_invoke_##NAME;

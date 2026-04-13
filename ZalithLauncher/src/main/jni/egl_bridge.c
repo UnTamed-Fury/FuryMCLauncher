@@ -205,6 +205,15 @@ EXTERNAL_API void pojavSetWindowHint(int hint, int value) {
 EXTERNAL_API void pojavSwapBuffers() {
     calculateFPS();
 
+    if (!pojav_environ->hasGraphicOutput && pojav_environ->dalvikJavaVMPtr && pojav_environ->bridgeClazz && pojav_environ->method_onGraphicOutput) {
+        pojav_environ->hasGraphicOutput = true;
+
+        JNIEnv *dalvikEnv;
+        (*pojav_environ->dalvikJavaVMPtr)->AttachCurrentThread(pojav_environ->dalvikJavaVMPtr, &dalvikEnv, NULL);
+        (*dalvikEnv)->CallStaticVoidMethod(dalvikEnv, pojav_environ->bridgeClazz, pojav_environ->method_onGraphicOutput);
+        (*pojav_environ->dalvikJavaVMPtr)->DetachCurrentThread(pojav_environ->dalvikJavaVMPtr);
+    }
+
     if (pojav_environ->config_renderer == RENDERER_VK_ZINK
      || pojav_environ->config_renderer == RENDERER_GL4ES)
     {

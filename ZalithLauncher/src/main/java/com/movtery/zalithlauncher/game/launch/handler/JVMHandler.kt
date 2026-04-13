@@ -60,47 +60,45 @@ class JVMHandler(
     private var logState by mutableStateOf(LogState.CLOSE)
 
     override suspend fun execute(
-        surface: Surface?,
+        surface: Surface,
         screenSize: IntSize,
         scope: CoroutineScope
     ) {
-        surface?.run {
-            val canvasWidth = screenSize.width
-            val canvasHeight = screenSize.height
+        val canvasWidth = screenSize.width
+        val canvasHeight = screenSize.height
 
-            scope.launch(Dispatchers.Default) {
-                var canvas: Canvas?
-                val rgbArrayBitmap = createBitmap(canvasWidth, canvasHeight)
-                val paint = Paint()
+        scope.launch(Dispatchers.Default) {
+            var canvas: Canvas?
+            val rgbArrayBitmap = createBitmap(canvasWidth, canvasHeight)
+            val paint = Paint()
 
-                try {
-                    while (!mIsSurfaceDestroyed && surface.isValid) {
-                        canvas = surface.lockCanvas(null)
-                        canvas?.drawRGB(0, 0, 0)
+            try {
+                while (!mIsSurfaceDestroyed && surface.isValid) {
+                    canvas = surface.lockCanvas(null)
+                    canvas?.drawRGB(0, 0, 0)
 
-                        ZLBridge.renderAWTScreenFrame()?.let { rgbArray ->
-                            canvas?.withSave {
-                                rgbArrayBitmap.setPixels(
-                                    rgbArray,
-                                    0,
-                                    canvasWidth,
-                                    0,
-                                    0,
-                                    canvasWidth,
-                                    canvasHeight
-                                )
-                                this.drawBitmap(rgbArrayBitmap, 0f, 0f, paint)
-                            }
+                    ZLBridge.renderAWTScreenFrame()?.let { rgbArray ->
+                        canvas?.withSave {
+                            rgbArrayBitmap.setPixels(
+                                rgbArray,
+                                0,
+                                canvasWidth,
+                                0,
+                                0,
+                                canvasWidth,
+                                canvasHeight
+                            )
+                            this.drawBitmap(rgbArrayBitmap, 0f, 0f, paint)
                         }
-
-                        canvas?.let { surface.unlockCanvasAndPost(it) }
                     }
-                } catch (throwable: Throwable) {
-                    lError("An exception occurred while rendering the AWT frame.", throwable)
-                } finally {
-                    rgbArrayBitmap.recycle()
-                    surface.release()
+
+                    canvas?.let { surface.unlockCanvasAndPost(it) }
                 }
+            } catch (throwable: Throwable) {
+                lError("An exception occurred while rendering the AWT frame.", throwable)
+            } finally {
+                rgbArrayBitmap.recycle()
+                surface.release()
             }
         }
         super.execute(surface, screenSize, scope)

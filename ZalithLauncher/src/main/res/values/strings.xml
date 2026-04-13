@@ -839,10 +839,12 @@
     <string name="settings_renderer_vulkan_driver_system_title">Use System Vulkan Driver</string>
     <string name="settings_renderer_vulkan_driver_system_summary">When enabled, the launcher will force the use of the system\'s built-in Vulkan driver (for Adreno GPUs) instead of the default Turnip driver. This setting only affects the Zink backend and related mods that use Vulkan rendering</string>
     <string name="settings_renderer_zink_driver_adreno">The launcher detected your device has an Adreno GPU. Enabling this option may cause the Zink renderer to malfunction. Are you sure you want to enable it?</string>
-    <string name="settings_renderer_vsync_in_zink_title"> Zink Vsync</string>
+    <string name="settings_renderer_vsync_in_zink_title">Zink Vsync</string>
     <string name="settings_renderer_vsync_in_zink_summary">Enable vertical sync for the Zink renderer via the system interface</string>
     <string name="settings_renderer_force_big_core_title">Force High-Performance Cores</string>
     <string name="settings_renderer_force_big_core_summary">Bind Minecraft\'s rendering thread to the CPU\'s high-performance cores (big cores). Enabling this may increase power consumption and heat</string>
+    <string name="settings_renderer_surface_title">Use SurfaceView Rendering</string>
+    <string name="settings_renderer_surface_summary">Renders using a separate layer outside the UI</string>
     <string name="settings_game_version_isolation_title">Global Version Isolation</string>
     <string name="settings_game_version_isolation_summary">Isolates all versions so that their data does not interfere with each other</string>
     <string name="settings_game_skip_game_integrity_check_title">Skip Integrity Check</string>
@@ -1209,9 +1211,10 @@
     <string name="language_portuguese" translatable="false">Português</string>
     <string name="language_arabic" translatable="false">اَلْعَرَبِيَّةُ</string>
     <string name="language_italian" translatable="false">Italiano</string>
-    <string name="language_brazilian_portuguese" translatable="false">Português brasileiro</string>
+    <string name="language_brazilian_portuguese" translatable="false">Português (Brasil)</string>
     <string name="language_uyghur" translatable="false">ۋىغرۇچە</string>
     <string name="language_filipino" translatable="false">Filipino</string>
+    <string name="language_thai" translatable="false">ไทย</string>
     <!-- Vibration Kind -->
     <string name="vibrate_kind_one_shot">Constant</string>
     <string name="vibrate_kind_click">Click</string>

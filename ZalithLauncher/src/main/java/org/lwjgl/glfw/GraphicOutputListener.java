@@ -16,10 +16,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/gpl-3.0.txt>.
  */
 
-package com.movtery.zalithlauncher.ui.control.input
+package org.lwjgl.glfw;
 
-interface InputListener {
-    fun onSend(char: Char)
-    fun onBackspace()
-    fun onEnter()
+public interface GraphicOutputListener {
+    void onGraphicOutput();
 }

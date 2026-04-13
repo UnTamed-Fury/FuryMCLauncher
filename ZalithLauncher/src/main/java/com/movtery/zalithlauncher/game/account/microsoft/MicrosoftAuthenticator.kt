@@ -198,10 +198,10 @@ suspend fun microsoftAuthAsync(
 
     val xblToken = authenticateXBL(finalAccessToken, statusUpdate)
     val xstsToken = authenticateXSTS(xblToken.first, xblToken.second, statusUpdate, context)
-    val minecraftToken = authenticateMinecraft(xstsToken, statusUpdate, context)
-    verifyGameOwnership(minecraftToken, statusUpdate)
+    val authResponse = authenticateMinecraft(xstsToken, statusUpdate, context)
+    verifyGameOwnership(authResponse.accessToken, statusUpdate)
 
-    return@coroutineScope createAccount(minecraftToken, newRefreshToken, xblToken.second, statusUpdate)
+    return@coroutineScope createAccount(authResponse, newRefreshToken, xblToken.second, statusUpdate)
 }
 
 private suspend fun refreshAccessToken(
@@ -299,7 +299,7 @@ private suspend fun authenticateMinecraft(
     xstsResult: XSTSAuthResult,
     update: (AsyncStatus) -> Unit,
     context: CoroutineContext
-): String {
+): MinecraftAuthResponse {
     update(AsyncStatus.AUTHENTICATE_MINECRAFT)
 
     return withRetry {
@@ -317,7 +317,6 @@ private suspend fun authenticateMinecraft(
                 }
             }
         }.getOrThrow()
-            .accessToken
     }
 }
 
@@ -334,7 +333,7 @@ private suspend fun verifyGameOwnership(accessToken: String, update: (AsyncStatu
 }
 
 private suspend fun createAccount(
-    accessToken: String,
+    authResponse: MinecraftAuthResponse,
     refreshToken: String,
     uhs: String,
     statusUpdate: (AsyncStatus) -> Unit
@@ -343,7 +342,7 @@ private suspend fun createAccount(
 
     val profile = getPlayerProfile(
         apiUrl = MINECRAFT_SERVICES_URL,
-        accessToken = accessToken
+        accessToken = authResponse.accessToken
     )
 
     val profileId = profile.id
@@ -352,7 +351,8 @@ private suspend fun createAccount(
 
     return account.apply {
         this.username = profile.name
-        this.accessToken = accessToken
+        this.accessToken = authResponse.accessToken
+        this.expiresAt = System.currentTimeMillis() + authResponse.expiresIn * 1000
         this.accountType = AccountType.MICROSOFT.tag
         this.clientToken = UUID.randomUUID().toString().replace("-", "")
         this.profileId = profileId

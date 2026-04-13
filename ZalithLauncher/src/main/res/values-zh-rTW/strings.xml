@@ -764,6 +764,8 @@
     <string name="settings_renderer_vsync_in_zink_summary">透過系統介面為 Zink 渲染器啟用垂直同步</string>
     <string name="settings_renderer_force_big_core_title">強制在高效能核心執行</string>
     <string name="settings_renderer_force_big_core_summary">將 Minecraft 的渲染執行緒綁定到 CPU 的高效能核心（大核）上，啟用後可能增加功耗與發熱</string>
+    <string name="settings_renderer_surface_title">使用 SurfaceView 渲染</string>
+    <string name="settings_renderer_surface_summary">使用獨立於介面之外的圖層進行渲染</string>
     <string name="settings_game_version_isolation_title">全域版本隔離</string>
     <string name="settings_game_version_isolation_summary">預設隔離所有版本，使版本之間的資料互不干擾</string>
     <string name="settings_game_skip_game_integrity_check_title">不檢查遊戲完整性</string>

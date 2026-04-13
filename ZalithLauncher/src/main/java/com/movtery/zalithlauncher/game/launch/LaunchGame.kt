@@ -92,7 +92,9 @@ object LaunchGame {
             TaskSystem.submitTask(downloadTask) { isLaunching = false }
         }
 
-        val loginTask = if (isNetworkAvailable(context)) {
+        //刷新条件：已联网且令牌过期
+        //认证服务器账号的expiresAt为0，能够保证每次都刷新账号
+        val loginTask = if (isNetworkAvailable(context) && System.currentTimeMillis() > account.expiresAt - 5 * 60 * 1000) {
             AccountsManager.performLoginTask(
                 context = context,
                 account = account,

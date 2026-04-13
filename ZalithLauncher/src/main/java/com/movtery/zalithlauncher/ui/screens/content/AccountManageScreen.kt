@@ -293,10 +293,10 @@ private fun ActionsLayout(
                     )
                 },
                 update = {
-                    if (currentAccount != null && pageFinished) {
+                    if (pageFinished) {
                         runCatching {
                             accountSkin?.inputStream().use { inputStream ->
-                                playerSkin.loadSkin(inputStream, currentAccount.skinModelType)
+                                playerSkin.loadSkin(inputStream, currentAccount?.skinModelType)
                             }
                         }
                         runCatching {

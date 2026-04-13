@@ -499,7 +499,7 @@ private fun rememberEditorViewModel(
 fun GameScreen(
     version: Version,
     gameHandler: GameHandler,
-    isGameRendering: Boolean,
+    showGameInfo: Boolean,
     logState: LogState,
     onLogStateChange: (LogState) -> Unit,
     textInputMode: TextInputMode,
@@ -571,7 +571,7 @@ fun GameScreen(
                 .align(Alignment.Center)
                 .padding(all = 16.dp),
             version = version,
-            isGameRendering = isGameRendering
+            visible = showGameInfo
         )
 
         if (!viewModel.isEditingLayout) {
@@ -836,10 +836,10 @@ fun GameScreen(
 private fun GameInfoBox(
     modifier: Modifier = Modifier,
     version: Version,
-    isGameRendering: Boolean
+    visible: Boolean
 ) {
     AnimatedVisibility(
-        visible = !isGameRendering,
+        visible = visible,
         enter = fadeIn(),
         exit = fadeOut(),
         modifier = modifier

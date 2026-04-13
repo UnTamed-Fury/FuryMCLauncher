@@ -43,6 +43,7 @@ data class Account(
     @PrimaryKey
     val uniqueUUID: String = UUID.randomUUID().toString().lowercase(),
     var accessToken: String = "0",
+    var expiresAt: Long = 0L,
     var clientToken: String = "0",
     var username: String = "Steve",
     var profileId: String = getLocalUUIDWithSkinModel(username, SkinModelType.NONE),
