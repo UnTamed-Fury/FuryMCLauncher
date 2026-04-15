@@ -25,6 +25,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.FileCopy
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -38,6 +40,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
@@ -134,35 +137,42 @@ fun BoxWithConstraintsScope.ControlEditor(
                 viewModel.selectedWidget = null
             },
             floatingButtons = {
-                val selectedWidget = viewModel.selectedWidget != null
-                Surface(
-                    modifier = Modifier.semantics { role = Role.Button },
-                    shape = ButtonDefaults.shape,
-                    color = MaterialTheme.colorScheme.primary,
-                    contentColor = MaterialTheme.colorScheme.onPrimary,
+                //设置属性
+                ActionButton(
+                    icon = Icons.Default.Settings,
+                    text = stringResource(R.string.generic_setting),
                     onClick = {
-                        if (selectedWidget) {
+                        if (viewModel.selectedWidget != null) {
                             viewModel.editorOperation = EditorOperation.SelectButton
                         }
                     }
-                ) {
-                    Row(
-                        modifier = Modifier.padding(all = 6.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(8.dp)
-                    ) {
-                        Icon(
-                            modifier = Modifier.size(18.dp),
-                            imageVector = Icons.Default.Settings,
-                            contentDescription = stringResource(R.string.generic_setting)
-                        )
-                        Text(
-                            modifier = Modifier.padding(end = 4.dp),
-                            text = stringResource(R.string.generic_setting),
-                            style = MaterialTheme.typography.labelLarge
-                        )
+                )
+                //复制控件
+                ActionButton(
+                    icon = Icons.Default.FileCopy,
+                    text = stringResource(R.string.control_editor_edit_dialog_clone_widget),
+                    onClick = {
+                        val widget = viewModel.selectedWidget
+                        if (widget != null) {
+                            val data = widget.data
+                            val layer = widget.layer
+                            viewModel.editorWidgetOperation = EditorWidgetOperation.CloneButton(data, layer)
+                        }
                     }
-                }
+                )
+                //删除
+                ActionButton(
+                    icon = Icons.Default.Delete,
+                    text = stringResource(R.string.generic_delete),
+                    onClick = {
+                        val widget = viewModel.selectedWidget
+                        if (widget != null) {
+                            val data = widget.data
+                            val layer = widget.layer
+                            viewModel.editorWidgetOperation = EditorWidgetOperation.DeleteButton(data, layer)
+                        }
+                    }
+                )
             },
             enableSnap = AllSettings.editorEnableWidgetSnap.state,
             snapInAllLayers = AllSettings.editorSnapInAllLayers.state,
@@ -331,7 +341,11 @@ fun BoxWithConstraintsScope.ControlEditor(
         operation = viewModel.editorOperation,
         changeOperation = { viewModel.editorOperation = it },
         onDeleteLayer = { layer ->
+            val isWidgetLayer = viewModel.selectedWidget?.layer == layer
             viewModel.removeLayer(layer)
+            if (isWidgetLayer) {
+                viewModel.selectedWidget = null
+            }
         },
         onMergeDownward = { layer ->
             viewModel.observableLayout.mergeDownward(layer)
@@ -386,6 +400,7 @@ fun BoxWithConstraintsScope.ControlEditor(
         },
         onDeleteWidget = { widget, layer ->
             viewModel.removeWidget(layer, widget)
+            viewModel.selectedWidget = null
             viewModel.editorOperation = EditorOperation.None
         }
     )
@@ -394,6 +409,39 @@ fun BoxWithConstraintsScope.ControlEditor(
         operation = viewModel.editorWarningOperation,
         changeOperation = { viewModel.editorWarningOperation = it }
     )
+}
+
+@Composable
+private fun ActionButton(
+    icon: ImageVector,
+    text: String,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Surface(
+        modifier = modifier.semantics { role = Role.Button },
+        shape = ButtonDefaults.shape,
+        color = MaterialTheme.colorScheme.primary,
+        contentColor = MaterialTheme.colorScheme.onPrimary,
+        onClick = onClick
+    ) {
+        Row(
+            modifier = Modifier.padding(all = 6.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            Icon(
+                modifier = Modifier.size(18.dp),
+                imageVector = icon,
+                contentDescription = text
+            )
+            Text(
+                modifier = Modifier.padding(end = 4.dp),
+                text = text,
+                style = MaterialTheme.typography.labelLarge
+            )
+        }
+    }
 }
 
 @Composable
