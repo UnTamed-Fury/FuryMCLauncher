@@ -168,7 +168,7 @@ fun downloadFileWithHttp(
             }
 
             if (e.isInterruptedIOException()) {
-                lDebug(\"Download task cancelled. url: $url\")
+                lDebug("Download task cancelled. url: $url")
                 return //取消了，不需要抛出异常
                 //Cancelled, no need to throw exception
             } else if (e is FileNotFoundException) {
