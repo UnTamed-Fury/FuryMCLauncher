@@ -65,6 +65,8 @@ import com.movtery.zalithlauncher.ui.screens.main.control_editor.InfoLayoutListI
 import com.movtery.zalithlauncher.ui.screens.main.control_editor.InfoLayoutSwitchItem
 import com.movtery.zalithlauncher.ui.screens.main.control_editor.InfoLayoutTextItem
 import com.movtery.zalithlauncher.ui.screens.main.control_editor.getVisibilityText
+import com.movtery.zalithlauncher.ui.theme.cardColor
+import com.movtery.zalithlauncher.ui.theme.onCardColor
 
 @Composable
 fun EditControlLayerDialog(
@@ -91,6 +93,8 @@ fun EditControlLayerDialog(
                     .heightIn(max = maxHeight - 6.dp)
                     .wrapContentHeight(),
                 shadowElevation = 3.dp,
+                color = cardColor(false),
+                contentColor = onCardColor(),
                 shape = MaterialTheme.shapes.extraLarge
             ) {
                 Column(

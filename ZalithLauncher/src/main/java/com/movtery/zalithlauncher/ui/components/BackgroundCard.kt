@@ -27,14 +27,15 @@ import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CardElevation
 import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.UiComposable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
-import com.movtery.zalithlauncher.setting.AllSettings
+import com.movtery.zalithlauncher.ui.theme.cardColor
+import com.movtery.zalithlauncher.ui.theme.cardTitleColor
+import com.movtery.zalithlauncher.ui.theme.onCardColor
 
 /**
  * 背景卡片组件，
@@ -46,8 +47,8 @@ fun BackgroundCard(
     influencedByBackground: Boolean = true,
     shape: Shape = CardDefaults.shape,
     colors: CardColors = CardDefaults.cardColors(
-        containerColor = backgroundLayoutColor(influencedByBackground),
-        contentColor = MaterialTheme.colorScheme.onSurface
+        containerColor = cardColor(influencedByBackground),
+        contentColor = onCardColor()
     ),
     elevation: CardElevation = CardDefaults.cardElevation(),
     border: BorderStroke? = null,
@@ -73,9 +74,9 @@ fun BackgroundCard(
     influencedByBackground: Boolean = true,
     shape: Shape = CardDefaults.shape,
     colors: CardColors = CardDefaults.cardColors(
-        containerColor = backgroundLayoutColor(influencedByBackground),
-        contentColor = MaterialTheme.colorScheme.onSurface,
-        disabledContainerColor = backgroundLayoutColor(influencedByBackground)
+        containerColor = cardColor(influencedByBackground),
+        contentColor = onCardColor(),
+        disabledContainerColor = cardColor(influencedByBackground)
     ),
     elevation: CardElevation = CardDefaults.cardElevation(),
     border: BorderStroke? = null,
@@ -104,20 +105,17 @@ fun CardTitleLayout(
     modifier: Modifier = Modifier,
     influencedByBackground: Boolean = true,
     alpha: Float = 0.5f,
-    color: Color = MaterialTheme.colorScheme.surface,
-    contentColor: Color = MaterialTheme.colorScheme.onSurface,
+    color: Color = influencedByBackgroundColor(
+        color = cardTitleColor(),
+        enabled = influencedByBackground
+    ),
+    contentColor: Color = onCardColor(),
     content: @Composable @UiComposable () -> Unit
 ) {
-    val influencedColor = influencedByBackgroundColor(
-        color = color.copy(alpha = alpha),
-        influencedAlpha = alpha * (AllSettings.launcherBackgroundOpacity.state.toFloat() / 100f),
-        enabled = influencedByBackground
-    )
-
     Column(modifier = modifier.fillMaxWidth()) {
         Surface(
             modifier = Modifier.fillMaxWidth(),
-            color = influencedColor,
+            color = color,
             contentColor = contentColor,
             content = content
         )

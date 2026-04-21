@@ -24,9 +24,9 @@ import android.os.Bundle
 import android.os.Parcelable
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
 import com.jakewharton.processphoenix.ProcessPhoenix
@@ -38,6 +38,8 @@ import com.movtery.zalithlauncher.ui.base.BaseAppCompatActivity
 import com.movtery.zalithlauncher.ui.screens.main.ErrorScreen
 import com.movtery.zalithlauncher.ui.screens.main.crashlogs.ShareLinkOperation
 import com.movtery.zalithlauncher.ui.theme.ZalithLauncherTheme
+import com.movtery.zalithlauncher.ui.theme.backgroundColor
+import com.movtery.zalithlauncher.ui.theme.onBackgroundColor
 import com.movtery.zalithlauncher.utils.copyText
 import com.movtery.zalithlauncher.utils.file.shareFile
 import com.movtery.zalithlauncher.utils.getParcelableSafely
@@ -137,9 +139,12 @@ class ErrorActivity : BaseAppCompatActivity(refreshData = false) {
                     }
                 )
 
-                Box(modifier = Modifier.fillMaxSize()) {
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = backgroundColor(),
+                    contentColor = onBackgroundColor()
+                ) {
                     ErrorScreen(
-                        viewModel = viewModel,
                         crashType = errorMessage.crashType,
                         shareLogs = logFile.exists() && logFile.isFile,
                         canUpload = viewModel.canUpload,

@@ -63,7 +63,10 @@ import com.movtery.zalithlauncher.ui.components.MarqueeText
 import com.movtery.zalithlauncher.ui.components.OwnOutlinedTextField
 import com.movtery.zalithlauncher.ui.components.SingleLineTextCheck
 import com.movtery.zalithlauncher.ui.components.fadeEdge
-import com.movtery.zalithlauncher.ui.components.itemLayoutColorOnSurface
+import com.movtery.zalithlauncher.ui.theme.cardColor
+import com.movtery.zalithlauncher.ui.theme.itemColor
+import com.movtery.zalithlauncher.ui.theme.onCardColor
+import com.movtery.zalithlauncher.ui.theme.onItemColor
 import com.movtery.zalithlauncher.utils.string.isEmptyOrBlank
 
 /**
@@ -105,6 +108,8 @@ fun EditTranslatableTextDialog(
         Surface(
             modifier = Modifier.padding(all = 3.dp),
             shadowElevation = 3.dp,
+            color = cardColor(false),
+            contentColor = onCardColor(),
             shape = MaterialTheme.shapes.extraLarge
         ) {
             Column(
@@ -220,8 +225,8 @@ private fun LocalizedStringItem(
     singleLine: Boolean = true,
     allowEmpty: Boolean = true,
     take: Int? = null,
-    color: Color = itemLayoutColorOnSurface(3.dp),
-    contentColor: Color = MaterialTheme.colorScheme.onSurface,
+    color: Color = itemColor(false),
+    contentColor: Color = onItemColor(),
     shape: Shape = RoundedCornerShape(28.dp)
 ) {
     Surface(

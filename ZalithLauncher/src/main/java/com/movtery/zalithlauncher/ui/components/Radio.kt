@@ -38,6 +38,8 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.movtery.zalithlauncher.ui.theme.itemColor
+import com.movtery.zalithlauncher.ui.theme.onItemColor
 
 @Composable
 fun RadioCard(
@@ -46,9 +48,9 @@ fun RadioCard(
     onClick: (() -> Unit)?,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    backgroundColor: Color = itemLayoutColorOnSurface(),
-    contentColor: Color = MaterialTheme.colorScheme.onSurface,
-    colors: RadioButtonColors = RadioButtonDefaults.colors(),
+    color: Color = itemColor(false),
+    contentColor: Color = onItemColor(),
+    radioColors: RadioButtonColors = RadioButtonDefaults.colors(),
     interactionSource: MutableInteractionSource? = null,
     textStyle: TextStyle = MaterialTheme.typography.bodyMedium,
 ) {
@@ -57,9 +59,9 @@ fun RadioCard(
         onClick = onClick,
         modifier = modifier,
         enabled = enabled,
-        backgroundColor = backgroundColor,
+        color = color,
         contentColor = contentColor,
-        colors = colors,
+        radioColors = radioColors,
         interactionSource = interactionSource
     ) {
         Text(
@@ -75,16 +77,16 @@ fun RadioCard(
     onClick: (() -> Unit)?,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    backgroundColor: Color = itemLayoutColorOnSurface(),
-    contentColor: Color = MaterialTheme.colorScheme.onSurface,
+    color: Color = itemColor(false),
+    contentColor: Color = onItemColor(),
     shape: Shape = MaterialTheme.shapes.large,
-    colors: RadioButtonColors = RadioButtonDefaults.colors(),
+    radioColors: RadioButtonColors = RadioButtonDefaults.colors(),
     interactionSource: MutableInteractionSource? = null,
     content: @Composable RowScope.() -> Unit,
 ) {
     InternalSurface(
         modifier = modifier,
-        color = backgroundColor,
+        color = color,
         contentColor = contentColor,
         shape = shape,
         onClick = onClick,
@@ -98,7 +100,7 @@ fun RadioCard(
             RadioButton(
                 selected = selected,
                 onClick = onClick,
-                colors = colors,
+                colors = radioColors,
                 interactionSource = interactionSource
             )
 

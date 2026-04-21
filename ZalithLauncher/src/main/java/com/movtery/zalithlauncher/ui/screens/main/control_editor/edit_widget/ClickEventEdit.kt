@@ -59,7 +59,6 @@ import com.movtery.zalithlauncher.game.keycodes.ControlEventKeyName
 import com.movtery.zalithlauncher.game.keycodes.ControlEventKeycode
 import com.movtery.zalithlauncher.ui.base.BaseScreen
 import com.movtery.zalithlauncher.ui.components.MarqueeText
-import com.movtery.zalithlauncher.ui.components.itemLayoutColorOnSurface
 import com.movtery.zalithlauncher.ui.control.Keyboard
 import com.movtery.zalithlauncher.ui.control.event.LAUNCHER_EVENT_SCROLL_DOWN
 import com.movtery.zalithlauncher.ui.control.event.LAUNCHER_EVENT_SCROLL_DOWN_SINGLE
@@ -71,6 +70,9 @@ import com.movtery.zalithlauncher.ui.screens.TitledNavKey
 import com.movtery.zalithlauncher.ui.screens.main.control_editor.InfoLayoutItem
 import com.movtery.zalithlauncher.ui.screens.main.control_editor.InfoLayoutSwitchItem
 import com.movtery.zalithlauncher.ui.screens.main.control_editor.InfoLayoutTextItem
+import com.movtery.zalithlauncher.ui.theme.cardColor
+import com.movtery.zalithlauncher.ui.theme.itemColor
+import com.movtery.zalithlauncher.ui.theme.onItemColor
 
 private data class TabItem(val title: Int)
 
@@ -107,7 +109,10 @@ fun EditWidgetClickEvent(
             }
 
             //顶贴标签栏
-            SecondaryTabRow(selectedTabIndex = selectedTabIndex) {
+            SecondaryTabRow(
+                selectedTabIndex = selectedTabIndex,
+                containerColor = cardColor(false)
+            ) {
                 tabs.forEachIndexed { index, item ->
                     Tab(
                         selected = index == selectedTabIndex,
@@ -518,8 +523,8 @@ private fun EditKeyItem(
     modifier: Modifier = Modifier,
     keyEvent: ClickEvent,
     onDelete: () -> Unit,
-    color: Color = itemLayoutColorOnSurface(),
-    contentColor: Color = MaterialTheme.colorScheme.onSurface,
+    color: Color = itemColor(false),
+    contentColor: Color = onItemColor(),
 ) {
     val name = remember(keyEvent.key) { ControlEventKeyName.getNameByKey(keyEvent.key) }
 

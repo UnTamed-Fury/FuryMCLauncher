@@ -54,7 +54,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
@@ -69,8 +68,11 @@ import com.movtery.zalithlauncher.game.version.installed.VersionsManager
 import com.movtery.zalithlauncher.ui.components.MarqueeText
 import com.movtery.zalithlauncher.ui.components.SimpleAlertDialog
 import com.movtery.zalithlauncher.ui.components.fadeEdge
-import com.movtery.zalithlauncher.ui.components.itemLayoutColorOnSurface
 import com.movtery.zalithlauncher.ui.screens.content.elements.CommonVersionInfoLayout
+import com.movtery.zalithlauncher.ui.theme.cardColor
+import com.movtery.zalithlauncher.ui.theme.itemColor
+import com.movtery.zalithlauncher.ui.theme.onCardColor
+import com.movtery.zalithlauncher.ui.theme.onItemColor
 
 /**
  * 操作状态：下载单个资源文件
@@ -204,6 +206,8 @@ private fun DownloadDialog(
                         .heightIn(max = maxHeight - 12.dp)
                         .wrapContentHeight(),
                     shape = MaterialTheme.shapes.extraLarge,
+                    color = cardColor(false),
+                    contentColor = onCardColor(),
                     shadowElevation = 6.dp
                 ) {
                     Column(
@@ -353,16 +357,14 @@ private fun SelectVersionListItem(
     onChose: () -> Unit,
     onCancel: () -> Unit,
     shape: Shape = MaterialTheme.shapes.large,
-    color: Color = itemLayoutColorOnSurface(),
-    contentColor: Color = MaterialTheme.colorScheme.onSurface,
-    shadowElevation: Dp = 1.dp
+    color: Color = itemColor(false),
+    contentColor: Color = onItemColor(),
 ) {
     Surface(
         modifier = modifier,
         shape = shape,
         color = color,
         contentColor = contentColor,
-        shadowElevation = shadowElevation,
         onClick = {
             if (checked) {
                 onCancel()
@@ -425,9 +427,8 @@ private fun AssetsVersionDependencyItem(
     project: PlatformProject,
     onClick: () -> Unit = {},
     shape: Shape = MaterialTheme.shapes.large,
-    color: Color = itemLayoutColorOnSurface(),
-    contentColor: Color = MaterialTheme.colorScheme.onSurface,
-    shadowElevation: Dp = 1.dp
+    color: Color = itemColor(false),
+    contentColor: Color = onItemColor(),
 ) {
     //项目基本信息
     val platform = remember { project.platform() }
@@ -441,7 +442,6 @@ private fun AssetsVersionDependencyItem(
         shape = shape,
         color = color,
         contentColor = contentColor,
-        shadowElevation = shadowElevation
     ) {
         Row(
             horizontalArrangement = Arrangement.spacedBy(8.dp),

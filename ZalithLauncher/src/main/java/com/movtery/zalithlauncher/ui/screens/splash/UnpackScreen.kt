@@ -19,14 +19,13 @@
 package com.movtery.zalithlauncher.ui.screens.splash
 
 import androidx.compose.animation.animateContentSize
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -60,9 +59,9 @@ import com.movtery.zalithlauncher.ui.base.BaseScreen
 import com.movtery.zalithlauncher.ui.components.BackgroundCard
 import com.movtery.zalithlauncher.ui.components.MarqueeText
 import com.movtery.zalithlauncher.ui.components.ScalingActionButton
-import com.movtery.zalithlauncher.ui.components.itemLayoutColor
-import com.movtery.zalithlauncher.ui.components.itemLayoutShadowElevation
 import com.movtery.zalithlauncher.ui.screens.NormalNavKey
+import com.movtery.zalithlauncher.ui.theme.itemColor
+import com.movtery.zalithlauncher.ui.theme.onItemColor
 import com.movtery.zalithlauncher.utils.animation.getAnimateTween
 import com.movtery.zalithlauncher.utils.animation.swapAnimateDpAsState
 import com.movtery.zalithlauncher.viewmodel.SplashBackStackViewModel
@@ -77,22 +76,25 @@ fun UnpackScreen(
         screenKey = NormalNavKey.UnpackDeps,
         currentKey = screenViewModel.splashScreen.currentKey
     ) { isVisible ->
-        Row(modifier = Modifier.fillMaxSize()) {
+        Row(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(start = 16.dp, end = 16.dp, bottom = 16.dp),
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
             UnpackTaskList(
                 isVisible = isVisible,
                 items = items,
                 modifier = Modifier
                     .weight(7f)
                     .fillMaxHeight()
-                    .padding(start = 12.dp, top = 12.dp, bottom = 12.dp)
             )
 
             ActionMenu(
                 isVisible = isVisible,
                 modifier = Modifier
                     .weight(3f)
-                    .fillMaxHeight()
-                    .padding(all = 12.dp),
+                    .fillMaxHeight(),
                 onAgreeClick = onAgreeClick
             )
         }
@@ -113,44 +115,34 @@ private fun ActionMenu(
         isHorizontal = true
     )
 
-    BackgroundCard(
+    Column(
         modifier = modifier.offset { IntOffset(x = xOffset.roundToPx(), y = 0) },
-        influencedByBackground = false,
-        shape = MaterialTheme.shapes.extraLarge
     ) {
-        Column {
-            Column(
-                modifier = Modifier
-                    .verticalScroll(state = rememberScrollState())
-                    .weight(1f)
-            ) {
-                Spacer(modifier = Modifier.height(16.dp))
-                Text(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp),
-                    text = if (installing) {
-                        stringResource(R.string.splash_screen_installing)
-                    } else {
-                        stringResource(R.string.splash_screen_unpack_desc)
-                    },
-                    style = MaterialTheme.typography.bodyMedium
-                )
-            }
+        Column(
+            modifier = Modifier
+                .verticalScroll(state = rememberScrollState())
+                .weight(1f)
+        ) {
+            Text(
+                modifier = Modifier.fillMaxWidth(),
+                text = if (installing) {
+                    stringResource(R.string.splash_screen_installing)
+                } else {
+                    stringResource(R.string.splash_screen_unpack_desc)
+                },
+                style = MaterialTheme.typography.bodyMedium
+            )
+        }
 
-            ScalingActionButton(
-                enabled = !installing,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 12.dp)
-                    .padding(bottom = 8.dp),
-                onClick = {
-                    installing = true
-                    onAgreeClick()
-                }
-            ) {
-                MarqueeText(text = stringResource(R.string.splash_screen_agree))
+        ScalingActionButton(
+            enabled = !installing,
+            modifier = Modifier.fillMaxWidth(),
+            onClick = {
+                installing = true
+                onAgreeClick()
             }
+        ) {
+            MarqueeText(text = stringResource(R.string.splash_screen_agree))
         }
     }
 }
@@ -196,9 +188,8 @@ private fun TaskItem(
     Surface(
         modifier = modifier,
         shape = MaterialTheme.shapes.large,
-        color = itemLayoutColor(),
-        contentColor = MaterialTheme.colorScheme.onSurface,
-        shadowElevation = itemLayoutShadowElevation()
+        color = itemColor(),
+        contentColor = onItemColor(),
     ) {
         Row {
             Column(

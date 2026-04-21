@@ -80,11 +80,12 @@ import com.movtery.zalithlauncher.ui.components.EdgeDirection
 import com.movtery.zalithlauncher.ui.components.LittleTextLabel
 import com.movtery.zalithlauncher.ui.components.ScalingLabel
 import com.movtery.zalithlauncher.ui.components.SimpleTextInputField
-import com.movtery.zalithlauncher.ui.components.backgroundLayoutColor
 import com.movtery.zalithlauncher.ui.components.fadeEdge
 import com.movtery.zalithlauncher.ui.screens.NestedNavKey
 import com.movtery.zalithlauncher.ui.screens.NormalNavKey
 import com.movtery.zalithlauncher.ui.screens.TitledNavKey
+import com.movtery.zalithlauncher.ui.theme.cardColor
+import com.movtery.zalithlauncher.ui.theme.onCardColor
 import com.movtery.zalithlauncher.utils.animation.getAnimateTween
 import com.movtery.zalithlauncher.utils.animation.swapAnimateDpAsState
 import com.movtery.zalithlauncher.utils.classes.Quadruple
@@ -273,8 +274,8 @@ fun SelectGameVersionScreen(
                                 .padding(horizontal = 12.dp),
                             versionFilter = viewModel.versionFilter,
                             onVersionFilterChange = { viewModel.filterWith(it) },
-                            itemContainerColor = backgroundLayoutColor(),
-                            itemContentColor = MaterialTheme.colorScheme.onSurface,
+                            itemContainerColor = cardColor(),
+                            itemContentColor = onCardColor(),
                             onRefreshClick = {
                                 viewModel.refresh(true)
                             }
@@ -282,8 +283,8 @@ fun SelectGameVersionScreen(
 
                         VersionList(
                             modifier = Modifier.weight(1f),
-                            itemContainerColor = backgroundLayoutColor(),
-                            itemContentColor = MaterialTheme.colorScheme.onSurface,
+                            itemContainerColor = cardColor(),
+                            itemContentColor = onCardColor(),
                             versions = state.versions,
                             onVersionSelect = onVersionSelect,
                             openLink = { url ->

@@ -45,6 +45,8 @@ import com.mikepenz.markdown.m3.Markdown
 import com.mikepenz.markdown.model.rememberMarkdownState
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.ui.components.defaultMDTypography
+import com.movtery.zalithlauncher.ui.theme.cardColor
+import com.movtery.zalithlauncher.ui.theme.onCardColor
 import com.movtery.zalithlauncher.upgrade.RemoteData
 import com.movtery.zalithlauncher.upgrade.findCurrentBody
 import com.movtery.zalithlauncher.upgrade.getCurrentCouldDrive
@@ -72,6 +74,8 @@ fun UpgradeDialog(
         Surface(
             modifier = Modifier.padding(all = 3.dp),
             shape = MaterialTheme.shapes.extraLarge,
+            color = cardColor(false),
+            contentColor = onCardColor(),
             shadowElevation = 3.dp
         ) {
             Column(

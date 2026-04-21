@@ -56,7 +56,6 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextDecoration
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -75,12 +74,15 @@ import com.movtery.zalithlauncher.ui.components.MarqueeText
 import com.movtery.zalithlauncher.ui.components.ProgressDialog
 import com.movtery.zalithlauncher.ui.components.SimpleAlertDialog
 import com.movtery.zalithlauncher.ui.components.fadeEdge
-import com.movtery.zalithlauncher.ui.components.itemLayoutColorOnSurface
 import com.movtery.zalithlauncher.ui.screens.content.download.assets.elements.AssetsIcon
 import com.movtery.zalithlauncher.ui.screens.content.elements.TitleTaskFlowDialog
 import com.movtery.zalithlauncher.ui.screens.content.versions.elements.ModStateFilter.All
 import com.movtery.zalithlauncher.ui.screens.content.versions.elements.ModStateFilter.Disabled
 import com.movtery.zalithlauncher.ui.screens.content.versions.elements.ModStateFilter.Enabled
+import com.movtery.zalithlauncher.ui.theme.cardColor
+import com.movtery.zalithlauncher.ui.theme.itemColor
+import com.movtery.zalithlauncher.ui.theme.onCardColor
+import com.movtery.zalithlauncher.ui.theme.onItemColor
 import com.movtery.zalithlauncher.utils.logging.Logger.lError
 import io.ktor.client.plugins.HttpRequestTimeoutException
 import kotlinx.serialization.SerializationException
@@ -284,6 +286,8 @@ private fun ModsUpdateListDialog(
                     .heightIn(max = maxHeight - 12.dp)
                     .wrapContentHeight(),
                 shape = MaterialTheme.shapes.extraLarge,
+                color = cardColor(false),
+                contentColor = onCardColor(),
                 shadowElevation = 6.dp
             ) {
                 Column(
@@ -348,9 +352,8 @@ private fun ModsUpdateEntryItem(
     entry: Pair<ModData, PlatformVersion>,
     modifier: Modifier = Modifier,
     shape: Shape = MaterialTheme.shapes.large,
-    color: Color = itemLayoutColorOnSurface(),
-    contentColor: Color = MaterialTheme.colorScheme.onSurface,
-    shadowElevation: Dp = 1.dp
+    color: Color = itemColor(false),
+    contentColor: Color = onItemColor(),
 ) {
     val context = LocalContext.current
 
@@ -362,7 +365,6 @@ private fun ModsUpdateEntryItem(
         shape = shape,
         color = color,
         contentColor = contentColor,
-        shadowElevation = shadowElevation
     ) {
         Row(
             modifier = Modifier.padding(8.dp),

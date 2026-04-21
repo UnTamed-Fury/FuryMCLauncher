@@ -61,6 +61,8 @@ import com.movtery.zalithlauncher.ui.screens.main.control_editor.InfoLayoutTextI
 import com.movtery.zalithlauncher.ui.screens.main.control_editor.edit_joystick.EditJoystickStyleDialog
 import com.movtery.zalithlauncher.ui.screens.main.control_editor.edit_joystick.EditJoystickStyleMode
 import com.movtery.zalithlauncher.ui.screens.rememberSwapTween
+import com.movtery.zalithlauncher.ui.theme.cardColor
+import com.movtery.zalithlauncher.ui.theme.onCardColor
 
 /** 启动器默认摇杆管理操作状态 */
 sealed interface JoystickManageOperation {
@@ -155,6 +157,8 @@ private fun JoystickManageDialog(
                         .fillMaxWidth()
                         .padding(all = 3.dp),
                     shadowElevation = 3.dp,
+                    color = cardColor(false),
+                    contentColor = onCardColor(),
                     shape = MaterialTheme.shapes.extraLarge
                 ) {
                     Column(

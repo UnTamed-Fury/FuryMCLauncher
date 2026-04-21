@@ -112,7 +112,6 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.compose.ui.window.Dialog
@@ -152,9 +151,11 @@ import com.movtery.zalithlauncher.ui.components.SimpleListDialog
 import com.movtery.zalithlauncher.ui.components.SimpleListItem
 import com.movtery.zalithlauncher.ui.components.SingleLineTextCheck
 import com.movtery.zalithlauncher.ui.components.fadeEdge
-import com.movtery.zalithlauncher.ui.components.itemLayoutColor
-import com.movtery.zalithlauncher.ui.components.itemLayoutShadowElevation
 import com.movtery.zalithlauncher.ui.screens.main.control_editor.InfoLayoutTextItem
+import com.movtery.zalithlauncher.ui.theme.cardColor
+import com.movtery.zalithlauncher.ui.theme.itemColor
+import com.movtery.zalithlauncher.ui.theme.onCardColor
+import com.movtery.zalithlauncher.ui.theme.onItemColor
 import com.movtery.zalithlauncher.utils.animation.getAnimateTween
 import com.movtery.zalithlauncher.utils.logging.Logger.lError
 import java.io.File
@@ -325,9 +326,8 @@ fun AccountItem(
     modifier: Modifier = Modifier,
     currentAccount: Account?,
     account: Account,
-    color: Color = itemLayoutColor(),
-    contentColor: Color = MaterialTheme.colorScheme.onSurface,
-    shadowElevation: Dp = itemLayoutShadowElevation(),
+    color: Color = itemColor(),
+    contentColor: Color = onItemColor(),
     enabled: Boolean = true,
     refreshKey: Any? = null,
     onSelected: (Account) -> Unit = {},
@@ -346,7 +346,6 @@ fun AccountItem(
         color = color,
         contentColor = contentColor,
         shape = MaterialTheme.shapes.large,
-        shadowElevation = shadowElevation,
         onClick = {
             if (selected || !enabled) return@Surface
             onSelected(account)
@@ -465,6 +464,8 @@ fun LoginMenuDialog(
                     .fillMaxWidth()
                     .heightIn(max = maxHeight - 12.dp),
                 shape = MaterialTheme.shapes.extraLarge,
+                color = cardColor(false),
+                contentColor = onCardColor(),
                 shadowElevation = 6.dp
             ) {
                 Column(
@@ -750,6 +751,8 @@ fun LocalLoginDialog(
                     .heightIn(max = maxHeight - 12.dp)
                     .wrapContentHeight(),
                 shape = MaterialTheme.shapes.extraLarge,
+                color = cardColor(false),
+                contentColor = onCardColor(),
                 shadowElevation = 6.dp
             ) {
                 Column(
@@ -973,6 +976,8 @@ fun OtherServerLoginDialog(
                     .heightIn(max = maxHeight - 12.dp)
                     .wrapContentHeight(),
                 shape = MaterialTheme.shapes.extraLarge,
+                color = cardColor(false),
+                contentColor = onCardColor(),
                 shadowElevation = 6.dp
             ) {
                 Column(
@@ -1239,6 +1244,8 @@ fun ChangeSkinDialog(
                     .fillMaxHeight(0.85f)
                     .heightIn(max = maxHeight - 12.dp),
                 shape = MaterialTheme.shapes.extraLarge,
+                color = cardColor(false),
+                contentColor = onCardColor(),
                 shadowElevation = 6.dp
             ) {
                 Column(
@@ -1256,7 +1263,7 @@ fun ChangeSkinDialog(
                                 .fillMaxHeight()
                                 .weight(1f)
                                 .clip(MaterialTheme.shapes.large)
-                                .background(MaterialTheme.colorScheme.surfaceVariant),
+                                .background(itemColor(false)),
                             contentAlignment = Alignment.Center
                         ) {
                             var pageFinished by remember { mutableStateOf(false) }

@@ -133,8 +133,6 @@ import com.movtery.zalithlauncher.ui.components.ScalingLabel
 import com.movtery.zalithlauncher.ui.components.SimpleTextInputField
 import com.movtery.zalithlauncher.ui.components.TooltipIconButton
 import com.movtery.zalithlauncher.ui.components.fadeEdge
-import com.movtery.zalithlauncher.ui.components.itemLayoutColor
-import com.movtery.zalithlauncher.ui.components.itemLayoutShadowElevation
 import com.movtery.zalithlauncher.ui.screens.NestedNavKey
 import com.movtery.zalithlauncher.ui.screens.NormalNavKey
 import com.movtery.zalithlauncher.ui.screens.TitledNavKey
@@ -152,6 +150,8 @@ import com.movtery.zalithlauncher.ui.screens.content.versions.elements.ModsOpera
 import com.movtery.zalithlauncher.ui.screens.content.versions.elements.ModsUpdateOperation
 import com.movtery.zalithlauncher.ui.screens.content.versions.elements.filterMods
 import com.movtery.zalithlauncher.ui.screens.content.versions.layouts.VersionChunkBackground
+import com.movtery.zalithlauncher.ui.theme.itemColor
+import com.movtery.zalithlauncher.ui.theme.onItemColor
 import com.movtery.zalithlauncher.utils.animation.getAnimateTween
 import com.movtery.zalithlauncher.utils.animation.swapAnimateDpAsState
 import com.movtery.zalithlauncher.utils.file.formatFileSize
@@ -759,8 +759,8 @@ private fun ModsActionsHeader(
     swapToDownload: () -> Unit,
     refresh: () -> Unit,
     submitError: (ErrorViewModel.ThrowableMessage) -> Unit = {},
-    inputFieldColor: Color = itemLayoutColor(),
-    inputFieldContentColor: Color = MaterialTheme.colorScheme.onSurface
+    inputFieldColor: Color = itemColor(),
+    inputFieldContentColor: Color = onItemColor()
 ) {
     CardTitleLayout(modifier = modifier) {
         BoxWithConstraints(
@@ -1069,11 +1069,10 @@ private fun ModItemLayout(
     onSwapMoreInfo: (id: String, Platform) -> Unit,
     onDelete: () -> Unit,
     selected: Boolean,
-    itemColor: Color = itemLayoutColor(),
-    itemContentColor: Color = MaterialTheme.colorScheme.onSurface,
+    itemColor: Color = itemColor(),
+    itemContentColor: Color = onItemColor(),
     borderColor: Color = MaterialTheme.colorScheme.primary,
     shape: Shape = MaterialTheme.shapes.large,
-    shadowElevation: Dp = itemLayoutShadowElevation()
 ) {
     val borderWidth by animateDpAsState(
         if (selected) 2.dp
@@ -1105,7 +1104,6 @@ private fun ModItemLayout(
         shape = shape,
         color = itemColor,
         contentColor = itemContentColor,
-        shadowElevation = shadowElevation
     ) {
         Row(
             modifier = Modifier.padding(all = 8.dp),
@@ -1330,10 +1328,9 @@ private fun ModIcon(
 @Composable
 private fun WarningItem(
     modifier: Modifier = Modifier,
-    itemColor: Color = itemLayoutColor(),
-    itemContentColor: Color = MaterialTheme.colorScheme.onSurface,
+    itemColor: Color = itemColor(),
+    itemContentColor: Color = onItemColor(),
     shape: Shape = MaterialTheme.shapes.large,
-    shadowElevation: Dp = itemLayoutShadowElevation(),
     content: @Composable ColumnScope.() -> Unit
 ) {
     val scale = remember { Animatable(initialValue = 0.95f) }
@@ -1348,7 +1345,6 @@ private fun WarningItem(
         shape = shape,
         color = itemColor,
         contentColor = itemContentColor,
-        shadowElevation = shadowElevation
     ) {
         Row(
             modifier = Modifier.padding(all = 8.dp),

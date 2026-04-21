@@ -100,8 +100,6 @@ import com.movtery.zalithlauncher.ui.components.ScalingLabel
 import com.movtery.zalithlauncher.ui.components.SimpleAlertDialog
 import com.movtery.zalithlauncher.ui.components.SimpleTextInputField
 import com.movtery.zalithlauncher.ui.components.fadeEdge
-import com.movtery.zalithlauncher.ui.components.itemLayoutColor
-import com.movtery.zalithlauncher.ui.components.itemLayoutShadowElevation
 import com.movtery.zalithlauncher.ui.screens.NestedNavKey
 import com.movtery.zalithlauncher.ui.screens.NormalNavKey
 import com.movtery.zalithlauncher.ui.screens.TitledNavKey
@@ -116,6 +114,8 @@ import com.movtery.zalithlauncher.ui.screens.content.versions.elements.ShaderOpe
 import com.movtery.zalithlauncher.ui.screens.content.versions.elements.ShaderPackInfo
 import com.movtery.zalithlauncher.ui.screens.content.versions.elements.filterShaders
 import com.movtery.zalithlauncher.ui.screens.content.versions.layouts.VersionChunkBackground
+import com.movtery.zalithlauncher.ui.theme.itemColor
+import com.movtery.zalithlauncher.ui.theme.onItemColor
 import com.movtery.zalithlauncher.utils.animation.getAnimateTween
 import com.movtery.zalithlauncher.utils.animation.swapAnimateDpAsState
 import com.movtery.zalithlauncher.utils.file.formatFileSize
@@ -391,8 +391,8 @@ private fun ShadersActionsHeader(
     swapToDownload: () -> Unit,
     refresh: () -> Unit,
     submitError: (ErrorViewModel.ThrowableMessage) -> Unit,
-    inputFieldColor: Color = itemLayoutColor(),
-    inputFieldContentColor: Color = MaterialTheme.colorScheme.onSurface
+    inputFieldColor: Color = itemColor(),
+    inputFieldContentColor: Color = onItemColor(),
 ) {
     CardTitleLayout(modifier = modifier) {
         BoxWithConstraints(
@@ -599,11 +599,10 @@ private fun ShaderPackItem(
     selected: Boolean,
     onClick: () -> Unit = {},
     updateOperation: (ShaderOperation) -> Unit,
-    itemColor: Color = itemLayoutColor(),
-    itemContentColor: Color = MaterialTheme.colorScheme.onSurface,
+    itemColor: Color = itemColor(),
+    itemContentColor: Color = onItemColor(),
     borderColor: Color = MaterialTheme.colorScheme.primary,
     shape: Shape = MaterialTheme.shapes.large,
-    shadowElevation: Dp = itemLayoutShadowElevation()
 ) {
     val borderWidth by animateDpAsState(
         if (selected) 2.dp
@@ -627,7 +626,6 @@ private fun ShaderPackItem(
         shape = shape,
         color = itemColor,
         contentColor = itemContentColor,
-        shadowElevation = shadowElevation
     ) {
         Row(
             modifier = Modifier.padding(all = 8.dp),

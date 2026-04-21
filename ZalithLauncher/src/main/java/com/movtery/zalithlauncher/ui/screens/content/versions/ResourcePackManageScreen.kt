@@ -108,8 +108,6 @@ import com.movtery.zalithlauncher.ui.components.SimpleAlertDialog
 import com.movtery.zalithlauncher.ui.components.SimpleTextInputField
 import com.movtery.zalithlauncher.ui.components.TooltipIconButton
 import com.movtery.zalithlauncher.ui.components.fadeEdge
-import com.movtery.zalithlauncher.ui.components.itemLayoutColor
-import com.movtery.zalithlauncher.ui.components.itemLayoutShadowElevation
 import com.movtery.zalithlauncher.ui.screens.NestedNavKey
 import com.movtery.zalithlauncher.ui.screens.NormalNavKey
 import com.movtery.zalithlauncher.ui.screens.TitledNavKey
@@ -126,6 +124,8 @@ import com.movtery.zalithlauncher.ui.screens.content.versions.elements.ResourceP
 import com.movtery.zalithlauncher.ui.screens.content.versions.elements.ResourcePackOperation
 import com.movtery.zalithlauncher.ui.screens.content.versions.elements.filterPacks
 import com.movtery.zalithlauncher.ui.screens.content.versions.layouts.VersionChunkBackground
+import com.movtery.zalithlauncher.ui.theme.itemColor
+import com.movtery.zalithlauncher.ui.theme.onItemColor
 import com.movtery.zalithlauncher.utils.animation.getAnimateTween
 import com.movtery.zalithlauncher.utils.animation.swapAnimateDpAsState
 import com.movtery.zalithlauncher.utils.file.formatFileSize
@@ -401,8 +401,8 @@ private fun ResourcePackHeader(
     swapToDownload: () -> Unit,
     onRefresh: () -> Unit,
     submitError: (ErrorViewModel.ThrowableMessage) -> Unit,
-    inputFieldColor: Color = itemLayoutColor(),
-    inputFieldContentColor: Color = MaterialTheme.colorScheme.onSurface
+    inputFieldColor: Color = itemColor(),
+    inputFieldContentColor: Color = onItemColor()
 ) {
     CardTitleLayout(modifier = modifier) {
         BoxWithConstraints(
@@ -621,11 +621,10 @@ private fun ResourcePackItemLayout(
     resourcePackInfo: ResourcePackInfo,
     selected: Boolean,
     onClick: () -> Unit = {},
-    itemColor: Color = itemLayoutColor(),
-    itemContentColor: Color = MaterialTheme.colorScheme.onSurface,
+    itemColor: Color = itemColor(),
+    itemContentColor: Color = onItemColor(),
     borderColor: Color = MaterialTheme.colorScheme.primary,
     shape: Shape = MaterialTheme.shapes.large,
-    shadowElevation: Dp = itemLayoutShadowElevation(),
     updateOperation: (ResourcePackOperation) -> Unit
 ) {
     val borderWidth by animateDpAsState(
@@ -650,7 +649,6 @@ private fun ResourcePackItemLayout(
         shape = shape,
         color = itemColor,
         contentColor = itemContentColor,
-        shadowElevation = shadowElevation
     ) {
         Row(
             modifier = Modifier.padding(all = 8.dp),

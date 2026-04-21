@@ -86,8 +86,8 @@ import com.movtery.zalithlauncher.ui.components.MenuState
 import com.movtery.zalithlauncher.ui.components.MenuSwitchButton
 import com.movtery.zalithlauncher.ui.components.MenuTextButton
 import com.movtery.zalithlauncher.ui.components.ScalingActionButton
-import com.movtery.zalithlauncher.ui.components.itemLayoutColor
-import com.movtery.zalithlauncher.ui.components.itemLayoutShadowElevation
+import com.movtery.zalithlauncher.ui.theme.itemColor
+import com.movtery.zalithlauncher.ui.theme.onItemColor
 import sh.calvin.reorderable.ReorderableItem
 import sh.calvin.reorderable.rememberReorderableLazyListState
 
@@ -488,7 +488,6 @@ fun EditorMenu(
                 createLayer = createLayer,
                 onAttribute = onAttribute,
                 onHideSwitch = onHideSwitch,
-                influencedByBackground = false,
                 enabled = isPreviewMode.not()
             )
         }
@@ -504,7 +503,6 @@ private fun ColumnScope.ControlLayerMenu(
     createLayer: () -> Unit,
     onAttribute: (ObservableControlLayer) -> Unit,
     onHideSwitch: (ObservableControlLayer) -> Unit,
-    influencedByBackground: Boolean = false,
     enabled: Boolean = true
 ) {
     val lazyListState = rememberLazyListState()
@@ -550,7 +548,7 @@ private fun ColumnScope.ControlLayerMenu(
                 key = layer.uuid,
                 enabled = enabled,
             ) { isDragging ->
-                val shadowElevation by animateDpAsState(if (isDragging) 4.dp else 1.dp)
+                val shadowElevation by animateDpAsState(if (isDragging) 4.dp else 0.dp)
                 ControlLayerItem(
                     modifier = Modifier.fillMaxWidth(),
                     layer = layer,
@@ -569,7 +567,6 @@ private fun ColumnScope.ControlLayerMenu(
                     onHideSwitch = {
                         onHideSwitch(layer)
                     },
-                    influencedByBackground = influencedByBackground,
                     enabled = enabled
                 )
             }
@@ -596,12 +593,11 @@ private fun ControlLayerItem(
     onUnSelected: () -> Unit,
     onAttribute: () -> Unit,
     onHideSwitch: () -> Unit,
-    influencedByBackground: Boolean = false,
-    color: Color = itemLayoutColor(influencedByBackground = influencedByBackground),
-    contentColor: Color = MaterialTheme.colorScheme.onSurface,
+    color: Color = itemColor(),
+    contentColor: Color = onItemColor(),
     borderColor: Color = MaterialTheme.colorScheme.primary,
     shape: Shape = MaterialTheme.shapes.large,
-    shadowElevation: Dp = itemLayoutShadowElevation(influencedByBackground = influencedByBackground),
+    shadowElevation: Dp = 0.dp,
     enabled: Boolean = true
 ) {
     val borderWidth by animateDpAsState(

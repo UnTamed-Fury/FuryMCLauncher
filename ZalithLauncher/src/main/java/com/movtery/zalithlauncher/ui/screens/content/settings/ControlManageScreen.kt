@@ -79,7 +79,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
@@ -118,13 +117,15 @@ import com.movtery.zalithlauncher.ui.components.SimpleAlertDialog
 import com.movtery.zalithlauncher.ui.components.SimpleEditDialog
 import com.movtery.zalithlauncher.ui.components.SingleLineTextCheck
 import com.movtery.zalithlauncher.ui.components.fadeEdge
-import com.movtery.zalithlauncher.ui.components.itemLayoutColor
-import com.movtery.zalithlauncher.ui.components.itemLayoutShadowElevation
 import com.movtery.zalithlauncher.ui.screens.NestedNavKey
 import com.movtery.zalithlauncher.ui.screens.NormalNavKey
 import com.movtery.zalithlauncher.ui.screens.TitledNavKey
 import com.movtery.zalithlauncher.ui.screens.content.elements.ImportMultipleFileButton
 import com.movtery.zalithlauncher.ui.screens.main.control_editor.edit_translatable.EditTranslatableTextDialog
+import com.movtery.zalithlauncher.ui.theme.cardColor
+import com.movtery.zalithlauncher.ui.theme.itemColor
+import com.movtery.zalithlauncher.ui.theme.onCardColor
+import com.movtery.zalithlauncher.ui.theme.onItemColor
 import com.movtery.zalithlauncher.utils.animation.getAnimateTween
 import com.movtery.zalithlauncher.utils.file.shareFile
 import com.movtery.zalithlauncher.utils.string.getMessageOrToString
@@ -562,9 +563,8 @@ private fun ControlLayoutItem(
     onSelected: () -> Unit,
     onCopy: () -> Unit,
     onDelete: () -> Unit,
-    color: Color = itemLayoutColor(),
-    contentColor: Color = MaterialTheme.colorScheme.onSurface,
-    shadowElevation: Dp = itemLayoutShadowElevation()
+    color: Color = itemColor(),
+    contentColor: Color = onItemColor(),
 ) {
     val scale = remember { Animatable(initialValue = 0.95f) }
     LaunchedEffect(Unit) {
@@ -575,7 +575,6 @@ private fun ControlLayoutItem(
         color = color,
         contentColor = contentColor,
         shape = MaterialTheme.shapes.large,
-        shadowElevation = shadowElevation,
         onClick = {
             if (selected) return@Surface
             onSelected()
@@ -812,16 +811,14 @@ private fun ControlInfoItem(
     title: String,
     value: String,
     onEdit: () -> Unit,
-    color: Color = itemLayoutColor(),
-    contentColor: Color = MaterialTheme.colorScheme.onSurface,
-    shadowElevation: Dp = itemLayoutShadowElevation()
+    color: Color = itemColor(),
+    contentColor: Color = onItemColor(),
 ) {
     ControlInfoItem(
         modifier = modifier,
         onEdit = onEdit,
         color = color,
         contentColor = contentColor,
-        shadowElevation = shadowElevation
     ) {
         Text(
             text = title,
@@ -840,9 +837,8 @@ private fun ControlInfoItem(
 private fun ControlInfoItem(
     modifier: Modifier = Modifier,
     onEdit: () -> Unit,
-    color: Color = itemLayoutColor(),
-    contentColor: Color = MaterialTheme.colorScheme.onSurface,
-    shadowElevation: Dp = itemLayoutShadowElevation(),
+    color: Color = itemColor(),
+    contentColor: Color = onItemColor(),
     content: @Composable RowScope.() -> Unit
 ) {
     Surface(
@@ -850,7 +846,6 @@ private fun ControlInfoItem(
         color = color,
         contentColor = contentColor,
         shape = MaterialTheme.shapes.large,
-        shadowElevation = shadowElevation,
         onClick = onEdit
     ) {
         Row(
@@ -922,6 +917,8 @@ private fun CreateNewLayoutDialog(
                     .heightIn(max = maxHeight - 12.dp)
                     .wrapContentHeight(),
                 shape = MaterialTheme.shapes.extraLarge,
+                color = cardColor(false),
+                contentColor = onCardColor(),
                 shadowElevation = 6.dp
             ) {
                 Column(

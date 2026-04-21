@@ -57,10 +57,12 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -72,10 +74,8 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.zIndex
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation3.runtime.entryProvider
@@ -89,8 +89,6 @@ import com.movtery.zalithlauncher.setting.AllSettings
 import com.movtery.zalithlauncher.ui.components.BackgroundCard
 import com.movtery.zalithlauncher.ui.components.CardTitleLayout
 import com.movtery.zalithlauncher.ui.components.TextRailItem
-import com.movtery.zalithlauncher.ui.components.itemLayoutColor
-import com.movtery.zalithlauncher.ui.components.itemLayoutShadowElevation
 import com.movtery.zalithlauncher.ui.screens.BackStackNavKey
 import com.movtery.zalithlauncher.ui.screens.NestedNavKey
 import com.movtery.zalithlauncher.ui.screens.NormalNavKey
@@ -110,7 +108,11 @@ import com.movtery.zalithlauncher.ui.screens.content.navigateToDownload
 import com.movtery.zalithlauncher.ui.screens.navigateTo
 import com.movtery.zalithlauncher.ui.screens.onBack
 import com.movtery.zalithlauncher.ui.screens.rememberTransitionSpec
+import com.movtery.zalithlauncher.ui.theme.backgroundColor
 import com.movtery.zalithlauncher.ui.theme.feativals.FestivalTitleText
+import com.movtery.zalithlauncher.ui.theme.itemColor
+import com.movtery.zalithlauncher.ui.theme.onBackgroundColor
+import com.movtery.zalithlauncher.ui.theme.onItemColor
 import com.movtery.zalithlauncher.utils.animation.getAnimateTween
 import com.movtery.zalithlauncher.utils.festival.LocalFestivals
 import com.movtery.zalithlauncher.viewmodel.ErrorViewModel
@@ -159,31 +161,24 @@ fun MainScreen(
     val launcherBackgroundOpacity = AllSettings.launcherBackgroundOpacity.state.toFloat() / 100f
 
     val backgroundColor = if (isBackgroundValid) {
-        MaterialTheme.colorScheme.surface.copy(alpha = launcherBackgroundOpacity)
-    } else MaterialTheme.colorScheme.surface
+        backgroundColor().copy(alpha = launcherBackgroundOpacity)
+    } else backgroundColor()
 
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = backgroundColor,
-        contentColor = MaterialTheme.colorScheme.onSurface
+        contentColor = onBackgroundColor()
     ) {
         Column(modifier = Modifier.fillMaxSize()) {
-            val topBarColor = MaterialTheme.colorScheme.surfaceContainer
             TopBar(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(40.dp)
-                    .zIndex(10f),
+                    .height(40.dp),
                 mainScreenKey = mainScreenKey,
                 inLauncherScreen = inLauncherScreen,
                 taskRunning = tasks.isEmpty(),
                 isTasksExpanded = isTaskMenuExpanded,
-                color = if (isBackgroundValid) {
-                    topBarColor.copy(alpha = launcherBackgroundOpacity)
-                } else {
-                    topBarColor
-                },
-                contentColor = MaterialTheme.colorScheme.onSurface,
+                contentColor = onBackgroundColor(),
                 onScreenBack = {
                     screenBackStackModel.mainScreen.backStack.removeFirstOrNull()
                 },
@@ -246,7 +241,6 @@ private fun <E: TitledNavKey> TopBar(
     taskRunning: Boolean,
     isTasksExpanded: Boolean,
     modifier: Modifier = Modifier,
-    color: Color,
     contentColor: Color,
     onScreenBack: () -> Unit,
     toMainScreen: () -> Unit,
@@ -261,13 +255,10 @@ private fun <E: TitledNavKey> TopBar(
     val inDownloadScreen = mainScreenKey is NestedNavKey.Download
     val inSettingsScreen = mainScreenKey is NestedNavKey.Settings
 
-    Surface(
-        modifier = modifier,
-        color = color,
-        contentColor = contentColor,
-        tonalElevation = 3.dp
+    CompositionLocalProvider(
+        LocalContentColor provides contentColor
     ) {
-        ConstraintLayout {
+        ConstraintLayout(modifier = modifier) {
             val (backCenter, title, endButtons) = createRefs()
 
             val backDispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
@@ -708,9 +699,8 @@ fun TaskItem(
     modifier: Modifier = Modifier,
     influencedByBackground: Boolean = false,
     shape: Shape = MaterialTheme.shapes.large,
-    color: Color = itemLayoutColor(influencedByBackground = influencedByBackground),
-    contentColor: Color = MaterialTheme.colorScheme.onSurface,
-    shadowElevation: Dp = itemLayoutShadowElevation(influencedByBackground = influencedByBackground),
+    color: Color = itemColor(influencedByBackground),
+    contentColor: Color = onItemColor(),
     onCancelClick: () -> Unit = {}
 ) {
     Surface(
@@ -718,7 +708,6 @@ fun TaskItem(
         shape = shape,
         color = color,
         contentColor = contentColor,
-        shadowElevation = shadowElevation
     ) {
         Row(
             modifier = Modifier.padding(all = 8.dp),

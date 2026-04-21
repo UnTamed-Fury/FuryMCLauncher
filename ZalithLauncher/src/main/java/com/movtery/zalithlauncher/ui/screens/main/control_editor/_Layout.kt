@@ -77,8 +77,9 @@ import com.movtery.zalithlauncher.ui.components.LittleTextLabel
 import com.movtery.zalithlauncher.ui.components.MarqueeText
 import com.movtery.zalithlauncher.ui.components.SimpleTextSlider
 import com.movtery.zalithlauncher.ui.components.SliderValueEditDialog
-import com.movtery.zalithlauncher.ui.components.itemLayoutColorOnSurface
 import com.movtery.zalithlauncher.ui.screens.content.elements.DisabledAlpha
+import com.movtery.zalithlauncher.ui.theme.itemColor
+import com.movtery.zalithlauncher.ui.theme.onItemColor
 import com.movtery.zalithlauncher.utils.animation.getAnimateTween
 
 
@@ -95,8 +96,8 @@ fun InfoLayoutSliderItem(
     fineTuningControl: Boolean = true,
     fineTuningStep: Float = 0.5f,
     enabled: Boolean = true,
-    color: Color = itemLayoutColorOnSurface(),
-    contentColor: Color = MaterialTheme.colorScheme.onSurface,
+    color: Color = itemColor(false),
+    contentColor: Color = onItemColor(),
 ) {
     var showValueEditDialog by remember { mutableStateOf(false) }
 
@@ -154,8 +155,8 @@ fun <E> InfoLayoutListItem(
     selectedItem: E,
     onItemSelected: (E) -> Unit,
     getItemText: @Composable (E) -> String,
-    color: Color = itemLayoutColorOnSurface(),
-    contentColor: Color = MaterialTheme.colorScheme.onSurface,
+    color: Color = itemColor(false),
+    contentColor: Color = onItemColor(),
     maxListHeight: Dp = 200.dp
 ) {
     var expanded by remember { mutableStateOf(false) }
@@ -165,7 +166,6 @@ fun <E> InfoLayoutListItem(
         shape = MaterialTheme.shapes.large,
         color = color,
         contentColor = contentColor,
-        shadowElevation = 1.dp
     ) {
         Column(modifier = Modifier.fillMaxWidth()) {
             InfoListLayoutHeader(
@@ -292,8 +292,8 @@ fun InfoLayoutSwitchItem(
     value: Boolean,
     onValueChange: (Boolean) -> Unit,
     enabled: Boolean = true,
-    color: Color = itemLayoutColorOnSurface(),
-    contentColor: Color = MaterialTheme.colorScheme.onSurface
+    color: Color = itemColor(false),
+    contentColor: Color = onItemColor()
 ) {
     InfoLayoutItem(
         modifier = modifier,
@@ -327,8 +327,8 @@ fun <E> InfoLayoutSelectItem(
     current: E,
     onClick: (E) -> Unit,
     label: @Composable SingleChoiceSegmentedButtonRowScope.(E) -> Unit,
-    color: Color = itemLayoutColorOnSurface(),
-    contentColor: Color = MaterialTheme.colorScheme.onSurface
+    color: Color = itemColor(false),
+    contentColor: Color = onItemColor()
 ) {
     InfoLayoutItem(
         modifier = modifier,
@@ -368,8 +368,8 @@ fun InfoLayoutTextItem(
     onClick: () -> Unit,
     showArrow: Boolean = true,
     selected: Boolean = false,
-    color: Color = itemLayoutColorOnSurface(),
-    contentColor: Color = MaterialTheme.colorScheme.onSurface,
+    color: Color = itemColor(false),
+    contentColor: Color = onItemColor(),
     enabled: Boolean = true,
 ) {
     InfoLayoutTextItem(
@@ -400,8 +400,8 @@ fun InfoLayoutTextItem(
     icon: @Composable () -> Unit,
     onClick: () -> Unit,
     selected: Boolean = false,
-    color: Color = itemLayoutColorOnSurface(),
-    contentColor: Color = MaterialTheme.colorScheme.onSurface,
+    color: Color = itemColor(false),
+    contentColor: Color = onItemColor(),
     enabled: Boolean = true,
 ) {
     InfoLayoutItem(
@@ -497,8 +497,8 @@ fun InfoLayoutItem(
     enabled: Boolean = true,
     shape: Shape = MaterialTheme.shapes.large,
     borderColor: Color = MaterialTheme.colorScheme.primary,
-    color: Color = itemLayoutColorOnSurface(),
-    contentColor: Color = MaterialTheme.colorScheme.onSurface,
+    color: Color = itemColor(false),
+    contentColor: Color = onItemColor(),
     content: @Composable RowScope.() -> Unit
 ) {
     val borderWidth by animateDpAsState(
@@ -515,7 +515,6 @@ fun InfoLayoutItem(
         color = color,
         contentColor = contentColor,
         shape = shape,
-        shadowElevation = 1.dp,
         onClick = onClick,
         enabled = enabled
     ) {

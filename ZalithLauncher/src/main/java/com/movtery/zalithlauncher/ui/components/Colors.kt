@@ -18,18 +18,10 @@
 
 package com.movtery.zalithlauncher.ui.components
 
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.NavigationDrawerItemColors
-import androidx.compose.material3.NavigationDrawerItemDefaults
-import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.graphics.toArgb
-import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
 import com.movtery.zalithlauncher.setting.AllSettings
-import com.movtery.zalithlauncher.setting.enums.isLauncherInDarkTheme
 import com.movtery.zalithlauncher.viewmodel.influencedByBackground
 
 /**
@@ -40,45 +32,6 @@ fun Color.desaturate(factor: Float): Color {
     android.graphics.Color.colorToHSV(this.toArgb(), hsv)
     hsv[1] *= factor.coerceIn(0f, 1f)
     return Color(android.graphics.Color.HSVToColor(hsv))
-}
-
-/**
- * 启动器元素颜色
- * @param influencedByBackground 如果启动器设置了背景内容，则根据用户设置的不透明度设置alpha值
- */
-@Composable
-fun itemLayoutColor(
-    influencedByBackground: Boolean = true
-): Color {
-    val color = if (isLauncherInDarkTheme()) {
-        lerp(MaterialTheme.colorScheme.surfaceVariant, Color.Black, 0.15f)
-    } else {
-        MaterialTheme.colorScheme.surface
-    }
-    return influencedByBackgroundColor(
-        color = color,
-        enabled = influencedByBackground
-    )
-}
-
-@Composable
-fun itemLayoutColorOnSurface(elevation: Dp = 2.dp): Color {
-    return MaterialTheme.colorScheme.surfaceColorAtElevation(elevation)
-}
-
-/**
- * 启动器背景元素颜色
- * @param influencedByBackground 如果启动器设置了背景内容，则根据用户设置的不透明度设置alpha值
- */
-@Composable
-fun backgroundLayoutColor(
-    influencedByBackground: Boolean = true
-): Color {
-    val color = MaterialTheme.colorScheme.surfaceColorAtElevation(2.dp)
-    return influencedByBackgroundColor(
-        color = color,
-        enabled = influencedByBackground
-    )
 }
 
 /**
@@ -95,21 +48,5 @@ fun influencedByBackgroundColor(
         value = color,
         influenced = color.copy(alpha = influencedAlpha),
         enabled = enabled
-    )
-}
-
-/**
- * 在 secondaryContainer 背景上使用的 NavigationDrawerItem 颜色
- */
-@Composable
-fun secondaryContainerDrawerItemColors(): NavigationDrawerItemColors {
-    val colorScheme = MaterialTheme.colorScheme
-    return NavigationDrawerItemDefaults.colors(
-        selectedContainerColor = colorScheme.secondaryContainer.desaturate(0.5f),
-        unselectedContainerColor = Color.Transparent,
-        selectedIconColor = colorScheme.onSecondaryContainer,
-        unselectedIconColor = colorScheme.onSurface,
-        selectedTextColor = colorScheme.onSecondaryContainer,
-        unselectedTextColor = colorScheme.onSurface,
     )
 }

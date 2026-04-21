@@ -49,13 +49,15 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.movtery.layer_controller.observable.ObservableControlLayer
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.ui.components.MarqueeText
-import com.movtery.zalithlauncher.ui.components.itemLayoutColorOnSurface
+import com.movtery.zalithlauncher.ui.theme.cardColor
+import com.movtery.zalithlauncher.ui.theme.itemColor
+import com.movtery.zalithlauncher.ui.theme.onCardColor
+import com.movtery.zalithlauncher.ui.theme.onItemColor
 
 @Composable
 fun SelectLayers(
@@ -82,6 +84,8 @@ fun SelectLayers(
                     .heightIn(max = maxHeight - 12.dp)
                     .wrapContentHeight(),
                 shape = MaterialTheme.shapes.extraLarge,
+                color = cardColor(false),
+                contentColor = onCardColor(),
                 shadowElevation = 6.dp
             ) {
                 Column(
@@ -139,16 +143,14 @@ private fun ChoseLayersLayout(
     onLayerSelected: (ObservableControlLayer) -> Unit,
     onLayerUnSelected: (ObservableControlLayer) -> Unit,
     shape: Shape = MaterialTheme.shapes.large,
-    color: Color = itemLayoutColorOnSurface(),
-    contentColor: Color = MaterialTheme.colorScheme.onSurface,
-    shadowElevation: Dp = 1.dp,
+    color: Color = itemColor(false),
+    contentColor: Color = onItemColor(),
 ) {
     Surface(
         modifier = modifier,
         shape = shape,
         color = color,
         contentColor = contentColor,
-        shadowElevation = shadowElevation
     ) {
         if (layers.isNotEmpty()) {
             val listState = rememberLazyListState()

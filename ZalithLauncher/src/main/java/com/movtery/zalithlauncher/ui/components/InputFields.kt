@@ -55,6 +55,8 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.movtery.zalithlauncher.ui.theme.cardColor
+import com.movtery.zalithlauncher.ui.theme.onCardColor
 import com.movtery.zalithlauncher.utils.string.toSingleLine
 
 @Composable
@@ -63,8 +65,8 @@ fun SimpleTextInputField(
     value: String,
     onValueChange: (String) -> Unit,
     hint: (@Composable () -> Unit)? = null,
-    color: Color = MaterialTheme.colorScheme.surfaceContainer,
-    contentColor: Color = MaterialTheme.colorScheme.onSurface,
+    color: Color = cardColor(),
+    contentColor: Color = onCardColor(),
     shape: Shape = RoundedCornerShape(percent = 50),
     contextPadding: PaddingValues = PaddingValues(horizontal = 12.dp, vertical = 8.dp),
     textStyle: TextStyle = TextStyle(color = contentColor).copy(fontSize = 12.sp),

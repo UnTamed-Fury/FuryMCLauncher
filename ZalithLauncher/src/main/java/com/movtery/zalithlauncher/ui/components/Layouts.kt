@@ -52,9 +52,10 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.movtery.zalithlauncher.R
+import com.movtery.zalithlauncher.ui.theme.itemColor
+import com.movtery.zalithlauncher.ui.theme.onItemColor
 import com.movtery.zalithlauncher.utils.animation.getAnimateTween
 
 @Composable
@@ -63,9 +64,8 @@ fun ScalingLabel(
     text: String,
     influencedByBackground: Boolean = true,
     shape: Shape = MaterialTheme.shapes.extraLarge,
-    color: Color = itemLayoutColor(influencedByBackground = influencedByBackground),
-    contentColor: Color = MaterialTheme.colorScheme.onSurface,
-    shadowElevation: Dp = itemLayoutShadowElevation(influencedByBackground = influencedByBackground)
+    color: Color = itemColor(influencedByBackground),
+    contentColor: Color = onItemColor()
 ) {
     val scale = remember { Animatable(initialValue = 0.95f) }
     LaunchedEffect(Unit) {
@@ -75,8 +75,7 @@ fun ScalingLabel(
         modifier = modifier.graphicsLayer(scaleY = scale.value, scaleX = scale.value),
         shape = shape,
         color = color,
-        contentColor = contentColor,
-        shadowElevation = shadowElevation
+        contentColor = contentColor
     ) {
         Text(
             modifier = Modifier.padding(PaddingValues(horizontal = 12.dp, vertical = 8.dp)),
@@ -92,9 +91,8 @@ fun ScalingLabel(
     text: String,
     influencedByBackground: Boolean = true,
     shape: Shape = MaterialTheme.shapes.extraLarge,
-    color: Color = itemLayoutColor(influencedByBackground = influencedByBackground),
-    contentColor: Color = MaterialTheme.colorScheme.onSurface,
-    shadowElevation: Dp = itemLayoutShadowElevation(influencedByBackground = influencedByBackground)
+    color: Color = itemColor(influencedByBackground = influencedByBackground),
+    contentColor: Color = onItemColor(),
 ) {
     val scale = remember { Animatable(initialValue = 0.95f) }
     LaunchedEffect(Unit) {
@@ -105,7 +103,6 @@ fun ScalingLabel(
         shape = shape,
         color = color,
         contentColor = contentColor,
-        shadowElevation = shadowElevation,
         onClick = onClick
     ) {
         Text(

@@ -65,6 +65,8 @@ import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.ui.components.MarqueeText
 import com.movtery.zalithlauncher.ui.components.SimpleAlertDialog
 import com.movtery.zalithlauncher.ui.components.fadeEdge
+import com.movtery.zalithlauncher.ui.theme.cardColor
+import com.movtery.zalithlauncher.ui.theme.onCardColor
 import com.movtery.zalithlauncher.utils.logging.Logger.lInfo
 import com.movtery.zalithlauncher.viewmodel.GamepadRemapperViewModel
 import kotlinx.coroutines.delay
@@ -261,6 +263,8 @@ fun GamepadRemapperDialog(
                             .fillMaxHeight(0.85f)
                             .padding(all = 6.dp),
                         shape = MaterialTheme.shapes.extraLarge,
+                        color = cardColor(false),
+                        contentColor = onCardColor(),
                         shadowElevation = 6.dp
                     ) {
                         Column(

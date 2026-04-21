@@ -84,12 +84,13 @@ import com.movtery.zalithlauncher.game.version.installed.VersionsManager.isVersi
 import com.movtery.zalithlauncher.ui.base.BaseScreen
 import com.movtery.zalithlauncher.ui.components.AnimatedColumn
 import com.movtery.zalithlauncher.ui.components.SimpleTextInputField
-import com.movtery.zalithlauncher.ui.components.backgroundLayoutColor
 import com.movtery.zalithlauncher.ui.screens.NestedNavKey
 import com.movtery.zalithlauncher.ui.screens.NormalNavKey
 import com.movtery.zalithlauncher.ui.screens.TitledNavKey
 import com.movtery.zalithlauncher.ui.screens.content.elements.CommonVersionInfoLayout
 import com.movtery.zalithlauncher.ui.screens.content.elements.isFilenameInvalid
+import com.movtery.zalithlauncher.ui.theme.cardColor
+import com.movtery.zalithlauncher.ui.theme.onCardColor
 import com.movtery.zalithlauncher.utils.animation.getAnimateTween
 import com.movtery.zalithlauncher.utils.animation.swapAnimateDpAsState
 import kotlinx.coroutines.cancel
@@ -265,15 +266,12 @@ fun DownloadGameWithAddonScreen(
                 .fillMaxSize()
                 .offset { IntOffset(x = 0, y = yOffset.roundToPx()) }
         ) {
-            val itemContainerColor = backgroundLayoutColor()
-            val itemContentColor = MaterialTheme.colorScheme.onSurface
-
             ScreenHeader(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 12.dp),
-                itemContainerColor = itemContainerColor,
-                itemContentColor = itemContentColor,
+                itemContainerColor = cardColor(),
+                itemContentColor = onCardColor(),
                 gameVersion = key.gameVersion,
                 currentAddon = viewModel.currentAddon,
                 refreshIcon = viewModel.refreshIcon,

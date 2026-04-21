@@ -60,6 +60,8 @@ import com.movtery.colorpicker.components.AlphaBarPicker
 import com.movtery.colorpicker.components.ColorSquarePicker
 import com.movtery.colorpicker.components.HueBarPicker
 import com.movtery.zalithlauncher.R
+import com.movtery.zalithlauncher.ui.theme.cardColor
+import com.movtery.zalithlauncher.ui.theme.onCardColor
 import com.movtery.zalithlauncher.utils.logging.Logger.lDebug
 
 /**
@@ -108,6 +110,8 @@ fun ColorPickerDialog(
                     .heightIn(max = maxHeight - 32.dp)
                     .wrapContentHeight(),
                 shadowElevation = 3.dp,
+                color = cardColor(false),
+                contentColor = onCardColor(),
                 shape = MaterialTheme.shapes.extraLarge
             ) {
                 Column(

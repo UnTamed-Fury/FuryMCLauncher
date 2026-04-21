@@ -18,7 +18,6 @@
 
 package com.movtery.zalithlauncher.ui.screens.splash
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -26,10 +25,10 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -41,6 +40,7 @@ import com.movtery.zalithlauncher.components.InstallableItem
 import com.movtery.zalithlauncher.info.InfoDistributor
 import com.movtery.zalithlauncher.ui.screens.NormalNavKey
 import com.movtery.zalithlauncher.ui.screens.rememberTransitionSpec
+import com.movtery.zalithlauncher.ui.theme.onBackgroundColor
 import com.movtery.zalithlauncher.viewmodel.SplashBackStackViewModel
 
 /**
@@ -60,37 +60,30 @@ fun SplashScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(40.dp),
-            color = MaterialTheme.colorScheme.surfaceContainer
+            contentColor = onBackgroundColor()
         )
 
-        Surface(
+        NavigationUI(
             modifier = Modifier
                 .weight(1f)
-                .fillMaxWidth()
-        ) {
-            NavigationUI(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(color = MaterialTheme.colorScheme.surface),
-                startAllTask = startAllTask,
-                unpackItems = unpackItems,
-                screenViewModel = screenViewModel
-            )
-        }
+                .fillMaxWidth(),
+            startAllTask = startAllTask,
+            unpackItems = unpackItems,
+            screenViewModel = screenViewModel
+        )
     }
 }
 
 @Composable
 private fun TopBar(
     modifier: Modifier = Modifier,
-    color: Color
+    contentColor: Color,
 ) {
-    Surface(
-        modifier = modifier,
-        color = color,
-        tonalElevation = 3.dp
+    CompositionLocalProvider(
+        LocalContentColor provides contentColor
     ) {
         Row(
+            modifier = modifier,
             horizontalArrangement = Arrangement.Center
         ) {
             Text(

@@ -134,7 +134,7 @@ fun ExportInfoScreen(
         AnimatedLazyColumn(
             isVisible = isVisible,
             contentPadding = PaddingValues(all = 16.dp),
-            verticalArrangement = Arrangement.spacedBy(4.dp)
+            verticalArrangement = Arrangement.spacedBy(2.dp)
         ) { scope ->
             //整合包名称/版本编辑
             animatedItem(scope) { yOffset ->
@@ -143,7 +143,7 @@ fun ExportInfoScreen(
                         .fillMaxWidth()
                         .height(IntrinsicSize.Min)
                         .offset { IntOffset(x = 0, y = yOffset.roundToPx()) },
-                    horizontalArrangement = Arrangement.spacedBy(4.dp)
+                    horizontalArrangement = Arrangement.spacedBy(2.dp)
                 ) {
                     TextInputSettingsCard(
                         modifier = Modifier

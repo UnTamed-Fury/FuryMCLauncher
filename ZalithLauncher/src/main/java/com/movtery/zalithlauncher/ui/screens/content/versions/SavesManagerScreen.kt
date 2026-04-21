@@ -111,8 +111,6 @@ import com.movtery.zalithlauncher.ui.components.SimpleAlertDialog
 import com.movtery.zalithlauncher.ui.components.SimpleTextInputField
 import com.movtery.zalithlauncher.ui.components.TooltipIconButton
 import com.movtery.zalithlauncher.ui.components.fadeEdge
-import com.movtery.zalithlauncher.ui.components.itemLayoutColor
-import com.movtery.zalithlauncher.ui.components.itemLayoutShadowElevation
 import com.movtery.zalithlauncher.ui.screens.NestedNavKey
 import com.movtery.zalithlauncher.ui.screens.NormalNavKey
 import com.movtery.zalithlauncher.ui.screens.TitledNavKey
@@ -127,6 +125,8 @@ import com.movtery.zalithlauncher.ui.screens.content.versions.elements.SavesFilt
 import com.movtery.zalithlauncher.ui.screens.content.versions.elements.SavesOperation
 import com.movtery.zalithlauncher.ui.screens.content.versions.elements.filterSaves
 import com.movtery.zalithlauncher.ui.screens.content.versions.layouts.VersionChunkBackground
+import com.movtery.zalithlauncher.ui.theme.itemColor
+import com.movtery.zalithlauncher.ui.theme.onItemColor
 import com.movtery.zalithlauncher.utils.animation.getAnimateTween
 import com.movtery.zalithlauncher.utils.animation.swapAnimateDpAsState
 import com.movtery.zalithlauncher.utils.copyText
@@ -396,8 +396,8 @@ private fun SavesActionsHeader(
     swapToDownload: () -> Unit,
     refreshSaves: () -> Unit,
     submitError: (ErrorViewModel.ThrowableMessage) -> Unit,
-    inputFieldColor: Color = itemLayoutColor(),
-    inputFieldContentColor: Color = MaterialTheme.colorScheme.onSurface
+    inputFieldColor: Color = itemColor(),
+    inputFieldContentColor: Color = onItemColor()
 ) {
     CardTitleLayout(modifier = modifier) {
         BoxWithConstraints(
@@ -576,9 +576,8 @@ private fun SaveItemLayout(
     onClick: () -> Unit = {},
     updateOperation: (SavesOperation) -> Unit = {},
     shape: Shape = MaterialTheme.shapes.large,
-    itemColor: Color = itemLayoutColor(),
-    itemContentColor: Color = MaterialTheme.colorScheme.onSurface,
-    shadowElevation: Dp = itemLayoutShadowElevation()
+    itemColor: Color = itemColor(),
+    itemContentColor: Color = onItemColor(),
 ) {
     //存档是否与当前 MC 版本兼容
     val isCompatible = saveData.isCompatible(minecraftVersion)
@@ -596,7 +595,6 @@ private fun SaveItemLayout(
         shape = shape,
         color = itemColor,
         contentColor = itemContentColor,
-        shadowElevation = shadowElevation
     ) {
         Row(
             modifier = Modifier.padding(all = 8.dp),

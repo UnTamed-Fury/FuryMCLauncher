@@ -75,6 +75,8 @@ import com.movtery.zalithlauncher.ui.screens.content.elements.CategoryItem
 import com.movtery.zalithlauncher.ui.screens.rememberSwapTween
 import com.movtery.zalithlauncher.ui.screens.rememberTitledNavBackStack
 import com.movtery.zalithlauncher.ui.screens.rememberTransitionSpec
+import com.movtery.zalithlauncher.ui.theme.cardColor
+import com.movtery.zalithlauncher.ui.theme.onCardColor
 
 private enum class EditWidgetDialogState(val alpha: Float, val buttonText: Int) {
     /** 完全不透明 */
@@ -160,6 +162,8 @@ fun EditWidgetDialog(
                         .fillMaxHeight()
                         .padding(all = 16.dp),
                     shadowElevation = 3.dp,
+                    color = cardColor(false),
+                    contentColor = onCardColor(),
                     shape = MaterialTheme.shapes.extraLarge
                 ) {
                     Column(

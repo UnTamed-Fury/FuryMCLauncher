@@ -84,7 +84,6 @@ import com.movtery.zalithlauncher.ui.components.IconTextButton
 import com.movtery.zalithlauncher.ui.components.ScalingLabel
 import com.movtery.zalithlauncher.ui.components.ShimmerBox
 import com.movtery.zalithlauncher.ui.components.SimpleTextInputField
-import com.movtery.zalithlauncher.ui.components.backgroundLayoutColor
 import com.movtery.zalithlauncher.ui.screens.NestedNavKey
 import com.movtery.zalithlauncher.ui.screens.NormalNavKey
 import com.movtery.zalithlauncher.ui.screens.TitledNavKey
@@ -96,6 +95,8 @@ import com.movtery.zalithlauncher.ui.screens.content.download.assets.elements.Sc
 import com.movtery.zalithlauncher.ui.screens.content.download.assets.elements.VersionInfoMap
 import com.movtery.zalithlauncher.ui.screens.content.download.assets.elements.initAll
 import com.movtery.zalithlauncher.ui.screens.content.download.assets.elements.mapWithVersions
+import com.movtery.zalithlauncher.ui.theme.cardColor
+import com.movtery.zalithlauncher.ui.theme.onCardColor
 import com.movtery.zalithlauncher.utils.animation.swapAnimateDpAsState
 import com.movtery.zalithlauncher.utils.isChinese
 import com.movtery.zalithlauncher.utils.string.isNotEmptyOrBlank
@@ -432,14 +433,14 @@ private fun Versions(
                         modifier = Modifier.weight(1f),
                         value = viewModel.searchMCVersion,
                         onValueChange = { viewModel.filterWith(searchMCVersion = it) },
-                        color = backgroundLayoutColor(),
-                        contentColor = MaterialTheme.colorScheme.onSurface,
+                        color = cardColor(),
+                        contentColor = onCardColor(),
                         singleLine = true,
-                        textStyle = TextStyle(color = MaterialTheme.colorScheme.onSurface).copy(fontSize = 12.sp),
+                        textStyle = TextStyle(color = onCardColor()).copy(fontSize = 12.sp),
                         hint = {
                             Text(
                                 text = stringResource(R.string.download_assets_search_mc_versions),
-                                style = TextStyle(color = MaterialTheme.colorScheme.onSurface).copy(fontSize = 12.sp)
+                                style = TextStyle(color = onCardColor()).copy(fontSize = 12.sp)
                             )
                         }
                     )

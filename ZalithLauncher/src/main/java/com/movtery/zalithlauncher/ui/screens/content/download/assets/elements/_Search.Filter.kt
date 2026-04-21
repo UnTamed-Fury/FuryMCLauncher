@@ -85,7 +85,8 @@ import com.movtery.zalithlauncher.game.download.assets.platform.PlatformSortFiel
 import com.movtery.zalithlauncher.game.download.assets.utils.ModTranslations
 import com.movtery.zalithlauncher.ui.components.LittleTextLabel
 import com.movtery.zalithlauncher.ui.components.OwnOutlinedTextField
-import com.movtery.zalithlauncher.ui.components.backgroundLayoutColor
+import com.movtery.zalithlauncher.ui.theme.cardColor
+import com.movtery.zalithlauncher.ui.theme.onCardColor
 import com.movtery.zalithlauncher.utils.animation.getAnimateTween
 
 /**
@@ -403,8 +404,8 @@ private fun <E> SuggestionsText(
 fun BaseFilterLayout(
     modifier: Modifier = Modifier,
     shape: Shape = MaterialTheme.shapes.large,
-    color: Color = backgroundLayoutColor(),
-    contentColor: Color = MaterialTheme.colorScheme.onSurface,
+    color: Color = cardColor(),
+    contentColor: Color = onCardColor(),
     onClick: (() -> Unit)? = null,
     content: @Composable () -> Unit
 ) {

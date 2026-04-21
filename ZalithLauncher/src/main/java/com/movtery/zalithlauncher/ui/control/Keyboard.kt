@@ -65,10 +65,14 @@ import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.game.keycodes.ControlEventKeycode
 import com.movtery.zalithlauncher.ui.components.AutoSizeText
 import com.movtery.zalithlauncher.ui.components.MarqueeText
-import com.movtery.zalithlauncher.ui.components.itemLayoutColorOnSurface
 import com.movtery.zalithlauncher.ui.control.gamepad.SPECIAL_KEY_MOUSE_SCROLL_DOWN
 import com.movtery.zalithlauncher.ui.control.gamepad.SPECIAL_KEY_MOUSE_SCROLL_UP
 import com.movtery.zalithlauncher.ui.screens.main.control_editor.InfoLayoutTextItem
+import com.movtery.zalithlauncher.ui.theme.cardColor
+import com.movtery.zalithlauncher.ui.theme.cardTitleColor
+import com.movtery.zalithlauncher.ui.theme.itemColor
+import com.movtery.zalithlauncher.ui.theme.onCardColor
+import com.movtery.zalithlauncher.ui.theme.onItemColor
 
 private data class TabItem(val title: String)
 
@@ -463,11 +467,16 @@ private fun KeyboardNavDialog(
         Surface(
             modifier = Modifier.fillMaxWidth(0.75f),
             shadowElevation = 3.dp,
-            shape = MaterialTheme.shapes.extraLarge
+            shape = MaterialTheme.shapes.extraLarge,
+            color = cardColor(false),
+            contentColor = onCardColor(),
         ) {
             Column {
                 //顶贴标签栏
-                SecondaryTabRow(selectedTabIndex = selectedTabIndex) {
+                SecondaryTabRow(
+                    selectedTabIndex = selectedTabIndex,
+                    containerColor = cardTitleColor()
+                ) {
                     tabs.forEachIndexed { index, item ->
                         Tab(
                             selected = index == selectedTabIndex,
@@ -590,8 +599,8 @@ private fun KeyButton(
     onSwitch: (identifier: String, pressed: Boolean) -> Unit,
     refreshed: Any? = null,
     isSelected: (String) -> Boolean,
-    color: Color = itemLayoutColorOnSurface(3.dp),
-    contentColor: Color = MaterialTheme.colorScheme.onSurface,
+    color: Color = itemColor(false),
+    contentColor: Color = onItemColor(),
     shape: Shape = MaterialTheme.shapes.medium,
     borderColor: Color = MaterialTheme.colorScheme.primary,
     style: TextStyle = MaterialTheme.typography.labelSmall,

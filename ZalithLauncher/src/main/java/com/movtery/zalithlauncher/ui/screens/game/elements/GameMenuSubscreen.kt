@@ -64,6 +64,7 @@ import com.movtery.zalithlauncher.ui.components.MenuSwitchButton
 import com.movtery.zalithlauncher.ui.components.MenuTextButton
 import com.movtery.zalithlauncher.ui.control.HotbarRule
 import com.movtery.zalithlauncher.ui.control.gyroscope.isGyroscopeAvailable
+import com.movtery.zalithlauncher.ui.theme.cardTitleColor
 import com.movtery.zalithlauncher.viewmodel.GamepadViewModel
 
 private sealed interface IconTab {
@@ -120,7 +121,8 @@ fun GameMenuSubscreen(
                 SecondaryScrollableTabRow(
                     selectedTabIndex = controlMenuTabIndex,
                     edgePadding = 0.dp,
-                    minTabWidth = 58.dp
+                    minTabWidth = 58.dp,
+                    containerColor = cardTitleColor(),
                 ) {
                     controlTabs.forEachIndexed { index, iconTab ->
                         Tab(

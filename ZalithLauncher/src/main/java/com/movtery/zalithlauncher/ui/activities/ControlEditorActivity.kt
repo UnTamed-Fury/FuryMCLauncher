@@ -34,6 +34,8 @@ import com.movtery.zalithlauncher.ui.base.BaseAppCompatActivity
 import com.movtery.zalithlauncher.ui.screens.content.elements.Background
 import com.movtery.zalithlauncher.ui.screens.main.control_editor.ControlEditor
 import com.movtery.zalithlauncher.ui.theme.ZalithLauncherTheme
+import com.movtery.zalithlauncher.ui.theme.backgroundColor
+import com.movtery.zalithlauncher.ui.theme.onBackgroundColor
 import com.movtery.zalithlauncher.viewmodel.BackgroundViewModel
 import com.movtery.zalithlauncher.viewmodel.EditorViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -79,7 +81,11 @@ class ControlEditorActivity : BaseAppCompatActivity() {
             ZalithLauncherTheme(
                 backgroundViewModel = backgroundViewModel
             ) {
-                Surface(modifier = Modifier.fillMaxSize()) {
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = backgroundColor(),
+                    contentColor = onBackgroundColor()
+                ) {
                     BoxWithConstraints(
                         modifier = Modifier.fillMaxSize()
                     ) {

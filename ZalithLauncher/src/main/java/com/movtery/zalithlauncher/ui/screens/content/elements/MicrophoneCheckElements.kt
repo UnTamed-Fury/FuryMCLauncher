@@ -61,7 +61,9 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.ui.components.MarqueeText
-import com.movtery.zalithlauncher.ui.components.itemLayoutColorOnSurface
+import com.movtery.zalithlauncher.ui.theme.cardColor
+import com.movtery.zalithlauncher.ui.theme.itemColor
+import com.movtery.zalithlauncher.ui.theme.onCardColor
 import com.movtery.zalithlauncher.utils.microphone.MicMeter
 
 sealed interface MicrophoneCheckState {
@@ -150,6 +152,8 @@ fun MicrophoneCheckDialog(
                     .heightIn(max = maxHeight - 12.dp)
                     .wrapContentHeight(),
                 shape = MaterialTheme.shapes.extraLarge,
+                color = cardColor(false),
+                contentColor = onCardColor(),
                 shadowElevation = 6.dp
             ) {
                 Column(
@@ -191,7 +195,7 @@ fun VoiceDbShower(
     modifier: Modifier = Modifier,
     height: Dp = 24.dp,
     shape: Shape = RoundedCornerShape(50.dp),
-    backgroundColor: Color = itemLayoutColorOnSurface()
+    backgroundColor: Color = itemColor()
 ) {
     val normalizedDb = level.coerceIn(0.0, 100.0) //0~100db
     val progress by animateFloatAsState((normalizedDb / 100.0f).toFloat())

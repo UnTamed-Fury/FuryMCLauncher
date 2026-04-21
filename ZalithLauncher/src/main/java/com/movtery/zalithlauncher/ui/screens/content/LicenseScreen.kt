@@ -43,6 +43,8 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import com.movtery.zalithlauncher.ui.base.BaseScreen
 import com.movtery.zalithlauncher.ui.screens.NormalNavKey
+import com.movtery.zalithlauncher.ui.theme.backgroundColor
+import com.movtery.zalithlauncher.ui.theme.onBackgroundColor
 import com.movtery.zalithlauncher.utils.animation.swapAnimateDpAsState
 import com.movtery.zalithlauncher.viewmodel.ScreenBackStackViewModel
 
@@ -74,7 +76,9 @@ fun LicenseScreen(
         Surface(
             modifier = Modifier.fillMaxSize()
                 .offset { IntOffset(x = 0, y = yOffset.roundToPx())
-            }
+            },
+            color = backgroundColor(),
+            contentColor = onBackgroundColor()
         ) {
             when (licenseState) {
                 LicenseState.LOADING -> {

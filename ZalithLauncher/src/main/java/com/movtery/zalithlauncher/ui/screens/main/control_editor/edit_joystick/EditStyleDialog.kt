@@ -62,12 +62,15 @@ import com.movtery.layer_controller.observable.ObservableJoystickStyleConfig
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.setting.unit.toFloatRange
 import com.movtery.zalithlauncher.ui.components.MarqueeText
-import com.movtery.zalithlauncher.ui.components.itemLayoutColorOnSurface
 import com.movtery.zalithlauncher.ui.control.joystick.StyleableJoystick
 import com.movtery.zalithlauncher.ui.screens.main.control_editor.InfoLayoutColorItem
 import com.movtery.zalithlauncher.ui.screens.main.control_editor.InfoLayoutSliderItem
 import com.movtery.zalithlauncher.ui.screens.main.control_editor.InfoLayoutTextItem
 import com.movtery.zalithlauncher.ui.screens.rememberSwapTween
+import com.movtery.zalithlauncher.ui.theme.cardColor
+import com.movtery.zalithlauncher.ui.theme.itemColor
+import com.movtery.zalithlauncher.ui.theme.onCardColor
+import com.movtery.zalithlauncher.ui.theme.onItemColor
 
 private data class TabItem(val titleRes: Int)
 
@@ -142,6 +145,8 @@ fun EditJoystickStyleDialog(
                         .fillMaxHeight()
                         .padding(all = 16.dp),
                     shadowElevation = 3.dp,
+                    color = cardColor(false),
+                    contentColor = onCardColor(),
                     shape = MaterialTheme.shapes.extraLarge
                 ) {
                     Row(
@@ -184,7 +189,10 @@ fun EditJoystickStyleDialog(
                                 .fillMaxHeight()
                         ) {
                             //顶贴标签栏
-                            SecondaryTabRow(selectedTabIndex = selectedTabIndex) {
+                            SecondaryTabRow(
+                                selectedTabIndex = selectedTabIndex,
+                                containerColor = cardColor(false)
+                            ) {
                                 tabs.forEachIndexed { index, item ->
                                     Tab(
                                         selected = index == selectedTabIndex,
@@ -410,8 +418,8 @@ private fun RenderBox(
     style: ObservableJoystickStyle,
     isDarkMode: Boolean,
     modifier: Modifier = Modifier,
-    color: Color = itemLayoutColorOnSurface(3.dp),
-    contentColor: Color = MaterialTheme.colorScheme.onSurface,
+    color: Color = itemColor(false),
+    contentColor: Color = onItemColor(),
     shape: Shape = MaterialTheme.shapes.large
 ) {
     Surface(

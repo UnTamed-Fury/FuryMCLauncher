@@ -92,7 +92,8 @@ import com.movtery.zalithlauncher.game.download.assets.utils.ModTranslations
 import com.movtery.zalithlauncher.game.download.assets.utils.getMcmodTitle
 import com.movtery.zalithlauncher.ui.components.ScalingLabel
 import com.movtery.zalithlauncher.ui.components.SmallOutlinedEditField
-import com.movtery.zalithlauncher.ui.components.backgroundLayoutColor
+import com.movtery.zalithlauncher.ui.theme.cardColor
+import com.movtery.zalithlauncher.ui.theme.onCardColor
 import com.movtery.zalithlauncher.utils.animation.getAnimateTween
 import com.movtery.zalithlauncher.utils.formatNumberByLocale
 import com.movtery.zalithlauncher.utils.string.isEmptyOrBlank
@@ -228,8 +229,8 @@ private fun PageController(
     modifier: Modifier = Modifier,
     page: AssetsPage,
     shape: Shape = MaterialTheme.shapes.large,
-    color: Color = backgroundLayoutColor(),
-    contentColor: Color = MaterialTheme.colorScheme.onSurface,
+    color: Color = cardColor(),
+    contentColor: Color = onCardColor(),
     onPreviousPage: () -> Unit,
     onNextPage: () -> Unit,
     onNavigatePage: (Int) -> Unit
@@ -416,8 +417,8 @@ private fun ResultItemLayout(
     modloaders: List<PlatformDisplayLabel>? = null,
     categories: List<PlatformFilterCode>? = null,
     shape: Shape = MaterialTheme.shapes.large,
-    color: Color = backgroundLayoutColor(),
-    contentColor: Color = MaterialTheme.colorScheme.onSurface,
+    color: Color = cardColor(),
+    contentColor: Color = onCardColor(),
     onClick: () -> Unit = {}
 ) {
     val context = LocalContext.current

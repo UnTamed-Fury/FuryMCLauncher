@@ -19,13 +19,10 @@
 package com.movtery.zalithlauncher.ui.screens.main
 
 import android.content.res.Configuration
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -39,12 +36,13 @@ import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -54,19 +52,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.zIndex
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.info.InfoDistributor
 import com.movtery.zalithlauncher.ui.activities.CrashType
 import com.movtery.zalithlauncher.ui.components.BackgroundCard
 import com.movtery.zalithlauncher.ui.components.MarqueeText
 import com.movtery.zalithlauncher.ui.components.ScalingActionButton
-import com.movtery.zalithlauncher.viewmodel.CrashLogsUploadViewModel
+import com.movtery.zalithlauncher.ui.theme.onBackgroundColor
 
 @Composable
 fun ErrorScreen(
-    viewModel: CrashLogsUploadViewModel,
     crashType: CrashType,
     shareLogs: Boolean = true,
     canUpload: Boolean = false,
@@ -124,49 +121,39 @@ private fun ErrorScreenLandscape(
     body: @Composable ColumnScope.() -> Unit
 ) {
     Column(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize(),
     ) {
         TopBar(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(40.dp)
-                .zIndex(10f),
+                .height(40.dp),
             crashType = crashType,
-            color = MaterialTheme.colorScheme.surfaceContainer,
-            contentColor = MaterialTheme.colorScheme.onSurface
+            contentColor = onBackgroundColor()
         )
 
-        Box(
+        Row(
             modifier = Modifier
-                .fillMaxWidth()
+                .fillMaxSize()
                 .weight(1f)
+                .padding(start = 16.dp, end = 16.dp, bottom = 16.dp),
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            Row(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(color = MaterialTheme.colorScheme.surface)
-            ) {
-                ErrorContent(
-                    modifier = Modifier
-                        .weight(7f)
-                        .padding(start = 12.dp, top = 12.dp, bottom = 12.dp),
-                    body = body
-                )
+            ErrorContent(
+                modifier = Modifier.weight(7f),
+                body = body
+            )
 
-                ActionContext(
-                    modifier = Modifier
-                        .weight(3f)
-                        .padding(all = 12.dp),
-                    crashType = crashType,
-                    shareLogs = shareLogs,
-                    canUpload = canUpload,
-                    canRestart = canRestart,
-                    onShareLogsClick = onShareLogsClick,
-                    onUploadClick = onUploadClick,
-                    onRestartClick = onRestartClick,
-                    onExitClick = onExitClick
-                )
-            }
+            ActionLayout(
+                modifier = Modifier.weight(3f),
+                crashType = crashType,
+                shareLogs = shareLogs,
+                canUpload = canUpload,
+                canRestart = canRestart,
+                onShareLogsClick = onShareLogsClick,
+                onUploadClick = onUploadClick,
+                onRestartClick = onRestartClick,
+                onExitClick = onExitClick
+            )
         }
     }
 }
@@ -294,17 +281,13 @@ private fun ErrorScreenPortrait(
 private fun TopBar(
     modifier: Modifier = Modifier,
     crashType: CrashType,
-    color: Color,
     contentColor: Color
 ) {
-    Surface(
-        modifier = modifier,
-        color = color,
-        contentColor = contentColor,
-        tonalElevation = 3.dp
+    CompositionLocalProvider(
+        LocalContentColor provides contentColor
     ) {
         Column(
-            modifier = Modifier.fillMaxSize(),
+            modifier = modifier.fillMaxSize(),
             verticalArrangement = Arrangement.Center
         ) {
             val text = when (crashType) {
@@ -343,7 +326,7 @@ private fun ErrorContent(
 }
 
 @Composable
-private fun ActionContext(
+private fun ActionLayout(
     modifier: Modifier = Modifier,
     crashType: CrashType,
     shareLogs: Boolean,
@@ -354,15 +337,9 @@ private fun ActionContext(
     onRestartClick: () -> Unit = {},
     onExitClick: () -> Unit = {}
 ) {
-    BackgroundCard(
-        modifier = modifier,
-        influencedByBackground = false,
-        shape = MaterialTheme.shapes.extraLarge
-    ) {
+    Column(modifier = modifier) {
         Column(
-            modifier = Modifier
-                .padding(all = 16.dp)
-                .weight(1f),
+            modifier = Modifier.weight(1f),
             verticalArrangement = Arrangement.Top
         ) {
             Text(
@@ -375,8 +352,7 @@ private fun ActionContext(
         }
 
         Column(
-            modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
-            verticalArrangement = Arrangement.Bottom
+            verticalArrangement = Arrangement.spacedBy(4.dp, Alignment.Bottom)
         ) {
             if (canUpload) {
                 ScalingActionButton(
@@ -385,7 +361,6 @@ private fun ActionContext(
                 ) {
                     MarqueeText(text = stringResource(R.string.crash_link_share_button))
                 }
-                Spacer(modifier = Modifier.height(4.dp))
             }
             if (shareLogs) {
                 ScalingActionButton(
@@ -394,7 +369,6 @@ private fun ActionContext(
                 ) {
                     MarqueeText(text = stringResource(R.string.crash_share_logs))
                 }
-                Spacer(modifier = Modifier.height(4.dp))
             }
             if (canRestart) {
                 ScalingActionButton(
@@ -403,7 +377,6 @@ private fun ActionContext(
                 ) {
                     MarqueeText(text = stringResource(R.string.crash_restart))
                 }
-                Spacer(modifier = Modifier.height(4.dp))
             }
             ScalingActionButton(
                 modifier = Modifier.fillMaxWidth(),
@@ -412,5 +385,23 @@ private fun ActionContext(
                 MarqueeText(text = stringResource(R.string.crash_exit))
             }
         }
+    }
+}
+
+@Preview
+@Composable
+private fun PreviewErrorScreen() {
+    MaterialTheme {
+        ErrorScreen(
+            crashType = CrashType.LAUNCHER_CRASH,
+            shareLogs = true,
+            canUpload = true,
+            canRestart = true,
+            onShareLogsClick = {},
+            onUploadClick = {},
+            onRestartClick = {},
+            onExitClick = {},
+            body = {}
+        )
     }
 }

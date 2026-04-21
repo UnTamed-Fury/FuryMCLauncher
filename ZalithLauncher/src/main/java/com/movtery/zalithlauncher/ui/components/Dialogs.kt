@@ -63,6 +63,8 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.movtery.zalithlauncher.R
+import com.movtery.zalithlauncher.ui.theme.cardColor
+import com.movtery.zalithlauncher.ui.theme.onCardColor
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
@@ -232,6 +234,8 @@ fun SimpleEditDialog(
                     .heightIn(max = maxHeight - 12.dp)
                     .wrapContentHeight(),
                 shape = MaterialTheme.shapes.extraLarge,
+                color = cardColor(false),
+                contentColor = onCardColor(),
                 shadowElevation = 6.dp
             ) {
                 Column(
@@ -302,6 +306,8 @@ fun SimpleEditDialog(
                     .heightIn(max = maxHeight - 12.dp)
                     .wrapContentHeight(),
                 shape = MaterialTheme.shapes.extraLarge,
+                color = cardColor(false),
+                contentColor = onCardColor(),
                 shadowElevation = 6.dp
             ) {
                 Column(
@@ -506,6 +512,8 @@ fun <T> SimpleListDialog(
                     .heightIn(max = maxHeight - 6.dp)
                     .wrapContentHeight(),
                 shape = MaterialTheme.shapes.extraLarge,
+                color = cardColor(false),
+                contentColor = onCardColor(),
                 shadowElevation = 3.dp
             ) {
                 Column(
@@ -609,6 +617,8 @@ fun ProgressDialog(
     Dialog(onDismissRequest = {}) {
         Surface(
             shape = MaterialTheme.shapes.extraLarge,
+            color = cardColor(false),
+            contentColor = onCardColor(),
             shadowElevation = 6.dp
         ) {
             Column(

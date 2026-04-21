@@ -50,8 +50,11 @@ import com.movtery.layer_controller.observable.ObservableNormalData
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.ui.components.MarqueeText
 import com.movtery.zalithlauncher.ui.components.fadeEdge
-import com.movtery.zalithlauncher.ui.components.itemLayoutColorOnSurface
 import com.movtery.zalithlauncher.ui.screens.main.control_editor.InfoLayoutItem
+import com.movtery.zalithlauncher.ui.theme.cardColor
+import com.movtery.zalithlauncher.ui.theme.itemColor
+import com.movtery.zalithlauncher.ui.theme.onCardColor
+import com.movtery.zalithlauncher.ui.theme.onItemColor
 
 /**
  * 编辑按钮点击事件：切换控件层可见性
@@ -110,6 +113,8 @@ fun EditSwitchLayersVisibilityDialog(
                     .heightIn(max = maxHeight - 6.dp)
                     .wrapContentHeight(),
                 shadowElevation = 3.dp,
+                color = cardColor(false),
+                contentColor = onCardColor(),
                 shape = MaterialTheme.shapes.extraLarge
             ) {
                 Column(
@@ -174,8 +179,8 @@ private fun LayerVisibilityItem(
     layer: ObservableControlLayer,
     selected: Boolean,
     onSelectedChange: (Boolean) -> Unit,
-    color: Color = itemLayoutColorOnSurface(),
-    contentColor: Color = MaterialTheme.colorScheme.onSurface
+    color: Color = itemColor(false),
+    contentColor: Color = onItemColor()
 ) {
     InfoLayoutItem(
         modifier = modifier,

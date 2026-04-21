@@ -53,7 +53,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextDecoration
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
@@ -74,13 +73,13 @@ import com.movtery.zalithlauncher.path.URL_WEBLATE
 import com.movtery.zalithlauncher.ui.base.BaseScreen
 import com.movtery.zalithlauncher.ui.components.AnimatedLazyColumn
 import com.movtery.zalithlauncher.ui.components.CardTitleLayout
-import com.movtery.zalithlauncher.ui.components.itemLayoutColor
-import com.movtery.zalithlauncher.ui.components.itemLayoutShadowElevation
 import com.movtery.zalithlauncher.ui.screens.NestedNavKey
 import com.movtery.zalithlauncher.ui.screens.NormalNavKey
 import com.movtery.zalithlauncher.ui.screens.TitledNavKey
 import com.movtery.zalithlauncher.ui.screens.content.settings.layouts.CardPosition
 import com.movtery.zalithlauncher.ui.screens.content.settings.layouts.SettingsCard
+import com.movtery.zalithlauncher.ui.theme.itemColor
+import com.movtery.zalithlauncher.ui.theme.onItemColor
 
 @Composable
 fun AboutInfoScreen(
@@ -291,9 +290,8 @@ private fun LinkIconItem(
     text: String,
     openLicense: (() -> Unit)? = null,
     openLink: (() -> Unit)? = null,
-    color: Color = itemLayoutColor(),
-    contentColor: Color = MaterialTheme.colorScheme.onSurface,
-    shadowElevation: Dp = itemLayoutShadowElevation(),
+    color: Color = itemColor(),
+    contentColor: Color = onItemColor(),
     useImage: Boolean = true
 ) {
     Surface(
@@ -301,7 +299,6 @@ private fun LinkIconItem(
         color = color,
         contentColor = contentColor,
         shape = MaterialTheme.shapes.large,
-        shadowElevation = shadowElevation,
         onClick = {}
     ) {
         Row(
@@ -377,16 +374,14 @@ private fun ButtonIconItem(
     title: String,
     text: String,
     button: @Composable RowScope.() -> Unit,
-    color: Color = itemLayoutColor(),
-    contentColor: Color = MaterialTheme.colorScheme.onSurface,
-    shadowElevation: Dp = itemLayoutShadowElevation()
+    color: Color = itemColor(),
+    contentColor: Color = onItemColor(),
 ) {
     Surface(
         modifier = modifier,
         color = color,
         contentColor = contentColor,
         shape = MaterialTheme.shapes.large,
-        shadowElevation = shadowElevation,
         onClick = {}
     ) {
         Row(
@@ -428,16 +423,14 @@ private fun ButtonIconItem(
 private fun PluginInfoItem(
     apkPlugin: ApkPlugin,
     modifier: Modifier = Modifier,
-    color: Color = itemLayoutColor(),
-    contentColor: Color = MaterialTheme.colorScheme.onSurface,
-    shadowElevation: Dp = itemLayoutShadowElevation()
+    color: Color = itemColor(),
+    contentColor: Color = onItemColor(),
 ) {
     Surface(
         modifier = modifier,
         color = color,
         contentColor = contentColor,
         shape = MaterialTheme.shapes.large,
-        shadowElevation = shadowElevation,
         onClick = {}
     ) {
         val context = LocalContext.current
@@ -502,9 +495,8 @@ private fun PluginInfoItem(
 private fun LibraryInfoItem(
     info: LibraryInfo,
     modifier: Modifier = Modifier,
-    color: Color = itemLayoutColor(),
-    contentColor: Color = MaterialTheme.colorScheme.onSurface,
-    shadowElevation: Dp = itemLayoutShadowElevation(),
+    color: Color = itemColor(),
+    contentColor: Color = onItemColor(),
     openLicense: (Int) -> Unit,
     openLink: (url: String) -> Unit
 ) {
@@ -513,7 +505,6 @@ private fun LibraryInfoItem(
         color = color,
         contentColor = contentColor,
         shape = MaterialTheme.shapes.large,
-        shadowElevation = shadowElevation,
         onClick = {}
     ) {
         Row(
