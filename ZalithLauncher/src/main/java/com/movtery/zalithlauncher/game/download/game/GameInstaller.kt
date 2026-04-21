@@ -287,7 +287,7 @@ class GameInstaller(
 
         //Mods临时目录
         //Mods temporary directory
-        val tempModsDir = File(tempGameDir, \".temp_mods\")
+        val tempModsDir = File(tempGameDir, ".temp_mods")
 
         return InstallationPathConfig(
             targetClientDir = targetClientDir1,
@@ -450,7 +450,8 @@ class GameInstaller(
 
                     //下载原版 Json
                     //Download vanilla Json
-                    task.updateProgress(-1f)                    val manifest = downloader.findVersion(clientVersion)?.let {
+                    task.updateProgress(-1f)
+                    val manifest = downloader.findVersion(clientVersion)?.let {
                         downloader.createVersionJson(it, clientVersion, mcFolder)
                     } ?: error("Version not found: $clientVersion")
 
@@ -465,7 +466,8 @@ class GameInstaller(
                         }
                         //开始下载
                         //Start download
-                        downloadFromMirrorListSuspend(                            urls = urls,
+                        downloadFromMirrorListSuspend(
+                            urls = urls,
                             outputFile = tempJarFile,
                             sizeCallback = { downloaded ->
                                 sizeConfig.downloadedSize += downloaded
