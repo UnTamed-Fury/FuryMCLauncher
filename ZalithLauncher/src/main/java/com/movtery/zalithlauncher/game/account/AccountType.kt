@@ -19,5 +19,5 @@
 package com.movtery.zalithlauncher.game.account
 
 enum class AccountType(val tag: String) {
-    LOCAL("Local")
+    MICROSOFT(\"Microsoft\"), LOCAL(\"Local\")
 }

@@ -44,56 +44,67 @@ object AllSettings : SettingsRegistry() {
     //Renderer
     /**
      * 全局渲染器
+     * Global renderer
      */
     val renderer = stringSetting("renderer", "")
 
     /**
      * Vulkan 驱动器
+     * Vulkan driver
      */
     val vulkanDriver = stringSetting("vulkanDriver", "default turnip")
 
     /**
      * 图形 API（Minecraft 26.2+）
+     * Graphics API (Minecraft 26.2+)
      */
     val graphicsApi = enumSetting("graphicsApi", GraphicsApi.DEFAULT_OPENGL)
 
     /**
      * 分辨率
+     * Resolution ratio
      */
     val resolutionRatio = intSetting("resolutionRatio", 100, 25..300)
 
     /**
      * 游戏页面全屏化
+     * Game screen fullscreen
      */
     val gameFullScreen = boolSetting("gameFullScreen", true)
 
     /**
      * 使用 SurfaceView 渲染
+     * Use SurfaceView for rendering
      */
     val useSurfaceView = boolSetting("useSurfaceView", false)
 
     /**
      * 持续性能模式
+     * Sustained performance mode
      */
     val sustainedPerformance = boolSetting("sustainedPerformance", false)
 
     /**
      * 使用系统的 Vulkan 驱动
+     * Use system Vulkan driver
      */
     val zinkPreferSystemDriver = boolSetting("zinkPreferSystemDriver", false)
 
     /**
      * Zink 垂直同步
+     * Vsync in Zink
      */
     val vsyncInZink = boolSetting("vsyncInZink", false)
 
     /**
      * 强制在高性能核心运行
+     * Force running on high-performance cores
      */
     val bigCoreAffinity = boolSetting("bigCoreAffinity", false)
 
     /**
      * 启用着色器日志输出
+     * Enable shader log output
      */
     val dumpShaders = boolSetting("dumpShaders", false)
 
