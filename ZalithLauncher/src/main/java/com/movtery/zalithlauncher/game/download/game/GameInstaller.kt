@@ -111,8 +111,8 @@ class GameInstaller(
      * Target game client directory (cache)
      */
     private var targetClientDir: File? = null
-    private val overrideClientJar: File get() = File(PathManager.DIR_CACHE, \"override_${info.customVersionName}_jar\")
-    private val overrideClientJson: File get() = File(PathManager.DIR_CACHE, \"override_${info.customVersionName}_json\")
+    private val overrideClientJar: File get() = File(PathManager.DIR_CACHE, "override_${info.customVersionName}_jar")
+    private val overrideClientJson: File get() = File(PathManager.DIR_CACHE, "override_${info.customVersionName}_json")
 
     /**
      * 目标游戏目录
@@ -1023,7 +1023,7 @@ class GameInstaller(
             //迁移游戏文件
             //Migrate game files
             copyDirectoryContents(
-                File(tempMinecraftDir, \"libraries\"),
+                File(tempMinecraftDir, "libraries"),
                 File(targetMinecraftDir, "libraries"),
                 onProgress = { percentage ->
                     task.updateProgress(percentage)
@@ -1078,7 +1078,7 @@ class GameInstaller(
         onComplete: suspend () -> Unit = {}
     ): Task {
         return Task.runTask(
-            id = \"VanillaFilesCopy\",
+            id = "VanillaFilesCopy",
             task = { task ->
                 //复制客户端文件
                 //Copy client files
