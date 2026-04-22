@@ -54,9 +54,9 @@ android {
 
     signingConfigs {
         create("releaseBuild") {
-            storeFile = file("zalith_launcher.jks")
+            storeFile = file("ZalithL2.jks")
             storePassword = getKeyFromLocal("STORE_PASSWORD", ".store_password.txt")
-            keyAlias = "movtery_zalith"
+            keyAlias = "ZalithL2"
             keyPassword = getKeyFromLocal("KEY_PASSWORD", ".key_password.txt")
         }
         create("debugBuild") {
@@ -69,7 +69,6 @@ android {
 
     defaultConfig {
         applicationId = zalithPackageName
-        applicationIdSuffix = ".v2"
         minSdk = 26
         targetSdk = 35
         versionCode = launcherVersionCode
