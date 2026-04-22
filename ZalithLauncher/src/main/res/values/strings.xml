@@ -491,11 +491,11 @@
     <string name="account_supporting_microsoft_tip_link_purchase">Buy Minecraft</string>
     <string name="account_supporting_microsoft_tip_link_make_gameid">Create Profile / Edit Profile Name</string>
     <string name="account_supporting_microsoft_tip_hint_t1">Please follow the steps below to add your account:</string>
-    <string name="account_supporting_microsoft_tip_hint_t2">1. Click the "Login" button — the launcher will attempt to retrieve a verification code;\n</string>
-    <string name="account_supporting_microsoft_tip_hint_t3">2. Enter the code provided by %s on the pop-up webpage and click "Allow access";\n</string>
-    <string name="account_supporting_microsoft_tip_hint_t4">3. Follow the instructions on the webpage to complete the sign-in process;\n</string>
-    <string name="account_supporting_microsoft_tip_hint_t5">4. When prompted with "Let this app access your info?", click "Accept";\n</string>
-    <string name="account_supporting_microsoft_tip_hint_t6">5. When the webpage displays "All done!", the account will be added automatically. Please wait a moment.</string>
+    <string name="account_supporting_microsoft_tip_hint_t2">1. Official login is currently restricted in this fork.\n</string>
+    <string name="account_supporting_microsoft_tip_hint_t3">2. Please check the "Cracked Fork" section in About for more information.\n</string>
+    <string name="account_supporting_microsoft_tip_hint_t4">3. You can still use Offline accounts for playing.\n</string>
+    <string name="account_supporting_microsoft_tip_hint_t5"></string>
+    <string name="account_supporting_microsoft_tip_hint_t6"></string>
     <string name="account_supporting_microsoft_tip_hint_t7">If the webpage shows an "Error" message or the account fails to be added, please retry the above steps.\n</string>
     <string name="account_supporting_microsoft_tip_hint_t8">Tip: If your network connection is poor, the webpage may load slowly or fail to open. Try using a network proxy and retry.</string>
     <string name="account_delete_title">Delete Account</string>
@@ -1181,7 +1181,6 @@
     <string name="about_fork_github_link">Fork GitHub</string>
     <string name="feature_disabled_microsoft_auth">Official Microsoft Authentication is currently disabled in this fork. Please use an Offline account or provide a custom OAuth Client ID.</string>
     <string name="feature_disabled_curseforge">CurseForge integration is temporarily unavailable as this fork does not bundle an API key. Support for other platforms remains active.</string>
-    <string name="account_supporting_microsoft_tip_hint_t6">Official login is currently restricted. Please check the "Cracked Fork" section in About for more information.</string>
     <string name="about_sponsor">Sponsorship Support</string>
     <string name="about_acknowledgements_title">Acknowledgements</string>
     <string name="about_acknowledgements_pojav_text">%s uses the launch backend from PojavLauncher</string>
