@@ -54,12 +54,19 @@ import java.util.concurrent.atomic.AtomicInteger
 
 /**
  * 全自动模组检查更新，自动检查传入的模组列表，检查并获取模组最新版本，匹配现有MC版本、现有模组加载器
+ * Fully automatic mod update check, automatically check the incoming mod list, check and get the latest version of the mod, matching the existing MC version and the existing mod loader
  * @param mods                  需要检查并更新的模组列表
+ *                              Mod list that needs to be checked and updated
  * @param modsDir               当前模组文件夹
+ *                              Current mod folder
  * @param minecraft             MC主版本号，用于版本匹配
+ *                              MC main version number, used for version matching
  * @param modLoader             模组加载器信息，用于版本匹配
+ *                              Mod loader info, used for version matching
  * @param waitForUserConfirm    等待用户确认更新模组的信息
+ *                              Wait for user confirmation of mod update info
  *                              如果用户觉得没有问题，须返回`true`；否则返回`false`，安装会取消
+ *                              If the user thinks there is no problem, return `true`; otherwise return `false`, and the installation will be cancelled
  */
 class ModUpdater(
     private val context: Context,
@@ -75,21 +82,29 @@ class ModUpdater(
 
     /**
      * 需要检查新版本的模组列表
+     * Mod list that needs to be checked for new versions
      */
     val dataList: MutableList<ModData> = mutableListOf()
 
     /**
      * 需要更新的模组列表
+     * Mod list that needs to be updated
      */
     val allModsUpdate: MutableMap<ModData, PlatformVersion> = mutableMapOf()
 
     /**
      * 开始更新所有已选择的模组
+     * Start updating all selected mods
      * @param isRunning 正在运行中，拒绝此次更新请求时
+     *                  When it is running and this update request is rejected
      * @param onUpdated 已成功更新所有模组
+     *                  Successfully updated all mods
      * @param onNoModUpdates 没有模组需要被更新时（所有选择的模组都是最新版）
+     *                       When no mods need to be updated (all selected mods are up to date)
      * @param onCancelled 更新任务被取消时
+     *                    When the update task is cancelled
      * @param onError 更新模组时遇到错误
+     *                When an error is encountered while updating mods
      */
     fun updateAll(
         isRunning: () -> Unit = {},
@@ -100,6 +115,7 @@ class ModUpdater(
     ) {
         if (taskExecutor.isRunning()) {
             //正在更新中，阻止这次更新请求
+            // Is updating, prevent this update request
             isRunning()
             return
         }
@@ -113,11 +129,13 @@ class ModUpdater(
             onError = { th ->
                 if (th is ModUpdateCancelledException) {
                     //用户已取消本次更新
+                    // User has cancelled this update
                     onCancelled()
                     return@executePhasesAsync
                 }
                 if (th is NoModUpdatesAvailableException) {
                     //所有模组都是最新版本，不需要更新
+                    // All mods are up to date, no update required
                     onNoModUpdates()
                     return@executePhasesAsync
                 }
@@ -134,6 +152,7 @@ class ModUpdater(
         listOf(
             buildPhase {
                 //清理缓存
+                // Clear cache
                 addTask(
                     id = "ModUpdater.ClearTemp",
                     title = context.getString(R.string.download_install_clear_temp),
@@ -141,10 +160,12 @@ class ModUpdater(
                 ) {
                     clearTempModUpdaterDir()
                     //清理后，重新创建缓存目录
+                    // After cleaning, recreate the cache directory
                     tempModUpdaterDir.createDirAndLog()
                 }
 
                 //过滤模组数据
+                // Filter mod data
                 addTask(
                     id = "ModUpdater.Filter",
                     title = context.getString(R.string.mods_update_task_filter),
@@ -197,12 +218,14 @@ class ModUpdater(
                 }
 
                 // 检查更新
+                // Check for updates
                 addTask(
                     id = "ModUpdater.CheckUpdate",
                     title = context.getString(R.string.mods_update_task_check_update),
                     icon = Icons.Default.Checklist
                 ) { task ->
                     // 最大并发数为 5
+                    // Maximum concurrency is 5
                     val semaphore = Semaphore(5)
                     val completedCount = AtomicInteger(0)
                     val totalSize = dataList.size
@@ -211,9 +234,11 @@ class ModUpdater(
                         async(Dispatchers.IO) {
                             semaphore.withPermit {
                                 // 检查更新
+                                // Check for updates
                                 val version = data.checkUpdate(minecraft, modLoader)
 
                                 // 线程安全地更新进度条：以完成的数量来计算进度
+                                // Update progress bar in a thread-safe way: calculate progress based on the number of completed tasks
                                 val currentCompleted = completedCount.incrementAndGet()
                                 task.updateProgress(
                                     percentage = currentCompleted.toFloat() / totalSize,
@@ -222,6 +247,7 @@ class ModUpdater(
                                 )
 
                                 // 如果有新版本，返回键值对；否则返回 null
+                                // If there is a new version, return a key-value pair; otherwise return null
                                 if (version != null) data to version else null
                             }
                         }
@@ -233,11 +259,13 @@ class ModUpdater(
 
                     if (allModsUpdate.isEmpty()) {
                         //所有模组都是最新版本，无需更新
+                        // All mods are up to date, no update required
                         throw NoModUpdatesAvailableException()
                     }
                 }
 
                 //等待用户确认模组更新
+                // Wait for user to confirm mod update
                 addTask(
                     id = "ModUpdater.WaitForUser",
                     title = context.getString(R.string.mods_update_task_wait_for_user),
@@ -245,11 +273,13 @@ class ModUpdater(
                 ) {
                     if (!waitForUserConfirm(allModsUpdate.toMap())) {
                         //用户取消了更新，这里抛出取消异常，结束全部任务
+                        // The user cancelled the update, throw a cancellation exception here and end all tasks
                         throw ModUpdateCancelledException()
                     }
                 }
 
                 //下载新版本模组
+                // Download new version of the mod
                 addTask(
                     id = "ModUpdater.UpdateMod",
                     title = context.getString(R.string.mods_update_task_download)
@@ -260,6 +290,7 @@ class ModUpdater(
                 }
 
                 //替换模组文件
+                // Replace mod files
                 addTask(
                     id = " ModUpdater.ReplaceMod",
                     title = context.getString(R.string.mods_update_task_replace),
@@ -281,6 +312,7 @@ class ModUpdater(
                         )
 
                         //确保所有文件都有效
+                        // Ensure all files are valid
                         if (modsDir.exists() && oldFile.exists() && cacheFile.exists()) {
                             FileUtils.deleteQuietly(oldFile)
                             val newFile = File(modsDir, newFileName)
@@ -290,6 +322,7 @@ class ModUpdater(
                 }
 
                 //清理缓存
+                // Clear cache
                 addTask(
                     id = "ModUpdater.ClearTempEnds",
                     title = context.getString(R.string.download_install_clear_temp),
@@ -343,6 +376,7 @@ class ModUpdater(
 
     /**
      * 清理临时模组更新缓存目录
+     * Clear the temporary mod update cache directory
      */
     private suspend fun clearTempModUpdaterDir() = withContext(Dispatchers.IO) {
         PathManager.DIR_CACHE_MOD_UPDATER.takeIf { it.exists() }?.let { folder ->
@@ -350,6 +384,13 @@ class ModUpdater(
             lInfo("Temporary mod updater directory cleared.")
         }
     }
+
+    private fun File.createDirAndLog(): File {
+        this.mkdirs()
+        lDebug("Created directory: $this")
+        return this
+    }
+}
 
     private fun File.createDirAndLog(): File {
         this.mkdirs()
