@@ -143,6 +143,41 @@ fun AboutInfoScreen(
             animatedItem(scope) { yOffset ->
                 ChunkLayout(
                     modifier = Modifier.offset { IntOffset(x = 0, y = yOffset.roundToPx()) },
+                    title = stringResource(R.string.about_fork_title)
+                ) {
+                    Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                        ButtonIconItem(
+                            icon = painterResource(R.drawable.ic_github),
+                            title = stringResource(R.string.about_fork_contributor_title),
+                            text = stringResource(R.string.about_fork_contributor_text),
+                            button = {
+                                OutlinedButton(
+                                    onClick = { openLink("https://github.com/UnTamed-Fury/ZalithLauncher2-cracked-") }
+                                ) {
+                                    Text(text = stringResource(R.string.about_fork_github_link))
+                                }
+                            }
+                        )
+
+                        ButtonIconItem(
+                            icon = painterResource(R.drawable.ic_discord),
+                            title = "Discord Community",
+                            text = stringResource(R.string.about_fork_discord_text),
+                            button = {
+                                OutlinedButton(
+                                    onClick = { openLink("https://discord.gg/your-link-here") }
+                                ) {
+                                    Text(text = "Join Discord")
+                                }
+                            }
+                        )
+                    }
+                }
+            }
+
+            animatedItem(scope) { yOffset ->
+                ChunkLayout(
+                    modifier = Modifier.offset { IntOffset(x = 0, y = yOffset.roundToPx()) },
                     title = stringResource(R.string.about_acknowledgements_title)
                 ) {
                     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {

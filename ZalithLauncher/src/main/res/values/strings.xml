@@ -1173,6 +1173,11 @@
     <string name="about_launcher_author_movtery_title">MovTery</string>
     <string name="about_launcher_author_movtery_text">Author of %s</string>
     <string name="about_launcher_project_link">Project Link</string>
+    <string name="about_fork_title">Cracked Fork</string>
+    <string name="about_fork_contributor_title">UnTamed Fury</string>
+    <string name="about_fork_contributor_text">Lead maintainer of the Cracked Fork modifications</string>
+    <string name="about_fork_discord_text">Join our Discord community for support and updates</string>
+    <string name="about_fork_github_link">Fork GitHub</string>
     <string name="about_sponsor">Sponsorship Support</string>
     <string name="about_acknowledgements_title">Acknowledgements</string>
     <string name="about_acknowledgements_pojav_text">%s uses the launch backend from PojavLauncher</string>
