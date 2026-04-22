@@ -70,9 +70,18 @@ import com.movtery.zalithlauncher.game.plugin.appCacheIcon
 import com.movtery.zalithlauncher.info.InfoDistributor
 import com.movtery.zalithlauncher.library.LibraryInfo
 import com.movtery.zalithlauncher.library.libraryData
+import com.movtery.zalithlauncher.path.URL_BASE_PROJECT
 import com.movtery.zalithlauncher.path.URL_COMMUNITY
+import com.movtery.zalithlauncher.path.URL_COMMUNITY_DISCORD
+import com.movtery.zalithlauncher.path.URL_DEV_ALT_DISCORD
+import com.movtery.zalithlauncher.path.URL_DEV_DISCORD
+import com.movtery.zalithlauncher.path.URL_DEV_GITHUB
+import com.movtery.zalithlauncher.path.URL_DEV_INSTAGRAM
+import com.movtery.zalithlauncher.path.URL_DEV_SUPPORT
 import com.movtery.zalithlauncher.path.URL_MCMOD
+import com.movtery.zalithlauncher.path.URL_MOVTERY_SUPPORT
 import com.movtery.zalithlauncher.path.URL_PROJECT
+import com.movtery.zalithlauncher.path.URL_PROJECT_RELEASES
 import com.movtery.zalithlauncher.path.URL_SUPPORT
 import com.movtery.zalithlauncher.path.URL_WEBLATE
 import com.movtery.zalithlauncher.ui.base.BaseScreen
@@ -85,8 +94,6 @@ import com.movtery.zalithlauncher.ui.screens.NormalNavKey
 import com.movtery.zalithlauncher.ui.screens.TitledNavKey
 import com.movtery.zalithlauncher.ui.screens.content.settings.layouts.CardPosition
 import com.movtery.zalithlauncher.ui.screens.content.settings.layouts.SettingsCard
-
-import com.movtery.zalithlauncher.path.URL_DEV_SUPPORT
 
 @Composable
 fun AboutInfoScreen(
@@ -322,136 +329,6 @@ fun AboutInfoScreen(
                                 PluginInfoItem(apkPlugin = apkPlugin)
                             }
                         }
-                    }
-                }
-            }
-        }
-    }
-}
-
-@Composable
-private fun AcknowledgementSection(title: String, content: @Composable ColumnScope.() -> Unit) {
-    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        Text(
-            text = title,
-            style = MaterialTheme.typography.labelSmall,
-            color = MaterialTheme.colorScheme.secondary,
-            modifier = Modifier.padding(start = 4.dp, top = 4.dp)
-        )
-        content()
-    }
-}
-
-@Composable
-private fun ChunkLayout(
-    modifier: Modifier = Modifier,
-    title: String,
-    content: @Composable () -> Unit
-) {
-    SettingsCard(
-        modifier = modifier,
-        position = CardPosition.Single
-    ) {
-        Column(modifier = Modifier.fillMaxWidth()) {
-            CardTitleLayout {
-                Text(
-                    modifier = Modifier.padding(all = 16.dp),
-                    text = title,
-                    style = MaterialTheme.typography.titleSmall,
-                    color = MaterialTheme.colorScheme.onSurface
-                )
-            }
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(all = 12.dp)
-            ) {
-                content()
-            }
-        }
-    }
-}
-
-@Composable
-private fun LinkIconItem(
-    modifier: Modifier = Modifier,
-    icon: Painter,
-    title: String,
-    text: String,
-    openLicense: (() -> Unit)? = null,
-    openLink: (() -> Unit)? = null,
-    color: Color = itemLayoutColor(),
-    contentColor: Color = MaterialTheme.colorScheme.onSurface,
-    shadowElevation: Dp = itemLayoutShadowElevation(),
-    useImage: Boolean = true
-) {
-    Surface(
-        modifier = modifier,
-        color = color,
-        contentColor = contentColor,
-        shape = MaterialTheme.shapes.large,
-        shadowElevation = shadowElevation,
-        onClick = {}
-    ) {
-        Row(
-            modifier = Modifier
-                .padding(horizontal = 14.dp, vertical = 8.dp)
-                .fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(12.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            val iconModifier = Modifier
-                .size(34.dp)
-                .clip(shape = RoundedCornerShape(6.dp))
-            if (useImage) {
-                Image(
-                    modifier = iconModifier,
-                    painter = icon,
-                    contentDescription = null,
-                    contentScale = ContentScale.Fit
-                )
-            } else {
-                Icon(
-                    modifier = iconModifier,
-                    painter = icon,
-                    contentDescription = null
-                )
-            }
-
-            Column(
-                modifier = Modifier.weight(1f)
-            ) {
-                Text(
-                    text = title,
-                    style = MaterialTheme.typography.titleSmall
-                )
-                Text(
-                    modifier = Modifier.alpha(0.7f),
-                    text = text,
-                    style = MaterialTheme.typography.bodySmall
-                )
-            }
-
-            Row {
-                openLicense?.let {
-                    IconButton(
-                        onClick = it
-                    ) {
-                        Icon(
-                            modifier = Modifier.size(22.dp),
-                            imageVector = Icons.Outlined.Copyright,
-                            contentDescription = "License"
-                        )
-                    }
-                }
-                openLink?.let {
-                    IconButton(
-                        onClick = it
-                    ) {
-                        Icon(
-                            imageVector = Icons.Outlined.Link,
-                            contentDescription = stringResource(R.string.generic_open_link)
-                        )
                     }
                 }
             }
