@@ -30,6 +30,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
+import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.SplashException
 import com.movtery.zalithlauncher.components.Components
 import com.movtery.zalithlauncher.components.InstallableItem
@@ -142,7 +143,7 @@ class SplashActivity : BaseAppCompatActivity(refreshData = false) {
             unpackItems.add(
                 InstallableItem(
                     "JNA",
-                    null,
+                    getString(R.string.unpack_screen_jna),
                     jnaTask
                 )
             )

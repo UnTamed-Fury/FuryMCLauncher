@@ -152,6 +152,7 @@
     <string name="unpack_screen_cacio">为 OpenJDK 提供可移植的 GUI 后端</string>
     <string name="unpack_screen_lwjgl">轻量级 Java 游戏库，Minecraft 依赖它运行游戏</string>
     <string name="unpack_screen_launcher">启动器依赖的一些组件</string>
+    <string name="unpack_screen_jna">让 Minecraft 能直接调用操作系统的底层功能</string>
     <!--  主菜单  -->
     <string name="main_launch_game">启动游戏</string>
     <string name="main_task_menu">任务菜单</string>

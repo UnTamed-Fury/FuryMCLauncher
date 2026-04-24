@@ -153,6 +153,7 @@
     <string name="unpack_screen_cacio">Portable GUI backend for OpenJDK</string>
     <string name="unpack_screen_lwjgl">Lightweight Java Game Library (required by Minecraft)</string>
     <string name="unpack_screen_launcher">Essential launcher components</string>
+    <string name="unpack_screen_jna">Enables Minecraft to directly call low-level OS functions.</string>
     <!-- Main Menu -->
     <string name="main_launch_game">Launch</string>
     <string name="main_task_menu">Task Menu</string>
